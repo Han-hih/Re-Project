@@ -23,6 +23,7 @@
 		80E46EBB2B08E11F009A695B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 80E46EBA2B08E11F009A695B /* Kingfisher */; };
 		80E46EBE2B08E506009A695B /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 80E46EBD2B08E506009A695B /* Then */; };
 		80E46EC12B08E528009A695B /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 80E46EC02B08E528009A695B /* Toast */; };
+		80E46EC92B08E75A009A695B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E46EC82B08E75A009A695B /* BaseViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		80E46EA02B089A9A009A695B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		80E46EA62B08A0D2009A695B /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		80E46EA82B08A164009A695B /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		80E46EC82B08E75A009A695B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 		80E46EC22B08E61E009A695B /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				80E46EC82B08E75A009A695B /* BaseViewController.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80E46EC92B08E75A009A695B /* BaseViewController.swift in Sources */,
 				80E46E972B089A99009A695B /* LoginViewController.swift in Sources */,
 				80E46E932B089A99009A695B /* AppDelegate.swift in Sources */,
 				80E46EA92B08A164009A695B /* APIKey.swift in Sources */,
