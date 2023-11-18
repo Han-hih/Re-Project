@@ -79,13 +79,61 @@
 				80E46EA62B08A0D2009A695B /* .gitignore */,
 				80E46E922B089A99009A695B /* AppDelegate.swift */,
 				80E46E942B089A99009A695B /* SceneDelegate.swift */,
-				80E46E962B089A99009A695B /* LoginViewController.swift */,
-				80E46EA82B08A164009A695B /* APIKey.swift */,
+				80E46EC72B08E681009A695B /* Extensions */,
+				80E46EC62B08E64D009A695B /* Network */,
+				80E46EC52B08E641009A695B /* Protocols */,
+				80E46EC42B08E636009A695B /* ViewModels */,
+				80E46EC32B08E629009A695B /* ViewControllers */,
+				80E46EC22B08E61E009A695B /* Base */,
 				80E46E9B2B089A9A009A695B /* Assets.xcassets */,
 				80E46E9D2B089A9A009A695B /* LaunchScreen.storyboard */,
 				80E46EA02B089A9A009A695B /* Info.plist */,
 			);
 			path = Re;
+			sourceTree = "<group>";
+		};
+		80E46EC22B08E61E009A695B /* Base */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		80E46EC32B08E629009A695B /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				80E46E962B089A99009A695B /* LoginViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		80E46EC42B08E636009A695B /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		80E46EC52B08E641009A695B /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		80E46EC62B08E64D009A695B /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				80E46EA82B08A164009A695B /* APIKey.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		80E46EC72B08E681009A695B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
