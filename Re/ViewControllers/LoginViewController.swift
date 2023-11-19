@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import TextFieldEffects
 
 final class LoginViewContoller: BaseViewController {
 
