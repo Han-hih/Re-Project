@@ -23,6 +23,7 @@ class CustomTextField: HoshiTextField {
         placeholderColor = .lightGray
         borderActiveColor = .systemCyan
         borderInactiveColor = .lightGray
+        placeholderFontScale = 0.8
     }
     
     
