@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		80DED59E2B09E9F200885268 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DED59D2B09E9F200885268 /* CustomTextField.swift */; };
+		80DED5A12B09FCA300885268 /* TextFieldEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 80DED5A02B09FCA300885268 /* TextFieldEffects */; };
 		80E46E932B089A99009A695B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E46E922B089A99009A695B /* AppDelegate.swift */; };
 		80E46E952B089A99009A695B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E46E942B089A99009A695B /* SceneDelegate.swift */; };
 		80E46E972B089A99009A695B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E46E962B089A99009A695B /* LoginViewController.swift */; };
@@ -21,12 +23,12 @@
 		80E46EB62B08E115009A695B /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 80E46EB52B08E115009A695B /* RxRelay */; };
 		80E46EB82B08E115009A695B /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 80E46EB72B08E115009A695B /* RxSwift */; };
 		80E46EBB2B08E11F009A695B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 80E46EBA2B08E11F009A695B /* Kingfisher */; };
-		80E46EBE2B08E506009A695B /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 80E46EBD2B08E506009A695B /* Then */; };
 		80E46EC12B08E528009A695B /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 80E46EC02B08E528009A695B /* Toast */; };
 		80E46EC92B08E75A009A695B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E46EC82B08E75A009A695B /* BaseViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		80DED59D2B09E9F200885268 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		80E46E8F2B089A99009A695B /* Re.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Re.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80E46E922B089A99009A695B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80E46E942B089A99009A695B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,17 +50,41 @@
 				80E46EB62B08E115009A695B /* RxRelay in Frameworks */,
 				80E46EBB2B08E11F009A695B /* Kingfisher in Frameworks */,
 				80E46EC12B08E528009A695B /* Toast in Frameworks */,
-				80E46EBE2B08E506009A695B /* Then in Frameworks */,
 				80E46EB12B08E0C6009A695B /* SnapKit in Frameworks */,
 				80E46EAE2B08E0AE009A695B /* RxMoya in Frameworks */,
 				80E46EB42B08E115009A695B /* RxCocoa in Frameworks */,
 				80E46EAC2B08E0AE009A695B /* Moya in Frameworks */,
+				80DED5A12B09FCA300885268 /* TextFieldEffects in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		80DED59A2B09E92500885268 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				80DED59C2B09E94200885268 /* Color+Font */,
+				80DED59B2B09E93900885268 /* Custom */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		80DED59B2B09E93900885268 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				80DED59D2B09E9F200885268 /* CustomTextField.swift */,
+			);
+			path = Custom;
+			sourceTree = "<group>";
+		};
+		80DED59C2B09E94200885268 /* Color+Font */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Color+Font";
+			sourceTree = "<group>";
+		};
 		80E46E862B089A99009A695B = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +107,7 @@
 				80E46EA62B08A0D2009A695B /* .gitignore */,
 				80E46E922B089A99009A695B /* AppDelegate.swift */,
 				80E46E942B089A99009A695B /* SceneDelegate.swift */,
+				80DED59A2B09E92500885268 /* Utils */,
 				80E46EC72B08E681009A695B /* Extensions */,
 				80E46EC62B08E64D009A695B /* Network */,
 				80E46EC52B08E641009A695B /* Protocols */,
@@ -163,8 +190,8 @@
 				80E46EB52B08E115009A695B /* RxRelay */,
 				80E46EB72B08E115009A695B /* RxSwift */,
 				80E46EBA2B08E11F009A695B /* Kingfisher */,
-				80E46EBD2B08E506009A695B /* Then */,
 				80E46EC02B08E528009A695B /* Toast */,
+				80DED5A02B09FCA300885268 /* TextFieldEffects */,
 			);
 			productName = Re;
 			productReference = 80E46E8F2B089A99009A695B /* Re.app */;
@@ -199,8 +226,8 @@
 				80E46EAF2B08E0C6009A695B /* XCRemoteSwiftPackageReference "SnapKit" */,
 				80E46EB22B08E115009A695B /* XCRemoteSwiftPackageReference "RxSwift" */,
 				80E46EB92B08E11F009A695B /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				80E46EBC2B08E506009A695B /* XCRemoteSwiftPackageReference "Then" */,
 				80E46EBF2B08E528009A695B /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				80DED59F2B09FCA300885268 /* XCRemoteSwiftPackageReference "TextFieldEffects" */,
 			);
 			productRefGroup = 80E46E902B089A99009A695B /* Products */;
 			projectDirPath = "";
@@ -231,6 +258,7 @@
 			files = (
 				80E46EC92B08E75A009A695B /* BaseViewController.swift in Sources */,
 				80E46E972B089A99009A695B /* LoginViewController.swift in Sources */,
+				80DED59E2B09E9F200885268 /* CustomTextField.swift in Sources */,
 				80E46E932B089A99009A695B /* AppDelegate.swift in Sources */,
 				80E46EA92B08A164009A695B /* APIKey.swift in Sources */,
 				80E46E952B089A99009A695B /* SceneDelegate.swift in Sources */,
@@ -448,6 +476,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		80DED59F2B09FCA300885268 /* XCRemoteSwiftPackageReference "TextFieldEffects" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/raulriera/TextFieldEffects.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.7.0;
+			};
+		};
 		80E46EAA2B08E0AE009A695B /* XCRemoteSwiftPackageReference "Moya" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Moya/Moya.git";
@@ -480,14 +516,6 @@
 				minimumVersion = 7.10.0;
 			};
 		};
-		80E46EBC2B08E506009A695B /* XCRemoteSwiftPackageReference "Then" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/devxoul/Then.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
 		80E46EBF2B08E528009A695B /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
@@ -499,6 +527,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		80DED5A02B09FCA300885268 /* TextFieldEffects */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80DED59F2B09FCA300885268 /* XCRemoteSwiftPackageReference "TextFieldEffects" */;
+			productName = TextFieldEffects;
+		};
 		80E46EAB2B08E0AE009A695B /* Moya */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 80E46EAA2B08E0AE009A695B /* XCRemoteSwiftPackageReference "Moya" */;
@@ -533,11 +566,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 80E46EB92B08E11F009A695B /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
-		};
-		80E46EBD2B08E506009A695B /* Then */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 80E46EBC2B08E506009A695B /* XCRemoteSwiftPackageReference "Then" */;
-			productName = Then;
 		};
 		80E46EC02B08E528009A695B /* Toast */ = {
 			isa = XCSwiftPackageProductDependency;
