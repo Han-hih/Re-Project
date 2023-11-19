@@ -24,6 +24,7 @@ final class LoginViewContoller: BaseViewController {
 
     private func setUI() {
         view.addSubview(stackView)
+        view.addSubview(registerButton)
         [emailTextField, passwordTextField, loginButton].forEach {
             stackView.addSubview($0)
         }
@@ -51,6 +52,10 @@ final class LoginViewContoller: BaseViewController {
             $0.height.equalTo(50)
         }
     
+        registerButton.snp.makeConstraints {
+            $0.top.equalTo(stackView.snp.bottom).offset(10)
+            $0.centerX.equalTo(view.snp.centerX)
+        }
     }
     
     private let stackView = {
@@ -86,10 +91,23 @@ final class LoginViewContoller: BaseViewController {
         return button
     }()
     
+    private let registerButton = {
+        let button = UIButton()
+        button.setTitle("회원가입", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
+        button.addTarget(self, action: #selector(RegisterButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
     @objc func LoginButtonTapped() {
-        
+        print("로그인이 되었습니다.")
     }
     
+    @objc func RegisterButtonTapped() {
+        print("회원가입")
+        
+    }
 }
 
 extension LoginViewContoller: UITextFieldDelegate {
@@ -102,5 +120,4 @@ extension LoginViewContoller: UITextFieldDelegate {
         }
         return true
     }
-
 }
