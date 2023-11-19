@@ -20,7 +20,11 @@ final class LoginViewContoller: BaseViewController {
         super.setConstraints()
         setUI()
     }
-
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     private func setUI() {
         view.addSubview(stackView)
         view.addSubview(registerButton)
