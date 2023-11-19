@@ -108,8 +108,8 @@ final class LoginViewContoller: BaseViewController {
     }
     
     @objc func RegisterButtonTapped() {
-        print("회원가입")
-        
+        let vc = RegisterViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
