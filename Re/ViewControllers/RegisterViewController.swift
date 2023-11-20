@@ -9,8 +9,11 @@ import UIKit
 
 final class RegisterViewController: BaseViewController {
     
+    let viewModel = RegisterViewModel()
+    
     override func configure() {
         super.configure()
+        bind()
     }
     
     override func setConstraints() {
@@ -19,6 +22,11 @@ final class RegisterViewController: BaseViewController {
         setupDatePicker()
         
     }
+    
+    private func bind() {
+        
+    }
+    
     
     private func setUI() {
         view.addSubview(stackView)
@@ -121,7 +129,7 @@ final class RegisterViewController: BaseViewController {
     
     private let emailTextField = {
         let text = CustomTextField()
-        text.placeholder = "이메일 입력(알파벳, 숫자, @,. 포함)"
+        text.placeholder = "* 이메일 입력(알파벳, 숫자, @,. 포함)"
         
         return text
     }()
@@ -159,7 +167,7 @@ final class RegisterViewController: BaseViewController {
     
     private let passwordTextField = {
         let text = CustomTextField()
-        text.placeholder = "비밀번호 입력(문자, 숫자, 특수문자 포함 8~20자)"
+        text.placeholder = "* 비밀번호 입력(문자, 숫자, 특수문자 포함 8~20자)"
         
         return text
     }()
@@ -171,7 +179,7 @@ final class RegisterViewController: BaseViewController {
     
     private let checkPasswordTextField = {
         let text = CustomTextField()
-        text.placeholder = "비밀번호 확인"
+        text.placeholder = "* 비밀번호 확인"
         return text
     }()
     
@@ -183,7 +191,7 @@ final class RegisterViewController: BaseViewController {
     
     private let nicknameTextField = {
         let text = CustomTextField()
-        text.placeholder = "닉네임 입력"
+        text.placeholder = "* 닉네임 입력"
         return text
     }()
     

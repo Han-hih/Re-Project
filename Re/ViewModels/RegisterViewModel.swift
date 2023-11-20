@@ -6,3 +6,23 @@
 //
 
 import Foundation
+import RxSwift
+
+final class RegisterViewModel: ViewModelType {
+   
+    
+    
+    struct Input {
+        
+    }
+    
+    struct Output {
+        
+    }
+    
+    
+    func transform(input: Input) -> Output {
+        <#code#>
+    }
+    
+}
