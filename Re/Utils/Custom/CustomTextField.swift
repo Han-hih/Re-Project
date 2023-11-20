@@ -8,7 +8,7 @@
 import UIKit
 import TextFieldEffects
 
-class CustomTextField: HoshiTextField {
+final class CustomTextField: HoshiTextField {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,9 +21,10 @@ class CustomTextField: HoshiTextField {
     
     private func setTextField() {
         placeholderColor = .lightGray
-        borderActiveColor = .systemCyan
+        borderActiveColor = .systemPurple
         borderInactiveColor = .lightGray
         placeholderFontScale = 0.8
+        returnKeyType = .next
     }
     
     
