@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		800960AE2B0B702700B3BE4B /* ValidationCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800960AD2B0B702700B3BE4B /* ValidationCheck.swift */; };
+		800960B02B0B8CFC00B3BE4B /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800960AF2B0B8CFC00B3BE4B /* CustomLabel.swift */; };
 		80DED59E2B09E9F200885268 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DED59D2B09E9F200885268 /* CustomTextField.swift */; };
 		80DED5A12B09FCA300885268 /* TextFieldEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 80DED5A02B09FCA300885268 /* TextFieldEffects */; };
 		80DED5A32B0A392200885268 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DED5A22B0A392200885268 /* RegisterViewController.swift */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		800960AD2B0B702700B3BE4B /* ValidationCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationCheck.swift; sourceTree = "<group>"; };
+		800960AF2B0B8CFC00B3BE4B /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		80DED59D2B09E9F200885268 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		80DED5A22B0A392200885268 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		80E46E8F2B089A99009A695B /* Re.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Re.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,9 +70,9 @@
 		80DED59A2B09E92500885268 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				800960AD2B0B702700B3BE4B /* ValidationCheck.swift */,
 				80DED59C2B09E94200885268 /* Color+Font */,
 				80DED59B2B09E93900885268 /* Custom */,
-				800960AD2B0B702700B3BE4B /* ValidationCheck.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -79,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				80DED59D2B09E9F200885268 /* CustomTextField.swift */,
+				800960AF2B0B8CFC00B3BE4B /* CustomLabel.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80E46EC92B08E75A009A695B /* BaseViewController.swift in Sources */,
+				800960B02B0B8CFC00B3BE4B /* CustomLabel.swift in Sources */,
 				80E46E972B089A99009A695B /* LoginViewController.swift in Sources */,
 				80DED5A32B0A392200885268 /* RegisterViewController.swift in Sources */,
 				80DED59E2B09E9F200885268 /* CustomTextField.swift in Sources */,
