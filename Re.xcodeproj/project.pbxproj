@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		800960AE2B0B702700B3BE4B /* ValidationCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800960AD2B0B702700B3BE4B /* ValidationCheck.swift */; };
 		800960B02B0B8CFC00B3BE4B /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800960AF2B0B8CFC00B3BE4B /* CustomLabel.swift */; };
+		800960B22B0B966300B3BE4B /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800960B12B0B966300B3BE4B /* Color.swift */; };
+		800960B52B0B9F3C00B3BE4B /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 800960B42B0B9F3C00B3BE4B /* IQKeyboardManagerSwift */; };
 		80DED59E2B09E9F200885268 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DED59D2B09E9F200885268 /* CustomTextField.swift */; };
 		80DED5A12B09FCA300885268 /* TextFieldEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 80DED5A02B09FCA300885268 /* TextFieldEffects */; };
 		80DED5A32B0A392200885268 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DED5A22B0A392200885268 /* RegisterViewController.swift */; };
@@ -33,6 +35,7 @@
 /* Begin PBXFileReference section */
 		800960AD2B0B702700B3BE4B /* ValidationCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationCheck.swift; sourceTree = "<group>"; };
 		800960AF2B0B8CFC00B3BE4B /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
+		800960B12B0B966300B3BE4B /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		80DED59D2B09E9F200885268 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		80DED5A22B0A392200885268 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		80E46E8F2B089A99009A695B /* Re.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Re.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,6 +60,7 @@
 				80E46EBB2B08E11F009A695B /* Kingfisher in Frameworks */,
 				80E46EC12B08E528009A695B /* Toast in Frameworks */,
 				80E46EB12B08E0C6009A695B /* SnapKit in Frameworks */,
+				800960B52B0B9F3C00B3BE4B /* IQKeyboardManagerSwift in Frameworks */,
 				80E46EAE2B08E0AE009A695B /* RxMoya in Frameworks */,
 				80E46EB42B08E115009A695B /* RxCocoa in Frameworks */,
 				80E46EAC2B08E0AE009A695B /* Moya in Frameworks */,
@@ -89,6 +93,7 @@
 		80DED59C2B09E94200885268 /* Color+Font */ = {
 			isa = PBXGroup;
 			children = (
+				800960B12B0B966300B3BE4B /* Color.swift */,
 			);
 			path = "Color+Font";
 			sourceTree = "<group>";
@@ -201,6 +206,7 @@
 				80E46EBA2B08E11F009A695B /* Kingfisher */,
 				80E46EC02B08E528009A695B /* Toast */,
 				80DED5A02B09FCA300885268 /* TextFieldEffects */,
+				800960B42B0B9F3C00B3BE4B /* IQKeyboardManagerSwift */,
 			);
 			productName = Re;
 			productReference = 80E46E8F2B089A99009A695B /* Re.app */;
@@ -237,6 +243,7 @@
 				80E46EB92B08E11F009A695B /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				80E46EBF2B08E528009A695B /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				80DED59F2B09FCA300885268 /* XCRemoteSwiftPackageReference "TextFieldEffects" */,
+				800960B32B0B9F3C00B3BE4B /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = 80E46E902B089A99009A695B /* Products */;
 			projectDirPath = "";
@@ -268,6 +275,7 @@
 				80E46EC92B08E75A009A695B /* BaseViewController.swift in Sources */,
 				800960B02B0B8CFC00B3BE4B /* CustomLabel.swift in Sources */,
 				80E46E972B089A99009A695B /* LoginViewController.swift in Sources */,
+				800960B22B0B966300B3BE4B /* Color.swift in Sources */,
 				80DED5A32B0A392200885268 /* RegisterViewController.swift in Sources */,
 				80DED59E2B09E9F200885268 /* CustomTextField.swift in Sources */,
 				80E46E932B089A99009A695B /* AppDelegate.swift in Sources */,
@@ -488,6 +496,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		800960B32B0B9F3C00B3BE4B /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.5.16;
+			};
+		};
 		80DED59F2B09FCA300885268 /* XCRemoteSwiftPackageReference "TextFieldEffects" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/raulriera/TextFieldEffects.git";
@@ -539,6 +555,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		800960B42B0B9F3C00B3BE4B /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 800960B32B0B9F3C00B3BE4B /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
 		80DED5A02B09FCA300885268 /* TextFieldEffects */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 80DED59F2B09FCA300885268 /* XCRemoteSwiftPackageReference "TextFieldEffects" */;
