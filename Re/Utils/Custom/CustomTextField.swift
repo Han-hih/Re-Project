@@ -20,9 +20,9 @@ final class CustomTextField: HoshiTextField {
     }
     
     private func setTextField() {
-        placeholderColor = .lightGray
-        borderActiveColor = .systemPurple
-        borderInactiveColor = .lightGray
+        placeholderColor = Color.placeholder.uiColor
+        borderActiveColor = Color.point.uiColor
+        borderInactiveColor = Color.placeholder.uiColor
         placeholderFontScale = 0.8
         returnKeyType = .next
     }
