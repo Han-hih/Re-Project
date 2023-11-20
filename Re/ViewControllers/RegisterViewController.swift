@@ -17,14 +17,7 @@ final class RegisterViewController: BaseViewController {
         super.setConstraints()
         setUI()
         setupDatePicker()
-        setDelegate()
         
-    }
-    
-    private func setDelegate() {
-        [emailTextField, passwordTextField, checkPasswordTextField, nicknameTextField, phoneTextField, birthdayTextField].forEach {
-            $0.delegate = self
-        }
     }
     
     private func setUI() {
@@ -197,6 +190,7 @@ final class RegisterViewController: BaseViewController {
     private let phoneTextField = {
         let text = CustomTextField()
         text.placeholder = "핸드폰 번호 입력(-제외)"
+        text.keyboardType = .numberPad
         return text
     }()
     
@@ -257,31 +251,5 @@ final class RegisterViewController: BaseViewController {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy년 MM월 dd일"
         return formatter.string(from: date)
-    }
-}
-
-extension RegisterViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        switch textField {
-        case emailTextField:
-            textField.resignFirstResponder()
-            passwordTextField.becomeFirstResponder()
-        case passwordTextField:
-            textField.resignFirstResponder()
-            checkPasswordTextField.becomeFirstResponder()
-        case checkPasswordTextField:
-            textField.resignFirstResponder()
-            nicknameTextField.becomeFirstResponder()
-        case nicknameTextField:
-            textField.resignFirstResponder()
-            phoneTextField.becomeFirstResponder()
-        case phoneTextField:
-            textField.resignFirstResponder()
-            birthdayTextField.becomeFirstResponder()
-        case birthdayTextField:
-            textField.resignFirstResponder()
-        default: break
-        }
-        return true
     }
 }

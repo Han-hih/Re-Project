@@ -8,11 +8,9 @@
 import UIKit
 
 final class LoginViewContoller: BaseViewController {
-
+    
     override func configure() {
         super.configure()
-        emailTextField.delegate = self
-        passwordTextField.delegate = self
     }
     
     
@@ -54,7 +52,7 @@ final class LoginViewContoller: BaseViewController {
             $0.width.equalToSuperview()
             $0.height.equalTo(50)
         }
-    
+        
         registerButton.snp.makeConstraints {
             $0.top.equalTo(stackView.snp.bottom).offset(10)
             $0.centerX.equalTo(view.snp.centerX)
@@ -73,7 +71,6 @@ final class LoginViewContoller: BaseViewController {
     private let emailTextField = {
         let text = CustomTextField()
         text.placeholder = " 이메일을 입력해 주세요"
-        text.returnKeyType = .next
         return text
     }()
     
@@ -87,7 +84,7 @@ final class LoginViewContoller: BaseViewController {
     private let loginButton = {
         let button = UIButton()
         button.setTitle("로그인", for: .normal)
-        button.backgroundColor = .systemCyan
+        button.backgroundColor = .systemPurple
         button.clipsToBounds = true
         button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(LoginButtonTapped), for: .touchUpInside)
@@ -110,17 +107,5 @@ final class LoginViewContoller: BaseViewController {
     @objc func RegisterButtonTapped() {
         let vc = RegisterViewController()
         self.navigationController?.pushViewController(vc, animated: true)
-    }
-}
-
-extension LoginViewContoller: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == emailTextField {
-            textField.resignFirstResponder()
-            passwordTextField.becomeFirstResponder()
-        } else if textField == passwordTextField {
-            textField.resignFirstResponder()
-        }
-        return true
     }
 }
