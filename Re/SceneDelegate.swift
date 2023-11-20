@@ -15,8 +15,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
+        
+        let tabBarController = UITabBarController()
+        let firstVC = UINavigationController(rootViewController: LoginViewContoller())
+        tabBarController.setViewControllers([firstVC], animated: true)
+        
+        if let items = tabBarController.tabBar.items {
+            items[0].selectedImage = UIImage(systemName: "map.fill")
+            items[0].image = UIImage(systemName: "map")
+            items[0].title = "Login"
+        }
         let vc = LoginViewContoller()
-        window?.rootViewController = UINavigationController(rootViewController: vc)
+        window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
     }
 
