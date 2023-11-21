@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ValidationCheck {
+final class ValidationCheck {
     // 이메일 정규성 체크
     func isValidEmail(_ input: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,30}"

@@ -81,7 +81,7 @@ final class LoginViewContoller: BaseViewController {
         return text
     }()
     
-    private let loginButton = {
+    private lazy var loginButton = {
         let button = UIButton()
         button.setTitle("로그인", for: .normal)
         button.backgroundColor = .systemPurple
@@ -91,7 +91,7 @@ final class LoginViewContoller: BaseViewController {
         return button
     }()
     
-    private let registerButton = {
+    private lazy var registerButton = {
         let button = UIButton()
         button.setTitle("회원가입", for: .normal)
         button.setTitleColor(.black, for: .normal)

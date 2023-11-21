@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class RegisterViewController: BaseViewController {
     
@@ -19,7 +21,6 @@ final class RegisterViewController: BaseViewController {
     override func setConstraints() {
         super.setConstraints()
         setUI()
-        setupDatePicker()
         
     }
     
@@ -27,10 +28,9 @@ final class RegisterViewController: BaseViewController {
         
     }
     
-    
     private func setUI() {
         view.addSubview(stackView)
-        [emailTextField, emailCheckButton, emailValidLabel, passwordTextField, passwordValidLabel,  checkPasswordTextField, checkPasswordValidLabel, nicknameTextField, phoneTextField, birthdayTextField, registerButton].forEach {
+        [emailTextField, emailCheckButton, emailValidLabel, passwordTextField, passwordValidLabel, nicknameTextField, registerButton].forEach {
             stackView.addSubview($0)
         }
         
@@ -56,18 +56,6 @@ final class RegisterViewController: BaseViewController {
             $0.leading.equalTo(emailTextField.snp.leading)
             $0.top.equalTo(emailTextField.snp.bottom).offset(5)
         }
-
-        //
-        //        atLabel.snp.makeConstraints {
-        //            $0.top.equalTo(emailTextField.snp.bottom).offset(30)
-        //            $0.leading.equalToSuperview()
-        //        }
-        //
-        //        domainTextField.snp.makeConstraints {
-        //            $0.top.equalTo(emailTextField.snp.bottom)
-        //            $0.leading.equalTo(atLabel.snp.trailing).offset(10)
-        //            $0.height.equalTo(50)
-        //        }
         
         passwordTextField.snp.makeConstraints {
             $0.width.equalToSuperview()
@@ -80,39 +68,27 @@ final class RegisterViewController: BaseViewController {
             $0.top.equalTo(passwordTextField.snp.bottom).offset(5)
         }
         
-        checkPasswordTextField.snp.makeConstraints {
+//        checkPasswordTextField.snp.makeConstraints {
+//            $0.width.equalToSuperview()
+//            $0.height.equalTo(50)
+//            $0.top.equalTo(passwordTextField.snp.bottom).offset(30)
+//        }
+//        
+//        checkPasswordValidLabel.snp.makeConstraints {
+//            $0.leading.equalTo(checkPasswordTextField.snp.leading)
+//            $0.top.equalTo(checkPasswordTextField.snp.bottom).offset(5)
+//        }
+        
+        nicknameTextField.snp.makeConstraints {
             $0.width.equalToSuperview()
             $0.height.equalTo(50)
             $0.top.equalTo(passwordTextField.snp.bottom).offset(30)
         }
         
-        checkPasswordValidLabel.snp.makeConstraints {
-            $0.leading.equalTo(checkPasswordTextField.snp.leading)
-            $0.top.equalTo(checkPasswordTextField.snp.bottom).offset(5)
-        }
-        
-        nicknameTextField.snp.makeConstraints {
-            $0.width.equalToSuperview()
-            $0.height.equalTo(50)
-            $0.top.equalTo(checkPasswordTextField.snp.bottom).offset(30)
-        }
-        
-        phoneTextField.snp.makeConstraints {
-            $0.width.equalToSuperview()
-            $0.height.equalTo(50)
-            $0.top.equalTo(nicknameTextField.snp.bottom).offset(30)
-        }
-        
-        birthdayTextField.snp.makeConstraints {
-            $0.width.equalToSuperview()
-            $0.height.equalTo(50)
-            $0.top.equalTo(phoneTextField.snp.bottom).offset(30)
-        }
-        
         registerButton.snp.makeConstraints {
             $0.width.equalToSuperview()
             $0.height.equalTo(50)
-            $0.top.equalTo(birthdayTextField.snp.bottom).offset(30)
+            $0.top.equalTo(nicknameTextField.snp.bottom).offset(30)
         }
         
     }
@@ -152,23 +128,9 @@ final class RegisterViewController: BaseViewController {
         return bt
     }()
     
-    //    private let atLabel = {
-    //        let label = UILabel()
-    //        label.text = "@"
-    //        return label
-    //    }()
-    
-    //    private let domainTextField = {
-    //        let text = CustomTextField()
-    ////        text.placeholder = "주소값을 입력"
-    //        text.text = "naver.com"
-    //        return text
-    //    }()
-    
     private let passwordTextField = {
         let text = CustomTextField()
         text.placeholder = "* 비밀번호 입력(문자, 숫자, 특수문자 포함 8~20자)"
-        
         return text
     }()
     
@@ -177,35 +139,20 @@ final class RegisterViewController: BaseViewController {
         return label
     }()
     
-    private let checkPasswordTextField = {
-        let text = CustomTextField()
-        text.placeholder = "* 비밀번호 확인"
-        return text
-    }()
-    
-    private let checkPasswordValidLabel = {
-        let label = CustomLabel()
-        label.text = "비밀번호가 일치하지 않습니다"
-        return label
-    }()
+//    private let checkPasswordTextField = {
+//        let text = CustomTextField()
+//        text.placeholder = "* 비밀번호 확인"
+//        return text
+//    }()
+//    
+//    private let checkPasswordValidLabel = {
+//        let label = CustomLabel()
+//        return label
+//    }()
     
     private let nicknameTextField = {
         let text = CustomTextField()
         text.placeholder = "* 닉네임 입력"
-        return text
-    }()
-    
-    private let phoneTextField = {
-        let text = CustomTextField()
-        text.placeholder = "핸드폰 번호 입력(-제외)"
-        text.keyboardType = .numberPad
-        return text
-    }()
-    
-    private let birthdayTextField = {
-        let text = CustomTextField()
-        text.placeholder = "생년월일 입력"
-        text.returnKeyType = .done
         return text
     }()
     
@@ -215,49 +162,5 @@ final class RegisterViewController: BaseViewController {
         bt.backgroundColor = .systemPurple
         return bt
     }()
-    
-    private func setupDatePicker() {
-        let datePicker = UIDatePicker()
-        datePicker.datePickerMode = .date
-        datePicker.maximumDate = Date()
-        datePicker.locale = Locale(identifier: "ko-KR")
-        datePicker.preferredDatePickerStyle = .wheels
-        datePicker.addTarget(self, action: #selector(dateChange), for: .valueChanged)
-        datePicker.sizeToFit()
-        
-        
-        let toolbar = UIToolbar()
-        toolbar.sizeToFit()
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneButtonPressed))
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: #selector(cancelButtonTapped))
-        toolbar.setItems([cancelButton, flexibleSpace ,doneButton], animated: true)
-        birthdayTextField.inputAccessoryView = toolbar
-        birthdayTextField.inputView = datePicker
-    }
-    
-    @objc func cancelButtonTapped() {
-        self.view.endEditing(true)
-        birthdayTextField.text = ""
-    }
-    
-    @objc func doneButtonPressed() {
-        //        print(sender.date)
-        //        birthdayTextField.text = dateFormatter(date: sender.date)
-        self.view.endEditing(true)
-    }
-    
-    @objc func dateChange(_ sender: UIDatePicker) {
-        sender.rx.date
-            .bind { date in
-                self.birthdayTextField.text = self.dateFormatter(date: date)
-            }
-            .disposed(by: disposeBag)
-    }
-    
-    func dateFormatter(date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy년 MM월 dd일"
-        return formatter.string(from: date)
-    }
+
 }
