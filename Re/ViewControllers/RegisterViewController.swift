@@ -26,6 +26,30 @@ final class RegisterViewController: BaseViewController {
     
     private func bind() {
         
+        let input = RegisterViewModel
+            .Input(emailValid: emailTextField.rx.text.orEmpty.asObservable(),
+                   passwordValid: passwordTextField.rx.text.orEmpty.asObservable())
+        
+        let output = viewModel.transform(input: input)
+        
+        output.emailValid
+            .subscribe(with: self) { owner, bool in
+                owner.emailValidLabel.text = bool ? "유효한 이메일 입니다." : "유효하지 않은 이메일 입니다."
+                owner.emailValidLabel.textColor = bool ? .black : .red
+                owner.emailTextField.borderActiveColor = bool ? .systemPurple : .systemRed
+                owner.emailCheckButton.isEnabled = bool ? true : false
+            }
+            .disposed(by: disposeBag)
+            
+        output.passwordValid
+            .subscribe(with: self) { owner, bool in
+                owner.passwordValidLabel.text = bool ? "유효한 비밀번호 입니다." : "유효하지 않은 비밀번호 입니다."
+                owner.passwordValidLabel.textColor = bool ? .black : .red
+                owner.passwordTextField.borderActiveColor = bool ? .systemPurple : .systemRed
+            }
+            .disposed(by: disposeBag)
+        
+        
     }
     
     private func setUI() {
