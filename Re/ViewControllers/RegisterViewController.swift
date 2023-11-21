@@ -40,7 +40,7 @@ final class RegisterViewController: BaseViewController {
                 owner.emailCheckButton.isEnabled = bool ? true : false
             }
             .disposed(by: disposeBag)
-            
+        
         output.passwordValid
             .subscribe(with: self) { owner, bool in
                 owner.passwordValidLabel.text = bool ? "유효한 비밀번호 입니다." : "유효하지 않은 비밀번호 입니다."
@@ -92,16 +92,16 @@ final class RegisterViewController: BaseViewController {
             $0.top.equalTo(passwordTextField.snp.bottom).offset(5)
         }
         
-//        checkPasswordTextField.snp.makeConstraints {
-//            $0.width.equalToSuperview()
-//            $0.height.equalTo(50)
-//            $0.top.equalTo(passwordTextField.snp.bottom).offset(30)
-//        }
-//        
-//        checkPasswordValidLabel.snp.makeConstraints {
-//            $0.leading.equalTo(checkPasswordTextField.snp.leading)
-//            $0.top.equalTo(checkPasswordTextField.snp.bottom).offset(5)
-//        }
+        //        checkPasswordTextField.snp.makeConstraints {
+        //            $0.width.equalToSuperview()
+        //            $0.height.equalTo(50)
+        //            $0.top.equalTo(passwordTextField.snp.bottom).offset(30)
+        //        }
+        //
+        //        checkPasswordValidLabel.snp.makeConstraints {
+        //            $0.leading.equalTo(checkPasswordTextField.snp.leading)
+        //            $0.top.equalTo(checkPasswordTextField.snp.bottom).offset(5)
+        //        }
         
         nicknameTextField.snp.makeConstraints {
             $0.width.equalToSuperview()
@@ -163,16 +163,16 @@ final class RegisterViewController: BaseViewController {
         return label
     }()
     
-//    private let checkPasswordTextField = {
-//        let text = CustomTextField()
-//        text.placeholder = "* 비밀번호 확인"
-//        return text
-//    }()
-//    
-//    private let checkPasswordValidLabel = {
-//        let label = CustomLabel()
-//        return label
-//    }()
+    //    private let checkPasswordTextField = {
+    //        let text = CustomTextField()
+    //        text.placeholder = "* 비밀번호 확인"
+    //        return text
+    //    }()
+    //
+    //    private let checkPasswordValidLabel = {
+    //        let label = CustomLabel()
+    //        return label
+    //    }()
     
     private let nicknameTextField = {
         let text = CustomTextField()
@@ -186,5 +186,5 @@ final class RegisterViewController: BaseViewController {
         bt.backgroundColor = .systemPurple
         return bt
     }()
-
+    
 }
