@@ -21,7 +21,7 @@ extension APIManager: TargetType {
     var path: String {
         switch self {
         case .emailValid(_):
-            return "/validation/email"
+            return "validation/email"
         }
     }
     
