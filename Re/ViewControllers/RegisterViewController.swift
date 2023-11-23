@@ -28,7 +28,7 @@ final class RegisterViewController: BaseViewController {
         
         let input = RegisterViewModel
             .Input(emailValid: emailTextField.rx.text.orEmpty.asObservable(),
-                   passwordValid: passwordTextField.rx.text.orEmpty.asObservable())
+                   passwordValid: passwordTextField.rx.text.orEmpty.asObservable(), emailDuplicateTap: emailCheckButton.rx.tap.asObservable())
         
         let output = viewModel.transform(input: input)
         
@@ -49,7 +49,12 @@ final class RegisterViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        
+        output.emailDuplicateTap
+            .subscribe(with: self) { owner, value in
+                owner.emailValidLabel.text = value.message
+                owner.emailValidLabel.textColor = .systemGreen
+            }
+            .disposed(by: disposeBag)
     }
     
     private func setUI() {
