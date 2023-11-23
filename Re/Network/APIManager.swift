@@ -10,6 +10,7 @@ import Moya
 
 enum APIManager {
     case emailValid(email: String)
+    case join(email: String, password: String, nick: String)
 }
 
 extension APIManager: TargetType {
@@ -22,6 +23,8 @@ extension APIManager: TargetType {
         switch self {
         case .emailValid(_):
             return "validation/email"
+        case .join(email: _, password: _, nick: _):
+            return "join"
         }
     }
     
@@ -29,6 +32,8 @@ extension APIManager: TargetType {
         switch self {
         case .emailValid(_):
             return .post
+        case .join(email: _, password: _, nick: _):
+            return.post
         }
     }
     
@@ -36,6 +41,8 @@ extension APIManager: TargetType {
         switch self {
         case .emailValid(let email):
             return .requestParameters(parameters: ["email": email], encoding: JSONEncoding.default)
+        case .join(email: let email, password: let password, nick: let nick):
+            return .requestParameters(parameters: ["email": email, "password": password, "nick": nick], encoding: JSONEncoding.default)
         }
     }
     
