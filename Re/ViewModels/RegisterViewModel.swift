@@ -11,8 +11,6 @@ import Moya
 
 final class RegisterViewModel: ViewModelType {
     
-    private let service = MoyaProvider<APIManager>()
-    
     private let disposeBag = DisposeBag()
     
     struct Input {
@@ -41,7 +39,7 @@ final class RegisterViewModel: ViewModelType {
             .withLatestFrom(input.emailValid) { _, query in
                 return query
             }
-            .flatMap { self.checkEmailDuplicate(email: $0) }
+            .flatMap { APIRequest.shared.checkEmailDuplicate(email: $0) }
             .subscribe(with: self) { owner, value in
                 print(value)
                 emailDuplicateTap.onNext(value)
@@ -54,20 +52,7 @@ final class RegisterViewModel: ViewModelType {
         )
     }
     
-    private func checkEmailDuplicate(email: String) -> Single<EmailValidResult> {
-        return Single<EmailValidResult>.create { single in
-            self.service.request(APIManager.emailValid(email: email)) { result in
-                switch result {
-                case .success(let element):
-                    guard let data = try? element.map(EmailValidResult.self) else { return }
-                    single(.success(data))
-                case .failure(let error):
-                    print(error)
-                }
-            }
-            return Disposables.create()
-        }
-    }
+    
     
     
     
