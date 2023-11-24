@@ -46,6 +46,10 @@ extension APIManager: TargetType {
         }
     }
     
+    var validationType: ValidationType {
+        return .successCodes
+    }
+    
     var headers: [String : String]? {
         return ["Content-Type": "application/json",
                 "SesacKey": "\(APIKey.apiKey)"]
