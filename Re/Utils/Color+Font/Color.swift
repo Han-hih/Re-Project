@@ -11,12 +11,14 @@ enum Color {
     case point
     case fail
     case placeholder
+    case background
     
     var uiColor: UIColor {
         switch self {
         case .point: return .systemPurple
         case .fail: return UIColor.red
         case .placeholder: return .lightGray
+        case .background: return .white
         }
     }
 }
