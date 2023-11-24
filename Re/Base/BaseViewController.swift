@@ -9,7 +9,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-import Then
 import SnapKit
 
 class BaseViewController: UIViewController {
@@ -18,6 +17,7 @@ class BaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = Color.background.uiColor
         configure()
         setConstraints()
     }

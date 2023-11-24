@@ -27,8 +27,8 @@ final class RegisterViewController: BaseViewController {
     private func bind() {
         
         let input = RegisterViewModel
-            .Input(emailValid: emailTextField.rx.text.orEmpty.asObservable(),
-                   passwordValid: passwordTextField.rx.text.orEmpty.asObservable(), emailDuplicateTap: emailCheckButton.rx.tap.asObservable())
+            .Input(emailValid: emailTextField.rx.controlEvent(.editingChanged).withLatestFrom(emailTextField.rx.text.orEmpty.asObservable()),
+                   passwordValid: passwordTextField.rx.text.orEmpty.asObservable(), emailDuplicateTap: emailCheckButton.rx.tap.asObservable(), nicknameValid: nicknameTextField.rx.text.orEmpty.asObservable())
         
         let output = viewModel.transform(input: input)
         
@@ -50,9 +50,15 @@ final class RegisterViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         output.emailDuplicateTap
-            .subscribe(with: self) { owner, value in
-                owner.emailValidLabel.text = value.message
-                owner.emailValidLabel.textColor = .systemGreen
+            .subscribe(with: self) { owner, bool in
+                owner.emailValidLabel.text = bool ? "가입이 가능한 이메일입니다." : "가입이 불가능한 이메일입니다."
+                owner.emailValidLabel.textColor = bool ? .systemGreen : .systemRed
+            }
+            .disposed(by: disposeBag)
+         
+        output.joinValid
+            .subscribe(with: self) { owner, bool in
+                owner.registerButton.isHidden = bool ? false : true
             }
             .disposed(by: disposeBag)
     }
