@@ -10,3 +10,9 @@ import Foundation
 struct EmailValidResult: Codable {
     let message: String
 }
+
+struct JoinValidResult: Codable {
+    let email: String
+    let password: String
+    let nick: String
+}

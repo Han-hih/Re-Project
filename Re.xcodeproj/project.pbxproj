@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		80084EF82B108D600018E806 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80084EF72B108D600018E806 /* NetworkError.swift */; };
 		800960AE2B0B702700B3BE4B /* ValidationCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800960AD2B0B702700B3BE4B /* ValidationCheck.swift */; };
 		800960B02B0B8CFC00B3BE4B /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800960AF2B0B8CFC00B3BE4B /* CustomLabel.swift */; };
 		800960B22B0B966300B3BE4B /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800960B12B0B966300B3BE4B /* Color.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		80084EF72B108D600018E806 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		800960AD2B0B702700B3BE4B /* ValidationCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationCheck.swift; sourceTree = "<group>"; };
 		800960AF2B0B8CFC00B3BE4B /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		800960B12B0B966300B3BE4B /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 			children = (
 				80E46EA82B08A164009A695B /* APIKey.swift */,
 				800960CF2B0CE1F800B3BE4B /* APIManager.swift */,
+				80084EF72B108D600018E806 /* NetworkError.swift */,
 				807FFEC72B0F3DE000658FA9 /* APIRequest.swift */,
 			);
 			path = Network;
@@ -296,6 +299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80E46EC92B08E75A009A695B /* BaseViewController.swift in Sources */,
+				80084EF82B108D600018E806 /* NetworkError.swift in Sources */,
 				800960B02B0B8CFC00B3BE4B /* CustomLabel.swift in Sources */,
 				80E46E972B089A99009A695B /* LoginViewController.swift in Sources */,
 				800960B92B0BB90B00B3BE4B /* Protocols.swift in Sources */,
