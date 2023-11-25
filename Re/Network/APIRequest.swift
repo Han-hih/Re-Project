@@ -9,12 +9,6 @@ import Foundation
 import RxSwift
 import Moya
 
-enum NetworkError: Int, Error {
-    case valueEmpty = 400
-    case invalidEmail = 409
-    case decodingFailed = 999
-    case unownedError = 1
-}
 
 final class APIRequest {
     
@@ -34,7 +28,7 @@ final class APIRequest {
                         return
                     }
                     single(.success(.success(data)))
-
+                    
                 case .failure(let error):
                     guard let customError = NetworkError(rawValue: error.response?.statusCode ?? 1) else {
                         single(.success(.failure(NetworkError.unownedError)))
@@ -47,5 +41,26 @@ final class APIRequest {
         }
     }
     
-    
+     func register(email: String, password: String, nick: String) -> Single<Result<JoinValidResult, NetworkError>> {
+        return Single<Result<JoinValidResult, NetworkError>>.create { single in
+            self.service.request(APIManager.join(email: email, password: password, nick: nick)) { result in
+                switch result {
+                case .success(let response):
+                    guard let data = try? JSONDecoder().decode(JoinValidResult.self, from: response.data) else {
+                        single(.success(.failure(.decodingFailed)))
+                        return
+                    }
+                    single(.success(.success(data)))
+                case .failure(let error):
+                    guard let customError = NetworkError(rawValue: error.response?.statusCode ?? 1) else {
+                        single(.success(.failure(NetworkError.unownedError)))
+                        return
+                    }
+                    single(.success(.failure(customError)))
+                }
+            }
+            return Disposables.create()
+        }
+        
+    }
 }
