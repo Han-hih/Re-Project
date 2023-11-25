@@ -18,6 +18,7 @@ final class RegisterViewModel: ViewModelType {
         let passwordValid: Observable<String>
         let emailDuplicateTap: Observable<Void>
         let nicknameValid: Observable<String>
+        let joinButtonTap: Observable<Void>
     }
     
     struct Output {
@@ -27,7 +28,7 @@ final class RegisterViewModel: ViewModelType {
         let emailDuplicateTap: PublishSubject<Bool>
         let emailDuplicateError: PublishSubject<Bool>
         let joinValid: Observable<Bool>
-        
+        let joinButtonTap: PublishSubject<Bool>
         
     }
     
@@ -37,12 +38,14 @@ final class RegisterViewModel: ViewModelType {
         
         let emailDuplicateError = PublishSubject<Bool>()
         
+        let joinButtonTap = PublishSubject<Bool>()
+        
         let emailValid = input.emailValid.map { ValidationCheck().isValidEmail($0)
         }
         
         let passwordValid = input.passwordValid.map { ValidationCheck().validatePassword($0)
         }
-    
+        
         let nicknameValid = input.nicknameValid.map { $0.count >= 3}
         
         input.emailDuplicateTap
@@ -73,11 +76,30 @@ final class RegisterViewModel: ViewModelType {
             }
         }
         
+        input.joinButtonTap
+            .withLatestFrom(Observable.combineLatest(input.emailValid, input.passwordValid, input.nicknameValid))
+            .flatMapLatest { (email, password, nickname) in
+                APIRequest.shared.register(email: email, password: password, nick: nickname)
+            }
+            .subscribe(with: self) { owner, result in
+                switch result {
+                case .success(_):
+                    print("가입됨")
+                    joinButtonTap.onNext(true)
+                case .failure(_):
+                    joinButtonTap.onNext(false)
+                }
+            }
+            .disposed(by: disposeBag)
+            
+        
         return Output(emailValid: emailValid,
-                      passwordValid: passwordValid, 
+                      passwordValid: passwordValid,
                       nicknameValid: nicknameValid,
                       emailDuplicateTap: emailDuplicateTap,
-                      emailDuplicateError: emailDuplicateError, joinValid: joinValid
+                      emailDuplicateError: emailDuplicateError,
+                      joinValid: joinValid,
+                      joinButtonTap: joinButtonTap
         )
     }
     

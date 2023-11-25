@@ -28,7 +28,10 @@ final class RegisterViewController: BaseViewController {
         
         let input = RegisterViewModel
             .Input(emailValid: emailTextField.rx.controlEvent(.editingChanged).withLatestFrom(emailTextField.rx.text.orEmpty.asObservable()),
-                   passwordValid: passwordTextField.rx.text.orEmpty.asObservable(), emailDuplicateTap: emailCheckButton.rx.tap.asObservable(), nicknameValid: nicknameTextField.rx.text.orEmpty.asObservable())
+                   passwordValid: passwordTextField.rx.text.orEmpty.asObservable(), 
+                   emailDuplicateTap: emailCheckButton.rx.tap.asObservable(),
+                   nicknameValid: nicknameTextField.rx.text.orEmpty.asObservable(),
+                   joinButtonTap: joinButton.rx.tap.asObservable())
         
         let output = viewModel.transform(input: input)
         
@@ -58,14 +61,23 @@ final class RegisterViewController: BaseViewController {
          
         output.joinValid
             .subscribe(with: self) { owner, bool in
-                owner.registerButton.isHidden = bool ? false : true
+                owner.joinButton.isHidden = bool ? false : true
             }
+            .disposed(by: disposeBag)
+        
+        output.joinButtonTap
+            .bind(with: self, onNext: { owner, value in
+                if value == false {
+                
+                    owner.navigationController?.popViewController(animated: true)
+                }
+            })
             .disposed(by: disposeBag)
     }
     
     private func setUI() {
         view.addSubview(stackView)
-        [emailTextField, emailCheckButton, emailValidLabel, passwordTextField, passwordValidLabel, nicknameTextField, registerButton].forEach {
+        [emailTextField, emailCheckButton, emailValidLabel, passwordTextField, passwordValidLabel, nicknameTextField, joinButton].forEach {
             stackView.addSubview($0)
         }
         
@@ -120,7 +132,7 @@ final class RegisterViewController: BaseViewController {
             $0.top.equalTo(passwordTextField.snp.bottom).offset(30)
         }
         
-        registerButton.snp.makeConstraints {
+        joinButton.snp.makeConstraints {
             $0.width.equalToSuperview()
             $0.height.equalTo(50)
             $0.top.equalTo(nicknameTextField.snp.bottom).offset(30)
@@ -191,7 +203,7 @@ final class RegisterViewController: BaseViewController {
         return text
     }()
     
-    private let registerButton = {
+    private let joinButton = {
         let bt = UIButton()
         bt.setTitle("회원가입하기", for: .normal)
         bt.backgroundColor = .systemPurple
