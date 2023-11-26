@@ -10,7 +10,7 @@ import RxSwift
 
 class LoginViewModel: ViewModelType {
     
-    
+    private let disposeBag = DisposeBag()
     
     struct Input {
         let emailTextEmpty: Observable<String>
@@ -24,7 +24,7 @@ class LoginViewModel: ViewModelType {
         let passwordTextEmpty: Observable<Bool>
         
         let loginValid: Observable<Bool>
-        let loginButtonTap: Observable<Void>
+        let loginButtonTap: Observable<Bool>
         
     }
     
@@ -32,6 +32,8 @@ class LoginViewModel: ViewModelType {
         let emailTextEmpty = input.emailTextEmpty.map { $0.count == 0 }
             
         let passwordTextEmpty = input.passwordTextEmpty.map { $0.count == 0 }
+        
+        let loginButtonTap = PublishSubject<Bool>()
         
         let loginValid = Observable.combineLatest(emailTextEmpty, passwordTextEmpty, resultSelector: { (email, password) -> Bool in
             if !email && !password {
@@ -45,7 +47,25 @@ class LoginViewModel: ViewModelType {
             }
         })
         
-        let loginButtonTap = input.loginButtonTap
+        input.loginButtonTap
+            .withLatestFrom(Observable.combineLatest(input.emailTextEmpty, input.passwordTextEmpty))
+            .flatMapLatest { (email, password) in
+                APIRequest.shared.login(email: email, password: password)
+            }
+            .subscribe(with: self) { owner, result in
+                switch result {
+                case .success(let response):
+                    print(response.token)
+                    print(response.refreshToken)
+                    loginButtonTap.onNext(true)
+                case .failure(let error):
+                    print("로그인 실패")
+                    print(error)
+                    loginButtonTap.onNext(false)
+                }
+            }
+            .disposed(by: disposeBag)
+        
         
         return Output(emailTextEmpty: emailTextEmpty,
                       passwordTextEmpty: passwordTextEmpty,

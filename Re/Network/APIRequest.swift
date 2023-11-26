@@ -41,7 +41,7 @@ final class APIRequest {
         }
     }
     
-     func register(email: String, password: String, nick: String) -> Single<Result<JoinValidResult, NetworkError>> {
+    func register(email: String, password: String, nick: String) -> Single<Result<JoinValidResult, NetworkError>> {
         return Single<Result<JoinValidResult, NetworkError>>.create { single in
             self.service.request(APIManager.join(email: email, password: password, nick: nick)) { result in
                 switch result {
@@ -63,4 +63,27 @@ final class APIRequest {
         }
         
     }
+    
+    func login(email: String, password: String) -> Single<Result<LoginValidResult, Error>> {
+        return Single<Result<LoginValidResult, Error>>.create { single in
+            self.service.request(APIManager.login(email: email, password: password)) { result in
+                switch result {
+                case .success(let response):
+                    guard let data = try? JSONDecoder().decode(LoginValidResult.self, from: response.data) else {
+                        single(.success(.failure(NetworkError.decodingFailed)))
+                        return
+                    }
+                    single(.success(.success(data)))
+                case .failure(let error):
+                    guard let customError = NetworkError(rawValue: error.response?.statusCode ?? 1) else {
+                        single(.success(.failure(LoginError.unsignedValue)))
+                        return
+                    }
+                    single(.success(.failure(customError)))
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
 }

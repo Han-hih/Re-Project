@@ -16,3 +16,8 @@ struct JoinValidResult: Codable {
     let password: String
     let nick: String
 }
+
+struct LoginValidResult: Codable {
+    let token: String
+    let refreshToken: String
+}
