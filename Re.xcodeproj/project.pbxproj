@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		80084EF82B108D600018E806 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80084EF72B108D600018E806 /* NetworkError.swift */; };
+		80084EFA2B1206D20018E806 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80084EF92B1206D20018E806 /* LoginViewModel.swift */; };
 		800960AE2B0B702700B3BE4B /* ValidationCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800960AD2B0B702700B3BE4B /* ValidationCheck.swift */; };
 		800960B02B0B8CFC00B3BE4B /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800960AF2B0B8CFC00B3BE4B /* CustomLabel.swift */; };
 		800960B22B0B966300B3BE4B /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800960B12B0B966300B3BE4B /* Color.swift */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		80084EF72B108D600018E806 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		80084EF92B1206D20018E806 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		800960AD2B0B702700B3BE4B /* ValidationCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationCheck.swift; sourceTree = "<group>"; };
 		800960AF2B0B8CFC00B3BE4B /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		800960B12B0B966300B3BE4B /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 		80E46EC42B08E636009A695B /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				80084EF92B1206D20018E806 /* LoginViewModel.swift */,
 				800960B62B0BABB600B3BE4B /* RegisterViewModel.swift */,
 			);
 			path = ViewModels;
@@ -308,6 +311,7 @@
 				80DED5A32B0A392200885268 /* RegisterViewController.swift in Sources */,
 				80DED59E2B09E9F200885268 /* CustomTextField.swift in Sources */,
 				80E46E932B089A99009A695B /* AppDelegate.swift in Sources */,
+				80084EFA2B1206D20018E806 /* LoginViewModel.swift in Sources */,
 				80E46EA92B08A164009A695B /* APIKey.swift in Sources */,
 				800960D02B0CE1F800B3BE4B /* APIManager.swift in Sources */,
 				800960AE2B0B702700B3BE4B /* ValidationCheck.swift in Sources */,

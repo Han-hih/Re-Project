@@ -9,8 +9,11 @@ import UIKit
 
 final class LoginViewContoller: BaseViewController {
     
+    let viewModel = LoginViewModel()
+    
     override func configure() {
         super.configure()
+        bind()
     }
     
     
@@ -22,6 +25,31 @@ final class LoginViewContoller: BaseViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    
+    private func bind() {
+        let input = LoginViewModel.Input(emailTextEmpty: emailTextField.rx.text.orEmpty.asObservable(), passwordTextEmpty: passwordTextField.rx.text.orEmpty.asObservable(), loginButtonTap: loginButton.rx.tap.asObservable())
+        
+        let output = viewModel.transform(input: input)
+        
+        output.emailTextEmpty.bind { bool in
+            print(bool ? "dd" : "ggh")
+        }
+        .disposed(by: disposeBag)
+        
+        output.passwordTextEmpty.bind(with: self) { owner, value in
+            print(value ? "pass" : "non")
+        }
+        .disposed(by: disposeBag)
+        
+        output.loginValid.bind(with: self, onNext: { owner, bool in
+            owner.loginButton.backgroundColor = bool ? .systemPurple.withAlphaComponent(1) : .systemPurple.withAlphaComponent(0.3)
+            owner.loginButton.isEnabled = bool ? true : false
+            
+        })
+        .disposed(by: disposeBag)
+    }
+    
+    
     
     private func setUI() {
         view.addSubview(stackView)
