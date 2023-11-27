@@ -44,8 +44,13 @@ final class LoginViewContoller: BaseViewController {
         output.loginValid.bind(with: self, onNext: { owner, bool in
             owner.loginButton.backgroundColor = bool ? .systemPurple.withAlphaComponent(1) : .systemPurple.withAlphaComponent(0.3)
             owner.loginButton.isEnabled = bool ? true : false
-            
         })
+        .disposed(by: disposeBag)
+        
+        output.loginButtonTap.bind(with: self) { owner, bool in
+            let vc = HomeViewController()
+            bool ? owner.navigationController?.pushViewController(vc, animated: true) : print("d")
+        }
         .disposed(by: disposeBag)
     }
     
@@ -115,7 +120,7 @@ final class LoginViewContoller: BaseViewController {
         button.backgroundColor = .systemPurple
         button.clipsToBounds = true
         button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(LoginButtonTapped), for: .touchUpInside)
+//        button.addTarget(self, action: #selector(LoginButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -128,9 +133,10 @@ final class LoginViewContoller: BaseViewController {
         return button
     }()
     
-    @objc func LoginButtonTapped() {
-        print("로그인이 되었습니다.")
-    }
+//    @objc func LoginButtonTapped() {
+//        let vc = HomeViewController()
+//        self.navigation
+//    }
     
     @objc func RegisterButtonTapped() {
         let vc = RegisterViewController()
