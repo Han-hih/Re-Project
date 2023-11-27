@@ -17,15 +17,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         
         let tabBarController = UITabBarController()
-        let firstVC = UINavigationController(rootViewController: LoginViewContoller())
-        tabBarController.setViewControllers([firstVC], animated: true)
+        let firstVC = UINavigationController(rootViewController: HomeViewController())
+        let secondVC = UINavigationController(rootViewController: AddViewController())
+        let thirdVC = UINavigationController(rootViewController: CommunityViewController())
+        tabBarController.setViewControllers([firstVC, secondVC, thirdVC], animated: true)
         
         if let items = tabBarController.tabBar.items {
-            items[0].selectedImage = UIImage(systemName: "map.fill")
-            items[0].image = UIImage(systemName: "map")
-            items[0].title = "Login"
+            items[0].selectedImage = UIImage(systemName: "house.fill")
+            items[0].image = UIImage(systemName: "house")
+            
+            items[1].selectedImage = UIImage(systemName: "plus.square.fill")
+            items[1].image = UIImage(systemName: "plus.square")
+            
+            items[2].selectedImage = UIImage(systemName: "person.3.fill")
+            items[2].image = UIImage(systemName: "person.3")
         }
-        let vc = LoginViewContoller()
+        
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
     }
