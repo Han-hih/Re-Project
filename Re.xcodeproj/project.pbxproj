@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		80084EF82B108D600018E806 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80084EF72B108D600018E806 /* NetworkError.swift */; };
 		80084EFA2B1206D20018E806 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80084EF92B1206D20018E806 /* LoginViewModel.swift */; };
+		80084EFC2B1383B70018E806 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80084EFB2B1383B70018E806 /* HomeViewController.swift */; };
 		800960AE2B0B702700B3BE4B /* ValidationCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800960AD2B0B702700B3BE4B /* ValidationCheck.swift */; };
 		800960B02B0B8CFC00B3BE4B /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800960AF2B0B8CFC00B3BE4B /* CustomLabel.swift */; };
 		800960B22B0B966300B3BE4B /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800960B12B0B966300B3BE4B /* Color.swift */; };
@@ -17,6 +18,7 @@
 		800960B92B0BB90B00B3BE4B /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800960B82B0BB90B00B3BE4B /* Protocols.swift */; };
 		800960D02B0CE1F800B3BE4B /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800960CF2B0CE1F800B3BE4B /* APIManager.swift */; };
 		800960D32B0D1A4600B3BE4B /* NetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800960D22B0D1A4600B3BE4B /* NetworkModel.swift */; };
+		8010012E2B145D2100DAD821 /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8010012D2B145D2100DAD821 /* KeyChain.swift */; };
 		807FFEC82B0F3DE000658FA9 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807FFEC72B0F3DE000658FA9 /* APIRequest.swift */; };
 		80DED59E2B09E9F200885268 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DED59D2B09E9F200885268 /* CustomTextField.swift */; };
 		80DED5A12B09FCA300885268 /* TextFieldEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 80DED5A02B09FCA300885268 /* TextFieldEffects */; };
@@ -42,6 +44,7 @@
 /* Begin PBXFileReference section */
 		80084EF72B108D600018E806 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		80084EF92B1206D20018E806 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		80084EFB2B1383B70018E806 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		800960AD2B0B702700B3BE4B /* ValidationCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationCheck.swift; sourceTree = "<group>"; };
 		800960AF2B0B8CFC00B3BE4B /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		800960B12B0B966300B3BE4B /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -49,6 +52,7 @@
 		800960B82B0BB90B00B3BE4B /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		800960CF2B0CE1F800B3BE4B /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		800960D22B0D1A4600B3BE4B /* NetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkModel.swift; sourceTree = "<group>"; };
+		8010012D2B145D2100DAD821 /* KeyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
 		807FFEC72B0F3DE000658FA9 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		80DED59D2B09E9F200885268 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		80DED5A22B0A392200885268 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -97,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				800960AD2B0B702700B3BE4B /* ValidationCheck.swift */,
+				8010012D2B145D2100DAD821 /* KeyChain.swift */,
 				80DED59C2B09E94200885268 /* Color+Font */,
 				80DED59B2B09E93900885268 /* Custom */,
 			);
@@ -170,6 +175,7 @@
 			children = (
 				80E46E962B089A99009A695B /* LoginViewController.swift */,
 				80DED5A22B0A392200885268 /* RegisterViewController.swift */,
+				80084EFB2B1383B70018E806 /* HomeViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -306,10 +312,12 @@
 				800960B02B0B8CFC00B3BE4B /* CustomLabel.swift in Sources */,
 				80E46E972B089A99009A695B /* LoginViewController.swift in Sources */,
 				800960B92B0BB90B00B3BE4B /* Protocols.swift in Sources */,
+				80084EFC2B1383B70018E806 /* HomeViewController.swift in Sources */,
 				800960B22B0B966300B3BE4B /* Color.swift in Sources */,
 				800960B72B0BABB600B3BE4B /* RegisterViewModel.swift in Sources */,
 				80DED5A32B0A392200885268 /* RegisterViewController.swift in Sources */,
 				80DED59E2B09E9F200885268 /* CustomTextField.swift in Sources */,
+				8010012E2B145D2100DAD821 /* KeyChain.swift in Sources */,
 				80E46E932B089A99009A695B /* AppDelegate.swift in Sources */,
 				80084EFA2B1206D20018E806 /* LoginViewModel.swift in Sources */,
 				80E46EA92B08A164009A695B /* APIKey.swift in Sources */,

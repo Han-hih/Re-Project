@@ -55,8 +55,8 @@ class LoginViewModel: ViewModelType {
             .subscribe(with: self) { owner, result in
                 switch result {
                 case .success(let response):
-                    print(response.token)
-                    print(response.refreshToken)
+                    KeyChain.shared.create(key: "access", token: response.token)
+                    KeyChain.shared.create(key: "refresh", token: response.refreshToken)
                     loginButtonTap.onNext(true)
                 case .failure(let error):
                     print("로그인 실패")
