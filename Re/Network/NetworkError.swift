@@ -10,6 +10,7 @@ import Foundation
 enum NetworkError: Int, Error {
     case valueEmpty = 400
     case invalidEmail = 409
+    case expireToken = 418
     case decodingFailed = 999
     case unownedError = 1
 }

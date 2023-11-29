@@ -87,8 +87,8 @@ final class APIRequest {
         }
     }
     
-    func refreshToken(token: String, refreshToken: String) -> Single<Result<RefreshToken, Error>> {
-        return Single<Result<RefreshToken, Error>>.create { single in
+    func refreshToken(token: String, refreshToken: String) -> Single<Result<RefreshToken, NetworkError>> {
+        return Single<Result<RefreshToken, NetworkError>>.create { single in
             self.service.request(APIManager.refresh(token: token, refreshToken: refreshToken)) { result in
                 switch result {
                 case .success(let response):
@@ -99,7 +99,7 @@ final class APIRequest {
                     single(.success(.success(data)))
                 case .failure(let error):
                     guard let customError = NetworkError(rawValue: error.response?.statusCode ?? 1) else {
-                        single(.success(.failure(LoginError.unsignedValue)))
+                        single(.success(.failure(NetworkError(rawValue: LoginError.unsignedValue.rawValue)!)))
                         return
                     }
                     single(.success(.failure(customError)))

@@ -58,6 +58,7 @@ class LoginViewModel: ViewModelType {
                 case .success(let response):
                     KeyChain.shared.create(key: "access", token: response.token)
                     KeyChain.shared.create(key: "refresh", token: response.refreshToken)
+                    owner.userdefaults.set(true, forKey: "isLogin")
                     loginButtonTap.onNext(true)
                 case .failure(let error):
                     print("로그인 실패")
