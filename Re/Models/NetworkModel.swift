@@ -21,3 +21,7 @@ struct LoginValidResult: Codable {
     let token: String
     let refreshToken: String
 }
+
+struct RefreshToken: Codable {
+    let token: String
+}

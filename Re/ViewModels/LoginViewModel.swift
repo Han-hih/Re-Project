@@ -11,6 +11,7 @@ import RxSwift
 class LoginViewModel: ViewModelType {
     
     private let disposeBag = DisposeBag()
+    private let userdefaults = UserDefaults()
     
     struct Input {
         let emailTextEmpty: Observable<String>
@@ -67,23 +68,20 @@ class LoginViewModel: ViewModelType {
             .disposed(by: disposeBag)
         
         
+        let loginValue = Observable.combineLatest(loginButtonTap, input.emailTextEmpty, input.passwordTextEmpty)
+        
+        loginValue.subscribe(with: self) { owner , value in
+            if value.0 == true {
+                owner.userdefaults.set(value.1, forKey: "email")
+                owner.userdefaults.set(value.2, forKey: "pw")
+            }
+        }
+        .disposed(by: disposeBag)
+   
         return Output(emailTextEmpty: emailTextEmpty,
                       passwordTextEmpty: passwordTextEmpty,
                       loginValid: loginValid,
                       loginButtonTap: loginButtonTap
         )
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

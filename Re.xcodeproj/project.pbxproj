@@ -21,6 +21,8 @@
 		8010012E2B145D2100DAD821 /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8010012D2B145D2100DAD821 /* KeyChain.swift */; };
 		801001302B14C3A800DAD821 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8010012F2B14C3A800DAD821 /* AddViewController.swift */; };
 		801001342B14C4BC00DAD821 /* CommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801001332B14C4BC00DAD821 /* CommunityViewController.swift */; };
+		801001362B14FFEF00DAD821 /* Interceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801001352B14FFEE00DAD821 /* Interceptor.swift */; };
+		801001542B170EFE00DAD821 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801001532B170EFE00DAD821 /* HomeViewModel.swift */; };
 		807FFEC82B0F3DE000658FA9 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807FFEC72B0F3DE000658FA9 /* APIRequest.swift */; };
 		80DED59E2B09E9F200885268 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DED59D2B09E9F200885268 /* CustomTextField.swift */; };
 		80DED5A12B09FCA300885268 /* TextFieldEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 80DED5A02B09FCA300885268 /* TextFieldEffects */; };
@@ -57,6 +59,8 @@
 		8010012D2B145D2100DAD821 /* KeyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
 		8010012F2B14C3A800DAD821 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		801001332B14C4BC00DAD821 /* CommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewController.swift; sourceTree = "<group>"; };
+		801001352B14FFEE00DAD821 /* Interceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interceptor.swift; sourceTree = "<group>"; };
+		801001532B170EFE00DAD821 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		807FFEC72B0F3DE000658FA9 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		80DED59D2B09E9F200885268 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		80DED5A22B0A392200885268 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -190,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				80084EF92B1206D20018E806 /* LoginViewModel.swift */,
+				801001532B170EFE00DAD821 /* HomeViewModel.swift */,
 				800960B62B0BABB600B3BE4B /* RegisterViewModel.swift */,
 			);
 			path = ViewModels;
@@ -210,6 +215,7 @@
 				800960CF2B0CE1F800B3BE4B /* APIManager.swift */,
 				80084EF72B108D600018E806 /* NetworkError.swift */,
 				807FFEC72B0F3DE000658FA9 /* APIRequest.swift */,
+				801001352B14FFEE00DAD821 /* Interceptor.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -318,6 +324,8 @@
 				800960B02B0B8CFC00B3BE4B /* CustomLabel.swift in Sources */,
 				80E46E972B089A99009A695B /* LoginViewController.swift in Sources */,
 				800960B92B0BB90B00B3BE4B /* Protocols.swift in Sources */,
+				801001542B170EFE00DAD821 /* HomeViewModel.swift in Sources */,
+				801001362B14FFEF00DAD821 /* Interceptor.swift in Sources */,
 				80084EFC2B1383B70018E806 /* HomeViewController.swift in Sources */,
 				800960B22B0B966300B3BE4B /* Color.swift in Sources */,
 				800960B72B0BABB600B3BE4B /* RegisterViewModel.swift in Sources */,

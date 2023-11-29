@@ -6,12 +6,21 @@
 //
 
 import UIKit
+import RxSwift
+import Moya
+
 
 final class HomeViewController: BaseViewController {
     
+    private let service = MoyaProvider<APIManager>()
+    private let userdefaults = UserDefaults()
+    
     override func configure() {
         super.configure()
-       
+        check()
+//        autoLogin()
+
+        
     }
     
     override func setConstraints() {
@@ -19,8 +28,26 @@ final class HomeViewController: BaseViewController {
         setNavigation()
     }
     
-   private func setNavigation() {
-       let titleLabel = UILabel()
+    private func check() {
+        guard let access = KeyChain.shared.read(key: "access") else { return }
+        guard let refresh = KeyChain.shared.read(key: "refresh") else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5)  {
+            if (KeyChain.shared.read(key: "access") != nil)  {
+                APIRequest.shared.refreshToken(token: access, refreshToken: refresh)
+                    .subscribe(with: self) { owner, result in
+                        print(result)
+                    } onFailure: { owner, error in
+                        print(error, "jijjhjyhjhjhj")
+                    }
+                    .disposed(by: self.disposeBag)
+            } else {
+                print("토큰없음")
+            }
+        }
+    }
+    
+    private func setNavigation() {
+        let titleLabel = UILabel()
         titleLabel.textColor = UIColor.black
         titleLabel.text = "RE"
         titleLabel.font = UIFont.systemFont(ofSize: 30, weight: .bold)

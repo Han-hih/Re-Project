@@ -14,7 +14,8 @@ final class APIRequest {
     
     static let shared = APIRequest()
     
-    let service = MoyaProvider<APIManager>()
+   private let service = MoyaProvider<APIManager>(session: Moya.Session(interceptor: Interceptor.shared))
+    
     
     func checkEmailDuplicate(email: String) -> Single<Result<EmailValidResult, NetworkError>> {
         return Single<Result<EmailValidResult, NetworkError>>.create { single in
@@ -84,6 +85,29 @@ final class APIRequest {
             }
             return Disposables.create()
         }
+    }
+    
+    func refreshToken(token: String, refreshToken: String) -> Single<Result<RefreshToken, Error>> {
+        return Single<Result<RefreshToken, Error>>.create { single in
+            self.service.request(APIManager.refresh(token: token, refreshToken: refreshToken)) { result in
+                switch result {
+                case .success(let response):
+                    guard let data = try? JSONDecoder().decode(RefreshToken.self, from: response.data) else {
+                        single(.success(.failure(NetworkError.decodingFailed)))
+                        return
+                    }
+                    single(.success(.success(data)))
+                case .failure(let error):
+                    guard let customError = NetworkError(rawValue: error.response?.statusCode ?? 1) else {
+                        single(.success(.failure(LoginError.unsignedValue)))
+                        return
+                    }
+                    single(.success(.failure(customError)))
+                }
+            }
+            return Disposables.create()
+        }
+        
     }
     
 }
