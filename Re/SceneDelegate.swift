@@ -10,15 +10,24 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    
+    var isLogin: Bool = UserDefaults().bool(forKey: "isLogin")
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         
+        if isLogin == false {
+            let loginVC = LoginViewContoller()
+            window?.rootViewController = loginVC
+        } else {
+            let mainVC = HomeViewController()
+            window?.rootViewController = mainVC
+        }
+        
         let tabBarController = UITabBarController()
         let firstVC = UINavigationController(rootViewController: HomeViewController())
-        let secondVC = UINavigationController(rootViewController: AddViewController())
+        let secondVC = AddViewController()
+//        UINavigationController(rootViewController: AddViewController())
         let thirdVC = UINavigationController(rootViewController: CommunityViewController())
         tabBarController.setViewControllers([firstVC, secondVC, thirdVC], animated: true)
         
