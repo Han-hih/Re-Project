@@ -53,7 +53,7 @@ final class AddViewController: BaseViewController {
         contentTextView.snp.makeConstraints  {
             $0.horizontalEdges.equalTo(titleTextField.snp.horizontalEdges)
             $0.top.equalTo(titleTextField.snp.bottom).offset(10)
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
@@ -83,6 +83,8 @@ final class AddViewController: BaseViewController {
         tv.text = textViewPlaceholder
         tv.textColor = .lightGray
         tv.font = .systemFont(ofSize: 15)
+        tv.showsVerticalScrollIndicator = true
+        tv.scrollsToTop = true
         tv.delegate = self
         return tv
     }()
