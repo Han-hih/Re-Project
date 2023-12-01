@@ -26,8 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let tabBarController = UITabBarController()
         let firstVC = UINavigationController(rootViewController: HomeViewController())
-        let secondVC = AddViewController()
-//        UINavigationController(rootViewController: AddViewController())
+        let secondVC = UINavigationController(rootViewController: AddViewController()) 
         let thirdVC = UINavigationController(rootViewController: CommunityViewController())
         tabBarController.setViewControllers([firstVC, secondVC, thirdVC], animated: true)
         

@@ -13,6 +13,7 @@ import IQKeyboardManagerSwift
 
 final class AddViewController: BaseViewController {
     
+    var window: UIWindow?
     
     override func configure() {
         super.configure()
@@ -22,10 +23,12 @@ final class AddViewController: BaseViewController {
     override func setConstraints() {
          super.setConstraints()
         setUI()
+        setNavi()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = true
         setKeyboardManagerEnable(false)
     }
     
@@ -34,28 +37,67 @@ final class AddViewController: BaseViewController {
         setKeyboardManagerEnable(true)
     }
     
+    private func setNavi() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: postButton)
+        navigationItem.hidesBackButton = true
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "multiply"), style: .done, target: self, action: #selector(closeButtonTapped))
+    }
+    
+    @objc func postButtonTapped() {
+        print("포스트")
+    }
+    
+    @objc func closeButtonTapped() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     private func setUI() {
-        [postButton, titleTextField, contentTextView].forEach {
-            view.addSubview($0)
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        [titleTextField, contentTextView].forEach {
+            scrollView.addSubview($0)
         }
-        postButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
-            $0.width.equalTo(50)
+        
+        scrollView.snp.makeConstraints {
+            $0.edges.equalTo(view)
+        }
+        
+        contentView.snp.makeConstraints {
+            $0.edges.equalTo(scrollView.snp.edges)
+            $0.width.equalTo(scrollView.snp.width)
         }
         
         titleTextField.snp.makeConstraints {
-            $0.top.equalTo(postButton.snp.bottom).offset(10)
-            $0.horizontalEdges.equalTo(view.safeAreaInsets).inset(10)
+            $0.top.equalTo(contentView.snp.top)
+            $0.horizontalEdges.equalTo(contentView.snp.horizontalEdges).inset(20)
             $0.height.equalTo(70)
         }
         
         contentTextView.snp.makeConstraints  {
-            $0.horizontalEdges.equalTo(titleTextField.snp.horizontalEdges)
+            $0.horizontalEdges.equalTo(contentView.snp.horizontalEdges).inset(20)
             $0.top.equalTo(titleTextField.snp.bottom).offset(10)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(contentView.snp.bottom)
+        }
+        
+        postButton.snp.makeConstraints {
+            $0.width.equalTo(50)
         }
     }
+    
+    private let scrollView = {
+            let scrollView = UIScrollView()
+            scrollView.backgroundColor = .white
+            scrollView.showsVerticalScrollIndicator = true
+            scrollView.scrollsToTop = true
+            scrollView.isScrollEnabled = true
+            return scrollView
+        }()
+    
+    private let contentView = {
+        let view = UIView()
+        
+        return view
+    }()
     
     private let postButton = {
         let bt = UIButton()
@@ -69,9 +111,23 @@ final class AddViewController: BaseViewController {
         return bt
     }()
     
+    private let photoButton = {
+        let bt = UIButton()
+        bt.setImage(UIImage(systemName: "camera.on.rectangle"), for: .normal)
+        
+        return bt
+    }()
+    
+    private let hashButton = {
+        let bt = UIButton()
+        bt.setImage(UIImage(systemName: "number.square"), for: .normal)
+        
+        return bt
+    }()
+    
     private let titleTextField = {
-        let tf = CustomTextField()
-        tf.placeholder = "제목"
+        let tf = UITextField()
+        tf.placeholder = " 제목"
         tf.font = .systemFont(ofSize: 30, weight: .semibold)
         return tf
     }()
@@ -83,8 +139,8 @@ final class AddViewController: BaseViewController {
         tv.text = textViewPlaceholder
         tv.textColor = .lightGray
         tv.font = .systemFont(ofSize: 15)
-        tv.showsVerticalScrollIndicator = true
-        tv.scrollsToTop = true
+        tv.showsVerticalScrollIndicator = false
+        tv.isScrollEnabled = false
         tv.delegate = self
         return tv
     }()
