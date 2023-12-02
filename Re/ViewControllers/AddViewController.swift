@@ -9,11 +9,16 @@ import UIKit
 
 import SnapKit
 import IQKeyboardManagerSwift
+import PhotosUI
 
 
 final class AddViewController: BaseViewController {
     
-    var window: UIWindow?
+    private let viewModel = AddViewModel()
+    
+     var selections = [String: PHPickerResult]()
+    
+     var selectedAssetIdentifier = [String]()
     
     override func configure() {
         super.configure()
@@ -173,21 +178,27 @@ final class AddViewController: BaseViewController {
     @objc func photoButtonTapped() {
         presentPicker()
     }
+    private func presentPicker() {
+        //이미지 identifierfmf 사용하기위해 초기화를 shared
+        var config = PHPickerConfiguration(photoLibrary: .shared())
+        //라이브러리에서 보여줄 asset을 필터
+        config.filter = PHPickerFilter.any(of: [.images])
+        // 다중 선택 갯수 설정 0 = 무제한
+        config.selectionLimit = 5
+        // 선택 동작을 나타냄
+        config.selection = .ordered
+        //트랜스코딩방지
+        config.preferredAssetRepresentationMode = .current
+        // 선택했던 이미지 기억
+        config.preselectedAssetIdentifiers = self.selectedAssetIdentifier
+        
+        let imagePicker = PHPickerViewController(configuration: config)
+        imagePicker.delegate = self
+        
+        self.present(imagePicker, animated: true)
+    }
+    private func setKeyboardManagerEnable(_ isEnabled: Bool) {
+        IQKeyboardManager.shared.enable = isEnabled
+    }
 }
 
-extension AddViewController: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == textViewPlaceholder {
-            textView.text = nil
-            textView.textColor = .black
-        }
-        
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            textView.text = textViewPlaceholder
-            textView.textColor = .lightGray
-        }
-    }
-}
