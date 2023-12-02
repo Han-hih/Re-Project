@@ -21,7 +21,7 @@ final class AddViewController: BaseViewController {
     
     
     override func setConstraints() {
-         super.setConstraints()
+        super.setConstraints()
         setUI()
         setNavi()
     }
@@ -30,11 +30,13 @@ final class AddViewController: BaseViewController {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = true
         setKeyboardManagerEnable(false)
+        IQKeyboardManager.shared.enableAutoToolbar = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         setKeyboardManagerEnable(true)
+        IQKeyboardManager.shared.enableAutoToolbar = true
     }
     
     private func setNavi() {
@@ -44,7 +46,7 @@ final class AddViewController: BaseViewController {
     }
     
     @objc func postButtonTapped() {
-        print("포스트")
+        print(contentTextView.text ?? "텍스트 없음")
     }
     
     @objc func closeButtonTapped() {
@@ -53,13 +55,18 @@ final class AddViewController: BaseViewController {
     
     private func setUI() {
         view.addSubview(scrollView)
+        view.addSubview(bottomView)
         scrollView.addSubview(contentView)
         [titleTextField, contentTextView].forEach {
             scrollView.addSubview($0)
         }
+        [photoButton].forEach {
+            bottomView.addSubview($0)
+        }
         
         scrollView.snp.makeConstraints {
-            $0.edges.equalTo(view)
+            $0.top.horizontalEdges.equalTo(view)
+            $0.bottom.equalTo(bottomView.snp.top).offset(-40)
         }
         
         contentView.snp.makeConstraints {
@@ -79,19 +86,33 @@ final class AddViewController: BaseViewController {
             $0.bottom.equalTo(contentView.snp.bottom)
         }
         
+        bottomView.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(50)
+        }
+        
+        photoButton.snp.makeConstraints {
+            $0.top.equalTo(bottomView.snp.top)
+            $0.leading.equalTo(bottomView.snp.leading).offset(20)
+            $0.height.equalTo(bottomView.snp.height)
+            $0.width.equalTo(photoButton.snp.height)
+        }
+        
         postButton.snp.makeConstraints {
             $0.width.equalTo(50)
         }
     }
     
     private let scrollView = {
-            let scrollView = UIScrollView()
-            scrollView.backgroundColor = .white
-            scrollView.showsVerticalScrollIndicator = true
-            scrollView.scrollsToTop = true
-            scrollView.isScrollEnabled = true
-            return scrollView
-        }()
+        let scrollView = UIScrollView()
+        scrollView.backgroundColor = .white
+        scrollView.showsVerticalScrollIndicator = true
+        scrollView.scrollsToTop = true
+        scrollView.isScrollEnabled = true
+        scrollView.keyboardDismissMode = .onDrag
+        return scrollView
+    }()
     
     private let contentView = {
         let view = UIView()
@@ -99,7 +120,7 @@ final class AddViewController: BaseViewController {
         return view
     }()
     
-    private let postButton = {
+    private lazy var postButton = {
         let bt = UIButton()
         bt.backgroundColor = Color.point.uiColor.withAlphaComponent(0.4)
         bt.setTitle("등록", for: .normal)
@@ -107,21 +128,20 @@ final class AddViewController: BaseViewController {
         bt.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
         bt.layer.cornerRadius = 8
         bt.clipsToBounds = true
-        
+        bt.addTarget(self, action: #selector(postButtonTapped), for: .touchUpInside)
         return bt
     }()
     
-    private let photoButton = {
-        let bt = UIButton()
-        bt.setImage(UIImage(systemName: "camera.on.rectangle"), for: .normal)
-        
+    private lazy var photoButton = {
+        let bt = CustomButton()
+        bt.setImage(UIImage(systemName: "camera"), for: .normal)
+        bt.addTarget(self, action: #selector(photoButtonTapped), for: .touchUpInside)
         return bt
     }()
     
     private let hashButton = {
-        let bt = UIButton()
-        bt.setImage(UIImage(systemName: "number.square"), for: .normal)
-        
+        let bt = CustomButton()
+        bt.setImage(UIImage(systemName: "tag"), for: .normal)
         return bt
     }()
     
@@ -133,8 +153,8 @@ final class AddViewController: BaseViewController {
     }()
     
     
-    private let textViewPlaceholder = "내용을 입력하세요"
-    private lazy var contentTextView = {
+     let textViewPlaceholder = "내용을 입력하세요"
+     lazy var contentTextView = {
         let tv = UITextView()
         tv.text = textViewPlaceholder
         tv.textColor = .lightGray
@@ -145,8 +165,13 @@ final class AddViewController: BaseViewController {
         return tv
     }()
     
-    private func setKeyboardManagerEnable(_ isEnabled: Bool) {
-        IQKeyboardManager.shared.enable = isEnabled
+    private let bottomView = {
+        let view = UIView()
+        return view
+    }()
+    
+    @objc func photoButtonTapped() {
+        presentPicker()
     }
 }
 
