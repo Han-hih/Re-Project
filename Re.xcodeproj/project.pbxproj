@@ -24,6 +24,10 @@
 		801001362B14FFEF00DAD821 /* Interceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801001352B14FFEE00DAD821 /* Interceptor.swift */; };
 		801001542B170EFE00DAD821 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801001532B170EFE00DAD821 /* HomeViewModel.swift */; };
 		801001562B176EA200DAD821 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801001552B176EA200DAD821 /* AccountViewController.swift */; };
+		806BA3092B1AC39000204230 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806BA3082B1AC39000204230 /* CustomButton.swift */; };
+		806BA30B2B1ACCDF00204230 /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806BA30A2B1ACCDF00204230 /* AddViewModel.swift */; };
+		806BA30D2B1B02EC00204230 /* ExtensionAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806BA30C2B1B02EC00204230 /* ExtensionAddViewController.swift */; };
+		806BA30F2B1B046100204230 /* ImageDownSampling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806BA30E2B1B046100204230 /* ImageDownSampling.swift */; };
 		807FFEC82B0F3DE000658FA9 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807FFEC72B0F3DE000658FA9 /* APIRequest.swift */; };
 		80DED59E2B09E9F200885268 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DED59D2B09E9F200885268 /* CustomTextField.swift */; };
 		80DED5A12B09FCA300885268 /* TextFieldEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 80DED5A02B09FCA300885268 /* TextFieldEffects */; };
@@ -63,6 +67,10 @@
 		801001352B14FFEE00DAD821 /* Interceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interceptor.swift; sourceTree = "<group>"; };
 		801001532B170EFE00DAD821 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		801001552B176EA200DAD821 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		806BA3082B1AC39000204230 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		806BA30A2B1ACCDF00204230 /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
+		806BA30C2B1B02EC00204230 /* ExtensionAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionAddViewController.swift; sourceTree = "<group>"; };
+		806BA30E2B1B046100204230 /* ImageDownSampling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownSampling.swift; sourceTree = "<group>"; };
 		807FFEC72B0F3DE000658FA9 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		80DED59D2B09E9F200885268 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		80DED5A22B0A392200885268 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -123,6 +131,7 @@
 			children = (
 				80DED59D2B09E9F200885268 /* CustomTextField.swift */,
 				800960AF2B0B8CFC00B3BE4B /* CustomLabel.swift */,
+				806BA3082B1AC39000204230 /* CustomButton.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -187,6 +196,7 @@
 				80DED5A22B0A392200885268 /* RegisterViewController.swift */,
 				80084EFB2B1383B70018E806 /* HomeViewController.swift */,
 				8010012F2B14C3A800DAD821 /* AddViewController.swift */,
+				806BA30C2B1B02EC00204230 /* ExtensionAddViewController.swift */,
 				801001332B14C4BC00DAD821 /* CommunityViewController.swift */,
 				801001552B176EA200DAD821 /* AccountViewController.swift */,
 			);
@@ -199,6 +209,7 @@
 				80084EF92B1206D20018E806 /* LoginViewModel.swift */,
 				801001532B170EFE00DAD821 /* HomeViewModel.swift */,
 				800960B62B0BABB600B3BE4B /* RegisterViewModel.swift */,
+				806BA30A2B1ACCDF00204230 /* AddViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -226,6 +237,7 @@
 		80E46EC72B08E681009A695B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				806BA30E2B1B046100204230 /* ImageDownSampling.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -326,9 +338,11 @@
 				80084EF82B108D600018E806 /* NetworkError.swift in Sources */,
 				801001562B176EA200DAD821 /* AccountViewController.swift in Sources */,
 				800960B02B0B8CFC00B3BE4B /* CustomLabel.swift in Sources */,
+				806BA3092B1AC39000204230 /* CustomButton.swift in Sources */,
 				80E46E972B089A99009A695B /* LoginViewController.swift in Sources */,
 				800960B92B0BB90B00B3BE4B /* Protocols.swift in Sources */,
 				801001542B170EFE00DAD821 /* HomeViewModel.swift in Sources */,
+				806BA30F2B1B046100204230 /* ImageDownSampling.swift in Sources */,
 				801001362B14FFEF00DAD821 /* Interceptor.swift in Sources */,
 				80084EFC2B1383B70018E806 /* HomeViewController.swift in Sources */,
 				800960B22B0B966300B3BE4B /* Color.swift in Sources */,
@@ -338,11 +352,13 @@
 				801001302B14C3A800DAD821 /* AddViewController.swift in Sources */,
 				8010012E2B145D2100DAD821 /* KeyChain.swift in Sources */,
 				80E46E932B089A99009A695B /* AppDelegate.swift in Sources */,
+				806BA30D2B1B02EC00204230 /* ExtensionAddViewController.swift in Sources */,
 				80084EFA2B1206D20018E806 /* LoginViewModel.swift in Sources */,
 				80E46EA92B08A164009A695B /* APIKey.swift in Sources */,
 				800960D02B0CE1F800B3BE4B /* APIManager.swift in Sources */,
 				800960AE2B0B702700B3BE4B /* ValidationCheck.swift in Sources */,
 				800960D32B0D1A4600B3BE4B /* NetworkModel.swift in Sources */,
+				806BA30B2B1ACCDF00204230 /* AddViewModel.swift in Sources */,
 				807FFEC82B0F3DE000658FA9 /* APIRequest.swift in Sources */,
 				801001342B14C4BC00DAD821 /* CommunityViewController.swift in Sources */,
 				80E46E952B089A99009A695B /* SceneDelegate.swift in Sources */,
