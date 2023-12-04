@@ -28,6 +28,7 @@
 		806BA30B2B1ACCDF00204230 /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806BA30A2B1ACCDF00204230 /* AddViewModel.swift */; };
 		806BA30D2B1B02EC00204230 /* ExtensionAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806BA30C2B1B02EC00204230 /* ExtensionAddViewController.swift */; };
 		806BA30F2B1B046100204230 /* ImageDownSampling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806BA30E2B1B046100204230 /* ImageDownSampling.swift */; };
+		806BA3132B1C705400204230 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806BA3122B1C705400204230 /* SplashViewController.swift */; };
 		807FFEC82B0F3DE000658FA9 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807FFEC72B0F3DE000658FA9 /* APIRequest.swift */; };
 		80DED59E2B09E9F200885268 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DED59D2B09E9F200885268 /* CustomTextField.swift */; };
 		80DED5A12B09FCA300885268 /* TextFieldEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 80DED5A02B09FCA300885268 /* TextFieldEffects */; };
@@ -71,6 +72,7 @@
 		806BA30A2B1ACCDF00204230 /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
 		806BA30C2B1B02EC00204230 /* ExtensionAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionAddViewController.swift; sourceTree = "<group>"; };
 		806BA30E2B1B046100204230 /* ImageDownSampling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownSampling.swift; sourceTree = "<group>"; };
+		806BA3122B1C705400204230 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		807FFEC72B0F3DE000658FA9 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		80DED59D2B09E9F200885268 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		80DED5A22B0A392200885268 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				80E46EA62B08A0D2009A695B /* .gitignore */,
 				80E46E922B089A99009A695B /* AppDelegate.swift */,
 				80E46E942B089A99009A695B /* SceneDelegate.swift */,
+				80E46EA02B089A9A009A695B /* Info.plist */,
 				80DED59A2B09E92500885268 /* Utils */,
 				80E46EC72B08E681009A695B /* Extensions */,
 				80E46EC62B08E64D009A695B /* Network */,
@@ -176,7 +179,7 @@
 				80E46EC22B08E61E009A695B /* Base */,
 				80E46E9B2B089A9A009A695B /* Assets.xcassets */,
 				80E46E9D2B089A9A009A695B /* LaunchScreen.storyboard */,
-				80E46EA02B089A9A009A695B /* Info.plist */,
+				806BA3122B1C705400204230 /* SplashViewController.swift */,
 			);
 			path = Re;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				806BA3132B1C705400204230 /* SplashViewController.swift in Sources */,
 				80E46EC92B08E75A009A695B /* BaseViewController.swift in Sources */,
 				80084EF82B108D600018E806 /* NetworkError.swift in Sources */,
 				801001562B176EA200DAD821 /* AccountViewController.swift in Sources */,

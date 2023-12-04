@@ -52,6 +52,7 @@ final class AddViewController: BaseViewController {
     
     @objc func postButtonTapped() {
         print(contentTextView.text ?? "텍스트 없음")
+        APIRequest.shared.posting(param: Posting(title: titleTextField.text ?? "", content: contentTextView.text, file: Data()))
     }
     
     @objc func closeButtonTapped() {

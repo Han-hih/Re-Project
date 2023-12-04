@@ -110,4 +110,20 @@ final class APIRequest {
         
     }
     
+    func posting(param: Posting) {
+        self.service.request(APIManager.post(param)) { result in
+            switch result {
+            case .success(let response):
+                guard let data = try? JSONDecoder().decode(PostingGet.self, from: response.data) else {
+                    print(response.statusCode)
+                    print(NetworkError.decodingFailed)
+                    return
+                }
+                
+            case .failure(let error):
+                print("Error: \(error.localizedDescription)")
+                
+            }
+        }
+    }
 }
