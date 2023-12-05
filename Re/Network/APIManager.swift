@@ -14,12 +14,11 @@ enum APIManager {
     case join(email: String, password: String, nick: String)
     case login(email: String, password: String)
     case refresh(token: String, refreshToken: String)
+    case post(Posting)
 }
 
 
 extension APIManager: TargetType {
-    
-    
     
     var baseURL: URL {
         guard let url = URL(string: APIKey.baseURL) else { fatalError() }
@@ -36,6 +35,8 @@ extension APIManager: TargetType {
             return "login"
         case .refresh(token: _, refreshToken: _):
             return "refresh"
+        case .post:
+            return "post"
         }
     }
     
@@ -49,6 +50,8 @@ extension APIManager: TargetType {
             return .post
         case .refresh:
             return .get
+        case .post:
+            return .post
         }
     }
     
@@ -62,6 +65,16 @@ extension APIManager: TargetType {
             return .requestParameters(parameters: ["email": email, "password": password], encoding: JSONEncoding.default)
         case .refresh(token: _, refreshToken: _):
             return .requestPlain
+        case let .post(Posting):
+            let titleProvider = MultipartFormData(provider: .data(Posting.title.data(using: .utf8) ?? Data()), name: "title")
+            let contentProvider = MultipartFormData(provider: .data(Posting.content.data(using: .utf8) ?? Data()), name: "content")
+            let imageProvider = MultipartFormData(provider: MultipartFormData.FormDataProvider.data(Posting.file ?? Data()),name: "file", mimeType: "image/jpeg")
+            
+            
+            
+            let multipartData = [titleProvider, contentProvider, imageProvider]
+            
+            return .uploadMultipart(multipartData)
         }
     }
     
@@ -78,6 +91,10 @@ extension APIManager: TargetType {
             return ["Authorization": KeyChain.shared.read(key: "access") ?? "",
                     "SesacKey": "\(APIKey.apiKey)",
                     "Refresh": KeyChain.shared.read(key: "refresh") ?? ""]
+        case .post:
+            return ["Authorization": KeyChain.shared.read(key: "access") ?? "",
+                    "Content-Type": "multipart/form-data",
+                    "SesacKey": "\(APIKey.apiKey)"]
         }
         
     }

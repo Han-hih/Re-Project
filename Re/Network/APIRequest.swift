@@ -15,6 +15,7 @@ final class APIRequest {
     static let shared = APIRequest()
     
    private let service = MoyaProvider<APIManager>(session: Moya.Session(interceptor: Interceptor.shared))
+    private let testService = MoyaProvider<APIManager>()
     
     
     func checkEmailDuplicate(email: String) -> Single<Result<EmailValidResult, NetworkError>> {
@@ -111,15 +112,15 @@ final class APIRequest {
     }
     
     func posting(param: Posting) {
-        self.service.request(APIManager.post(param)) { result in
+        self.testService.request(APIManager.post(param)) { result in
             switch result {
             case .success(let response):
-                guard let data = try? JSONDecoder().decode(PostingGet.self, from: response.data) else {
+                guard let data = try? JSONDecoder().decode(Posting.self, from: response.data) else {
                     print(response.statusCode)
                     print(NetworkError.decodingFailed)
                     return
                 }
-                
+                print(data)
             case .failure(let error):
                 print("Error: \(error.localizedDescription)")
                 
