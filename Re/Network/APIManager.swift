@@ -15,6 +15,7 @@ enum APIManager {
     case login(email: String, password: String)
     case refresh(token: String, refreshToken: String)
     case post(Posting)
+    case get
 }
 
 
@@ -35,26 +36,19 @@ extension APIManager: TargetType {
             return "login"
         case .refresh(token: _, refreshToken: _):
             return "refresh"
-        case .post:
+        case .post, .get:
             return "post"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .emailValid:
+        case .emailValid, .join, .login, .post:
             return .post
-        case .join:
-            return.post
-        case .login:
-            return .post
-        case .refresh:
+        case .refresh, .get:
             return .get
-        case .post:
-            return .post
         }
     }
-    
     var task: Task {
         switch self {
         case .emailValid(let email):
@@ -68,13 +62,17 @@ extension APIManager: TargetType {
         case let .post(Posting):
             let titleProvider = MultipartFormData(provider: .data(Posting.title.data(using: .utf8) ?? Data()), name: "title")
             let contentProvider = MultipartFormData(provider: .data(Posting.content.data(using: .utf8) ?? Data()), name: "content")
+            let creatorProvider = MultipartFormData(provider: .data(Posting.product_id.data(using: .utf8) ?? Data()), name: "product_id")
+            
+            
             let imageProvider = MultipartFormData(provider: MultipartFormData.FormDataProvider.data(Posting.file ?? Data()),name: "file", mimeType: "image/jpeg")
-            
-            
-            
-            let multipartData = [titleProvider, contentProvider, imageProvider]
+         
+            let multipartData = [titleProvider, contentProvider, creatorProvider, imageProvider]
             
             return .uploadMultipart(multipartData)
+        case .get:
+            return .requestParameters(parameters: ["product_id": "\(APIKey.product_id)"], encoding: URLEncoding.queryString)
+            
         }
     }
     
@@ -95,6 +93,10 @@ extension APIManager: TargetType {
             return ["Authorization": KeyChain.shared.read(key: "access") ?? "",
                     "Content-Type": "multipart/form-data",
                     "SesacKey": "\(APIKey.apiKey)"]
+        case .get:
+            return ["Authorization": KeyChain.shared.read(key: "access") ?? "",
+                    "SesacKey": "\(APIKey.apiKey)"
+            ]
         }
         
     }

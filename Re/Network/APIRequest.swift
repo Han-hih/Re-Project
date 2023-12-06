@@ -127,4 +127,23 @@ final class APIRequest {
             }
         }
     }
+    
+    func getPost(completionHandler: @escaping (getTest?) -> Void) {
+        self.service.request(APIManager.get) { result in
+            switch result {
+            case .success(let response):
+                guard let data = try? JSONDecoder().decode(getTest.self, from: response.data) else {
+                    print(response.statusCode)
+                    
+                    return
+                }
+                print(data)
+                completionHandler(data)
+            case .failure(let error):
+                print("getError: \(error.localizedDescription)")
+            }
+        }
+        
+        
+    }
 }
