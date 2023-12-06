@@ -19,10 +19,8 @@ final class KeyChain {
             kSecValueData: token.data(using: .utf8, allowLossyConversion: false) as Any
         ]
         SecItemDelete(query)
-//        SecItemAdd(addQuery, nil)
-        let status: OSStatus = SecItemAdd(query, nil)
-        assert(status == noErr, "토큰 값 저장에 실패했습니다.")
-        NSLog("status = \(status)")
+        let status = SecItemAdd(query, nil)
+          assert(status == noErr, "failed to save Token")
     }
         
     func read(key: String) -> String? {
@@ -45,6 +43,15 @@ final class KeyChain {
             return  nil
         }
         
+    }
+    
+    class func delete(key: String) {
+        let query: NSDictionary = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrAccount: key
+        ]
+        let status = SecItemDelete(query)
+        assert(status == noErr, "failed to delete the value, status code = \(status)")
     }
     
 }
