@@ -11,23 +11,17 @@ import PhotosUI
 extension AddViewController: UITextViewDelegate {
     
     func insertImage(_ image: UIImage) {
-        let textAttachment = NSTextAttachment()
-        textAttachment.image = image
         
-        let scaleFactor = contentTextView.frame.width / image.size.width
-        let newImageSize = CGSize(width: contentTextView.frame.width, height: image.size.height * scaleFactor)
-        textAttachment.bounds = CGRect(origin: .zero, size: newImageSize)
+        photoImageView.image = image
         
         
+        let scaleFactor = photoImageView.frame.width / image.size.width
+        let newImageSize = CGSize(width: photoImageView.frame.width, height: image.size.height * scaleFactor)
+        photoImageView.bounds = CGRect(origin: .zero, size: newImageSize)
         
-        let attributedString = NSMutableAttributedString(attachment: textAttachment)
-        attributedString.append(NSAttributedString(string: "\n"))
         
-        if let selectedRange = contentTextView.selectedTextRange {
-            let start = selectedRange.start
-            contentTextView.replace(selectedRange, withText: "")
-            contentTextView.textStorage.insert(attributedString, at: contentTextView.offset(from: contentTextView.beginningOfDocument, to: start))
-        }
+        
+       
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {

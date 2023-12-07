@@ -52,8 +52,11 @@ final class AddViewController: BaseViewController {
     
     @objc func postButtonTapped() {
         print(contentTextView.text ?? "텍스트 없음")
-        APIRequest.shared.posting(param: Posting(title: titleTextField.text ?? "", content: contentTextView.text, file: Data()))
-    }
+        
+        }
+        
+        
+    
     
     @objc func closeButtonTapped() {
         self.navigationController?.popViewController(animated: true)
@@ -63,7 +66,7 @@ final class AddViewController: BaseViewController {
         view.addSubview(scrollView)
         view.addSubview(bottomView)
         scrollView.addSubview(contentView)
-        [titleTextField, contentTextView].forEach {
+        [titleTextField, contentTextView, photoImageView].forEach {
             scrollView.addSubview($0)
         }
         [photoButton].forEach {
@@ -86,9 +89,15 @@ final class AddViewController: BaseViewController {
             $0.height.equalTo(70)
         }
         
-        contentTextView.snp.makeConstraints  {
+        photoImageView.snp.makeConstraints {
             $0.horizontalEdges.equalTo(contentView.snp.horizontalEdges).inset(20)
             $0.top.equalTo(titleTextField.snp.bottom).offset(10)
+            $0.height.equalTo(view.snp.height).multipliedBy(0.3)
+        }
+        
+        contentTextView.snp.makeConstraints  {
+            $0.horizontalEdges.equalTo(contentView.snp.horizontalEdges).inset(20)
+            $0.top.equalTo(photoImageView.snp.bottom).offset(10)
             $0.bottom.equalTo(contentView.snp.bottom)
         }
         
@@ -156,6 +165,12 @@ final class AddViewController: BaseViewController {
         tf.placeholder = " 제목"
         tf.font = .systemFont(ofSize: 30, weight: .semibold)
         return tf
+    }()
+    
+     let photoImageView = {
+        let view = UIImageView()
+        view.backgroundColor = .red
+        return view
     }()
     
     
