@@ -51,8 +51,6 @@ final class AddViewController: BaseViewController {
     }
     
     @objc func postButtonTapped() {
-        print(contentTextView.text ?? "텍스트 없음")
-        print(photoImageView.image?.jpegData(compressionQuality: 1))
         APIRequest.shared.posting(param: Posting(title: titleTextField.text ?? "" , content: contentTextView.text, file: photoImageView.image?.jpegData(compressionQuality: 0.1), product_id: APIKey.product_id))
         }
         
@@ -60,10 +58,8 @@ final class AddViewController: BaseViewController {
     
     
     @objc func closeButtonTapped() {
-        if let tabBarController = self.tabBarController {
-            let targetTabIndex = 0
-            tabBarController.selectedIndex = targetTabIndex
-        }
+        self.tabBarController?.selectedIndex = 0
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     private func setUI() {
