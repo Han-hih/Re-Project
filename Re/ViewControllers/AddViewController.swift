@@ -52,14 +52,18 @@ final class AddViewController: BaseViewController {
     
     @objc func postButtonTapped() {
         print(contentTextView.text ?? "텍스트 없음")
-        
+        print(photoImageView.image?.jpegData(compressionQuality: 1))
+        APIRequest.shared.posting(param: Posting(title: titleTextField.text ?? "" , content: contentTextView.text, file: photoImageView.image?.jpegData(compressionQuality: 0.1), product_id: APIKey.product_id))
         }
         
         
     
     
     @objc func closeButtonTapped() {
-        self.navigationController?.popViewController(animated: true)
+        if let tabBarController = self.tabBarController {
+            let targetTabIndex = 0
+            tabBarController.selectedIndex = targetTabIndex
+        }
     }
     
     private func setUI() {
@@ -169,7 +173,6 @@ final class AddViewController: BaseViewController {
     
      let photoImageView = {
         let view = UIImageView()
-        view.backgroundColor = .red
         return view
     }()
     
@@ -200,7 +203,7 @@ final class AddViewController: BaseViewController {
         //라이브러리에서 보여줄 asset을 필터
         config.filter = PHPickerFilter.any(of: [.images])
         // 다중 선택 갯수 설정 0 = 무제한
-        config.selectionLimit = 5
+        config.selectionLimit = 1
         // 선택 동작을 나타냄
         config.selection = .ordered
         //트랜스코딩방지
