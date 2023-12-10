@@ -6,21 +6,17 @@
 //
 
 import UIKit
-import RxSwift
-import Moya
 
+import Moya
+import Kingfisher
 
 final class HomeViewController: BaseViewController {
     
-    private let service = MoyaProvider<APIManager>()
-    private let userdefaults = UserDefaults()
+    private let viewModel = HomeViewModel()
     
     override func configure() {
         super.configure()
-        
-        //        autoLogin()
-        
-        
+        setUI()
     }
     
     override func setConstraints() {
@@ -28,53 +24,13 @@ final class HomeViewController: BaseViewController {
         setNavigation()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        check()
-    }
-    private func check() {
-        guard let access = KeyChain.shared.read(key: "access") else { return }
-        guard let refresh = KeyChain.shared.read(key: "refresh") else { return }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5)  {
-            if (KeyChain.shared.read(key: "access") != nil)  {
-                APIRequest.shared.refreshToken(token: access, refreshToken: refresh)
-                    .subscribe(with: self) { owner, result in
-                        switch result {
-                        case .success(let response):
-                            print(response.token)
-                        case .failure(let error):
-                            print(error.rawValue)
-                            if error.rawValue == 418 {
-                                let vc = LoginViewContoller()
-                                self.navigationController?.pushViewController(vc, animated: true)
-                                owner.userdefaults.removeObject(forKey: "isLogin")
-                            }
-                            
-                        }
-                        print(result)
-                    } onFailure: { owner, error in
-                        print(error, "jijjhjyhjhjhj")
-                    }
-                    .disposed(by: self.disposeBag)
-            } else {
-                print("토큰없음")
-            }
-        }
-    }
-    
-    
-    
     private func setNavigation() {
         let titleLabel = UILabel()
         titleLabel.textColor = UIColor.black
         titleLabel.text = "RE"
         titleLabel.font = UIFont.systemFont(ofSize: 30, weight: .bold)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: titleLabel)
-        if userdefaults.bool(forKey: "isLogin") == true {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.circle"), style: .done, target: self, action: #selector(myButtonTapped))
-        } else {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "로그인을 해주세요", style: .done, target: self, action: #selector(loginButtonTapped))
-        }
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "로그인을 해주세요", style: .done, target: self, action: #selector(loginButtonTapped))
     }
     @objc func myButtonTapped() {
         let vc = AccountViewController()
@@ -83,6 +39,41 @@ final class HomeViewController: BaseViewController {
     @objc func loginButtonTapped() {
         let vc = LoginViewContoller()
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func setUI() {
+        [tableView].forEach {
+            view.addSubview($0)
+        }
+        
+        tableView.snp.makeConstraints {
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+    }
+    
+    private lazy var tableView = {
+        let view = UITableView()
+        view.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.identifier)
+        view.rowHeight = 150
+        view.separatorStyle = .singleLine
+        view.backgroundColor = .red
+        view.delegate = self
+        view.dataSource = self
+        return view
+    }()
+}
+
+
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 20
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.identifier, for: indexPath) as? HomeTableViewCell else { return UITableViewCell() }
+        
+        return cell
     }
     
     
