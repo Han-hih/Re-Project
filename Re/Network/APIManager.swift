@@ -13,7 +13,7 @@ enum APIManager {
     case emailValid(email: String)
     case join(email: String, password: String, nick: String)
     case login(email: String, password: String)
-    case refresh(token: String, refreshToken: String)
+    case refresh
     case post(Posting)
     case get
 }
@@ -34,7 +34,7 @@ extension APIManager: TargetType {
             return "join"
         case .login(email: _, password: _):
             return "login"
-        case .refresh(token: _, refreshToken: _):
+        case .refresh:
             return "refresh"
         case .post, .get:
             return "post"
@@ -57,7 +57,7 @@ extension APIManager: TargetType {
             return .requestParameters(parameters: ["email": email, "password": password, "nick": nick], encoding: JSONEncoding.default)
         case .login(email: let email, password: let password):
             return .requestParameters(parameters: ["email": email, "password": password], encoding: JSONEncoding.default)
-        case .refresh(token: _, refreshToken: _):
+        case .refresh:
             return .requestPlain
         case let .post(Posting):
             let titleProvider = MultipartFormData(provider: .data(Posting.title.data(using: .utf8) ?? Data()), name: "title")

@@ -88,34 +88,27 @@ final class APIRequest {
         }
     }
     
-    func refreshToken(token: String, refreshToken: String) -> Single<Result<RefreshToken, NetworkError>> {
-        return Single<Result<RefreshToken, NetworkError>>.create { single in
-            self.service.request(APIManager.refresh(token: token, refreshToken: refreshToken)) { result in
-                switch result {
-                case .success(let response):
-                    guard let data = try? JSONDecoder().decode(RefreshToken.self, from: response.data) else {
-                        single(.success(.failure(NetworkError.decodingFailed)))
-                        return
-                    }
-                    single(.success(.success(data)))
-                case .failure(let error):
-                    guard let customError = NetworkError(rawValue: error.response?.statusCode ?? 1) else {
-                        single(.success(.failure(NetworkError(rawValue: LoginError.unsignedValue.rawValue)!)))
-                        return
-                    }
-                    single(.success(.failure(customError)))
-                }
-            }
-            return Disposables.create()
-        }
-        
-    }
-    
-    func posting(param: Posting) {
-        self.testService.request(APIManager.post(param)) { result in
+    func refreshToken() {
+        self.testService.request(APIManager.refresh) { result in
             switch result {
             case .success(let response):
-                guard let data = try? JSONDecoder().decode(Posting.self, from: response.data) else {
+                guard let data = try? JSONDecoder().decode(RefreshToken.self, from: response.data) else {
+                    print(response.statusCode)
+                    return
+                }
+                KeyChain.shared.create(key: "access", token: data.token)
+            case .failure(let error):
+                print("Error: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    
+    func posting(param: Posting) {
+        self.service.request(APIManager.post(param)) { result in
+            switch result {
+            case .success(let response):
+                guard let data = try? JSONDecoder().decode(getTest.self, from: response.data) else {
                     print(response.statusCode)
                     print(NetworkError.decodingFailed)
                     return
@@ -132,13 +125,14 @@ final class APIRequest {
         self.service.request(APIManager.get) { result in
             switch result {
             case .success(let response):
-                guard let data = try? JSONDecoder().decode(getTest.self, from: response.data) else {
-                    print(response.statusCode)
-                    
-                    return
-                }
-                print(data)
-                completionHandler(data)
+                    guard let data = try? JSONDecoder().decode(getTest.self, from: response.data) else {
+                        print(response.statusCode)
+                        
+                        return
+                    }
+                    print(data)
+                    completionHandler(data)
+                
             case .failure(let error):
                 print("getError: \(error.localizedDescription)")
             }
