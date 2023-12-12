@@ -63,13 +63,16 @@ extension APIManager: TargetType {
             let titleProvider = MultipartFormData(provider: .data(Posting.title.data(using: .utf8) ?? Data()), name: "title")
             let contentProvider = MultipartFormData(provider: .data(Posting.content.data(using: .utf8) ?? Data()), name: "content")
             let creatorProvider = MultipartFormData(provider: .data(Posting.product_id.data(using: .utf8) ?? Data()), name: "product_id")
-            let imageProvider = MultipartFormData(provider: .data(Posting.file ?? Data()), name: "file",fileName: "file.jpeg", mimeType: "image/jpeg")
+            let imageProvider = MultipartFormData(provider: .data(Posting.file?.jpegData(compressionQuality: 0.1) ?? Data()), name: "file",fileName: "image.jpeg", mimeType: "image/jpeg")
             
             let multipartData = [titleProvider, contentProvider, creatorProvider, imageProvider]
             
             return .uploadMultipart(multipartData)
         case .get:
-            return .requestParameters(parameters: ["product_id": "\(APIKey.product_id)"], encoding: URLEncoding.queryString)
+            return .requestParameters(parameters: [
+                "limit": "10",
+                "product_id": "\(APIKey.product_id)"
+            ], encoding: URLEncoding.queryString)
             
         }
     }
