@@ -72,7 +72,12 @@ final class AddViewController: BaseViewController {
     }
     
     @objc func postButtonTapped() {
-        APIRequest.shared.posting(param: Posting(title: titleTextField.text ?? "" , content: contentTextView.text, file: photoImageView.image?.jpegData(compressionQuality: 0.1), product_id: APIKey.product_id))
+        APIRequest.shared.posting(param: Posting(title: titleTextField.text ?? "" , content: contentTextView.text, file: photoImageView.image, product_id: APIKey.product_id))
+        titleTextField.text = ""
+        contentTextView.text = ""
+        photoImageView.image = nil
+        self.tabBarController?.selectedIndex = 0
+        self.tabBarController?.tabBar.isHidden = false
         }
         
         
