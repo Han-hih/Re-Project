@@ -14,15 +14,11 @@ final class HomeViewController: BaseViewController {
     
     private let viewModel = HomeViewModel()
     
-    var getData: getTest?
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        APIRequest.shared.getPost { result in
-            self.getData = result
-            self.tableView.reloadData()
-        }
+        getDataSetTableView()
     }
+    
     override func configure() {
         super.configure()
         setUI()
@@ -31,16 +27,14 @@ final class HomeViewController: BaseViewController {
     override func setConstraints() {
         super.setConstraints()
         setNavigation()
-        getPost()
-        
-//        print(getData.count)
-        
+        getDataSetTableView()
     }
     
-    private func getPost() {
-        APIRequest.shared.getPost { result in
-            self.getData = result
-            self.tableView.reloadData()
+    private func getDataSetTableView() {
+        viewModel.getPost {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -77,7 +71,6 @@ final class HomeViewController: BaseViewController {
         view.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.identifier)
         view.rowHeight = 150
         view.separatorStyle = .singleLine
-        view.backgroundColor = .red
         view.delegate = self
         view.dataSource = self
         return view
@@ -86,23 +79,20 @@ final class HomeViewController: BaseViewController {
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let data = getData else { return 0 }
-        return getData?.data.count ?? 0
+        guard let data = viewModel.getData else { return 0 }
+        return data.data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.identifier, for: indexPath) as? HomeTableViewCell else { return UITableViewCell() }
-        guard let data = getData else { return UITableViewCell() }
+        
+        guard let data = viewModel.getData else { return UITableViewCell() }
+        
+        let url = URL(string: APIKey.baseURL + (data.data[indexPath.row].image.first ?? "" + ".jpeg"))
+        
         cell.titleTextView.text = data.data[indexPath.row].title
         cell.nickNameLabel.text = data.data[indexPath.row].creator.nick
-        let modifier = AnyModifier { request in
-            var request = request
-            request.setValue(KeyChain.shared.read(key: "access") ?? "", forHTTPHeaderField: "Authorization")
-            request.setValue(APIKey.apiKey, forHTTPHeaderField: "SesacKey")
-            return request
-        }
-        let url = URL(string: APIKey.baseURL + (data.data[indexPath.row].image.first ?? "" + ".jpeg"))
-        cell.photoImageView.kf.setImage(with: url, options: [.requestModifier(modifier)]) { result in
+        cell.photoImageView.kf.setImage(with: url, options: [.requestModifier(viewModel.modifier)]) { result in
             switch result {
             case .success:
                 print("성공")
@@ -110,7 +100,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                 print("실패")
             }
         }
-
         return cell
     }
 }
