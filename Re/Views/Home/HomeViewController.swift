@@ -97,6 +97,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         cell.photoImageView.kf.setImage(with: url, options: [.requestModifier(viewModel.modifier)])
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = HomeDetailViewController()
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 extension HomeViewController: UITableViewDataSourcePrefetching {
