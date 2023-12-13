@@ -10,14 +10,21 @@ import Kingfisher
 
 final class HomeViewModel {
     
-    var nextCursor: String?
+    var nextCursor: String? = ""
     
-    var getData: getTest? = nil
-    
+    var getData = [Datum?]()
+
     func getPost(completion: @escaping () -> Void) {
-        APIRequest.shared.getPost { result in
-            self.getData = result
-            completion()
+        guard let next = self.nextCursor else { return }
+        APIRequest.shared.getPost(page: self.nextCursor ?? "") { result in
+            guard let result = result else { return }
+            if next != "0" {
+                self.nextCursor = result.nextCursor
+                self.getData.append(contentsOf: result.data)
+                completion()
+            } else if next == "0" {
+                print("끝")
+            }
         }
     }
     
@@ -27,6 +34,9 @@ final class HomeViewModel {
         request.setValue(APIKey.apiKey, forHTTPHeaderField: "SesacKey")
         return request
     }
+    
+    
+    
     
     
 }

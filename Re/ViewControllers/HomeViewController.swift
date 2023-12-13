@@ -28,10 +28,11 @@ final class HomeViewController: BaseViewController {
         super.setConstraints()
         setNavigation()
         getDataSetTableView()
+        
     }
     
     private func getDataSetTableView() {
-        viewModel.getPost {
+        viewModel.getPost() {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -73,33 +74,38 @@ final class HomeViewController: BaseViewController {
         view.separatorStyle = .singleLine
         view.delegate = self
         view.dataSource = self
+        view.prefetchDataSource = self
         return view
     }()
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let data = viewModel.getData else { return 0 }
-        return data.data.count
+        let data = viewModel.getData
+        return data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.identifier, for: indexPath) as? HomeTableViewCell else { return UITableViewCell() }
         
-        guard let data = viewModel.getData else { return UITableViewCell() }
+         let data = viewModel.getData
         
-        let url = URL(string: APIKey.baseURL + (data.data[indexPath.row].image.first ?? "" + ".jpeg"))
-        
-        cell.titleTextView.text = data.data[indexPath.row].title
-        cell.nickNameLabel.text = data.data[indexPath.row].creator.nick
-        cell.photoImageView.kf.setImage(with: url, options: [.requestModifier(viewModel.modifier)]) { result in
-            switch result {
-            case .success:
-                print("성공")
-            case .failure:
-                print("실패")
+        let url = URL(string: APIKey.baseURL + (data[indexPath.row]?.image.first ?? "" + ".jpeg"))
+
+        cell.titleTextView.text = data[indexPath.row]?.title
+        cell.nickNameLabel.text = data[indexPath.row]?.creator.nick
+        cell.photoImageView.kf.setImage(with: url, options: [.requestModifier(viewModel.modifier)])
+        return cell
+    }
+}
+
+extension HomeViewController: UITableViewDataSourcePrefetching {
+    
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        for indexPath in indexPaths {
+            if viewModel.getData.count - 1 == indexPath.row {
+                getDataSetTableView()
             }
         }
-        return cell
     }
 }
