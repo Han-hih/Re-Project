@@ -14,7 +14,7 @@ final class APIRequest {
     
     static let shared = APIRequest()
     
-   private let service = MoyaProvider<APIManager>(session: Moya.Session(interceptor: Interceptor.shared))
+    private let service = MoyaProvider<APIManager>(session: Moya.Session(interceptor: Interceptor.shared))
     private let testService = MoyaProvider<APIManager>()
     
     
@@ -121,23 +121,34 @@ final class APIRequest {
         }
     }
     
-    func getPost(completionHandler: @escaping (getTest?) -> Void) {
-        self.service.request(APIManager.get) { result in
+//    func apiRequest<T: Decodable>(Type: T, completion: @escaping (T) -> Void) {
+//        self.service.request(APIManager.get) { result in
+//            switch result {
+//            case .success(let response):
+//                print(response.data)
+//            case .failure(let error):
+//                print(error)
+//            }
+//            
+//        }
+//    }
+    
+    
+   
+    func getPost(page: String, completionHandler: @escaping (getTest?) -> Void) {
+        self.testService.request(APIManager.get(page: page)) { result in
             switch result {
             case .success(let response):
-                    guard let data = try? JSONDecoder().decode(getTest.self, from: response.data) else {
-                        print(response.statusCode)
-                        
-                        return
-                    }
-                    print(data)
-                    completionHandler(data)
+                guard let data = try? JSONDecoder().decode(getTest.self, from: response.data) else {
+                    print(response.statusCode)
+                    return
+                }
+                completionHandler(data)
                 
             case .failure(let error):
                 print("getError: \(error.localizedDescription)")
             }
         }
-        
-        
     }
+    
 }

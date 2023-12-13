@@ -15,7 +15,7 @@ enum APIManager {
     case login(email: String, password: String)
     case refresh
     case post(Posting)
-    case get
+    case get(page: String)
 }
 
 
@@ -49,6 +49,7 @@ extension APIManager: TargetType {
             return .get
         }
     }
+    
     var task: Task {
         switch self {
         case .emailValid(let email):
@@ -68,12 +69,12 @@ extension APIManager: TargetType {
             let multipartData = [titleProvider, contentProvider, creatorProvider, imageProvider]
             
             return .uploadMultipart(multipartData)
-        case .get:
+        case .get(page: var page):
             return .requestParameters(parameters: [
+                "next": page,
                 "limit": "10",
                 "product_id": "\(APIKey.product_id)"
             ], encoding: URLEncoding.queryString)
-            
         }
     }
     
