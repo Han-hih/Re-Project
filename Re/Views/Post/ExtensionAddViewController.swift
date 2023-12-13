@@ -18,10 +18,6 @@ extension AddViewController: UITextViewDelegate {
         let scaleFactor = photoImageView.frame.width / image.size.width
         let newImageSize = CGSize(width: photoImageView.frame.width, height: image.size.height * scaleFactor)
         photoImageView.bounds = CGRect(origin: .zero, size: newImageSize)
-        
-        
-        
-       
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
