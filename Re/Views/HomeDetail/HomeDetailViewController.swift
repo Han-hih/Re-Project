@@ -106,12 +106,14 @@ final class HomeDetailViewController: BaseViewController {
         }
     }
     
-    private let scrollView = {
+    private lazy var scrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .white
         scrollView.showsVerticalScrollIndicator = true
         scrollView.scrollsToTop = true
         scrollView.isScrollEnabled = true
+        scrollView.delegate = self
+        
         return scrollView
     }()
     
@@ -203,4 +205,26 @@ final class HomeDetailViewController: BaseViewController {
     }()
     
     
+}
+
+extension HomeDetailViewController: UIScrollViewDelegate {
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        UIView.animate(withDuration: 0.5) { [weak self] in
+            guard velocity.y != 0 else { return }
+            if velocity.y < 0 {
+                let height = self?.tabBarController?.tabBar.frame.height ?? 0.0
+                self?.tabBarController?.tabBar.alpha = 1.0
+                self?.tabBarController?.tabBar.frame.origin = CGPoint(x: 0, y: UIScreen.main.bounds.maxY - height)
+                self?.floatingView.isHidden = false
+                self?.stackView.isHidden = false
+                self?.navigationController?.navigationBar.isHidden = false
+            } else {
+                self?.tabBarController?.tabBar.alpha = 0.0
+                self?.tabBarController?.tabBar.frame.origin = CGPoint(x: 0, y: UIScreen.main.bounds.maxY)
+                self?.floatingView.isHidden = true
+                self?.stackView.isHidden = true
+                self?.navigationController?.navigationBar.isHidden = true
+            }
+        }
+    }
 }
