@@ -25,11 +25,15 @@ final class HomeDetailViewController: BaseViewController {
     private func setUI() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        [titleLabel, profileView, photoImageView, contentLabel].forEach {
+        [titleLabel, profileView, photoImageView, contentLabel, floatingView, stackView].forEach {
             contentView.addSubview($0)
         }
         [authorLabel].forEach {
             profileView.addSubview($0)
+        }
+        
+        [heartButton, heartCountLabel, commentButton, commentCountLabel].forEach {
+            stackView.addSubview($0)
         }
         
         scrollView.snp.makeConstraints {
@@ -48,7 +52,7 @@ final class HomeDetailViewController: BaseViewController {
         }
         
         profileView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
             $0.horizontalEdges.equalTo(titleLabel)
             $0.height.equalTo(view.snp.height).multipliedBy(0.1)
         }
@@ -60,7 +64,7 @@ final class HomeDetailViewController: BaseViewController {
         
         photoImageView.snp.makeConstraints {
             $0.horizontalEdges.equalTo(contentView.snp.horizontalEdges).inset(20)
-            $0.top.equalTo(profileView.snp.bottom).offset(20)
+            $0.top.equalTo(profileView.snp.bottom).offset(10)
             $0.height.equalTo(view.snp.height).multipliedBy(0.25)
         }
         
@@ -70,8 +74,36 @@ final class HomeDetailViewController: BaseViewController {
             $0.bottom.equalTo(contentView.snp.bottom)
         }
         
+        floatingView.snp.makeConstraints {
+            $0.width.equalTo(150)
+            $0.height.equalTo(40)
+            $0.centerX.equalTo(view)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-10)
+        }
+       
+        stackView.snp.makeConstraints {
+            $0.center.equalTo(floatingView)
+        }
         
+        heartButton.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalTo(floatingView.snp.leading).offset(20)
+        }
         
+        heartCountLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalTo(heartButton.snp.trailing).offset(10)
+        }
+        
+        commentButton.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalTo(floatingView.snp.centerX).offset(10)
+        }
+        
+        commentCountLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalTo(commentButton.snp.trailing).offset(10)
+        }
     }
     
     private let scrollView = {
@@ -104,7 +136,7 @@ final class HomeDetailViewController: BaseViewController {
     
     private lazy var authorLabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15)
+        label.font = .systemFont(ofSize: 20)
         label.text = detail.creator.nick
         return label
     }()
@@ -112,7 +144,6 @@ final class HomeDetailViewController: BaseViewController {
    private lazy var photoImageView = {
        let view = UIImageView()
        let url = URL(string: APIKey.baseURL + "\(detail.image.first ?? "")")
-       print(url)
        view.kf.setImage(with: url, options: [.requestModifier(KFModifier.shared.modifier)])
        return view
    }()
@@ -124,8 +155,52 @@ final class HomeDetailViewController: BaseViewController {
         return label
     }()
     
+    private let floatingView = {
+        let view = UIView()
+        view.layer.cornerRadius = 20
+        view.layer.shadowRadius = 4
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 1
+        view.layer.shadowOffset = CGSize(width: 2, height: 2)
+        view.layer.borderWidth = 0.5
+        view.layer.borderColor = UIColor.white.cgColor
+        view.layer.masksToBounds = false
+        return view
+    }()
     
+    private let stackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.alignment = .bottom
+        view.spacing = 20
+        return view
+    }()
     
+    private let heartButton = {
+        let view = UIImageView(image: UIImage(systemName: "heart"))
+        view.tintColor = .red
+        return view
+    }()
+    
+    private let heartCountLabel = {
+        let label = UILabel()
+        label.text = "0"
+        label.font = .systemFont(ofSize: 16)
+        return label
+    }()
+    
+    private let commentButton = {
+        let view = UIImageView(image: UIImage(systemName: "bubble.left"))
+        view.tintColor = .blue
+        return view
+    }()
+    
+    private let commentCountLabel = {
+        let label = UILabel()
+        label.text = "2"
+        label.font = .systemFont(ofSize: 16)
+        return label
+    }()
     
     
 }
