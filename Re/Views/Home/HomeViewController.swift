@@ -90,17 +90,19 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         
          let data = viewModel.getData
         
-        let url = URL(string: APIKey.baseURL + (data[indexPath.row]?.image.first ?? "" + ".jpeg"))
+        let url = URL(string:  (data[indexPath.row]?.image.first ?? "" + ".jpeg"))
 
         cell.titleTextView.text = data[indexPath.row]?.title
         cell.nickNameLabel.text = data[indexPath.row]?.creator.nick
-        cell.photoImageView.kf.setImage(with: url, options: [.requestModifier(viewModel.modifier)])
+        cell.photoImageView.kf.setImage(with: url, options: [.requestModifier(KFModifier.shared.modifier)])
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = viewModel.getData 
+        guard let detail = data[indexPath.row] else { return }
         let vc = HomeDetailViewController()
-        
+        vc.detail = DetailInfo(like: detail.likes, image: detail.image, comments: detail.comments, creator: detail.creator, time: detail.time, title: detail.title ?? "", content: detail.content ?? "")
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
