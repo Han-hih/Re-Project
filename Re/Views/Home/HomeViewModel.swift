@@ -28,13 +28,6 @@ final class HomeViewModel {
         }
     }
     
-    let modifier = AnyModifier { request in
-        var request = request
-        request.setValue(KeyChain.shared.read(key: "access") ?? "", forHTTPHeaderField: "Authorization")
-        request.setValue(APIKey.apiKey, forHTTPHeaderField: "SesacKey")
-        return request
-    }
-    
     
     
     
