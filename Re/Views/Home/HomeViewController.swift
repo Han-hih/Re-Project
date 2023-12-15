@@ -22,6 +22,7 @@ final class HomeViewController: BaseViewController {
     override func configure() {
         super.configure()
         setUI()
+        configureRefreshControl()
     }
     
     override func setConstraints() {
@@ -31,8 +32,21 @@ final class HomeViewController: BaseViewController {
         
     }
     
+    private func configureRefreshControl() {
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+    }
+    
+    @objc func handleRefreshControl() {
+        getDataSetTableView()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            self.tableView.refreshControl?.endRefreshing()
+        }
+    }
+    
     private func getDataSetTableView() {
-        viewModel.getPost() {
+        self.viewModel.nextCursor = ""
+        viewModel.getgetPost {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
