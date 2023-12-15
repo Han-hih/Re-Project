@@ -72,7 +72,14 @@ final class AddViewController: BaseViewController {
     }
     
     @objc func postButtonTapped() {
-        APIRequest.shared.posting(param: Posting(title: titleTextField.text ?? "" , content: contentTextView.text, file: photoImageView.image, product_id: APIKey.product_id))
+        APIRequest.shared.apiRequest(APIManager.post(Posting(title: titleTextField.text ?? "", content: contentTextView.text, file: photoImageView.image?.jpegData(compressionQuality: 0.1), product_id: APIKey.product_id)), type: Posting.self) { result in
+            switch result {
+            case .success(let response):
+                print(response, "포스팅 완료")
+            case .failure(let failure):
+                print(failure)
+            }
+        }
         titleTextField.text = ""
         contentTextView.text = ""
         photoImageView.image = nil
@@ -80,9 +87,6 @@ final class AddViewController: BaseViewController {
         self.tabBarController?.tabBar.isHidden = false
         }
         
-        
-    
-    
     @objc func closeButtonTapped() {
         self.tabBarController?.selectedIndex = 0
         self.tabBarController?.tabBar.isHidden = false

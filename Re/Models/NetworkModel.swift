@@ -5,7 +5,7 @@
 //  Created by 황인호 on 11/22/23.
 //
 
-import Foundation
+import UIKit
 
 struct EmailValidResult: Codable {
     let message: String
@@ -27,13 +27,13 @@ struct RefreshToken: Codable {
     let token: String
 }
 
-struct Posting: Codable {
+struct Posting: Decodable {
     let title, content: String
     let file: Data?
     let product_id: String
 }
 
-struct getTest: Codable {
+struct GetTest: Decodable {
     let data: [Datum]
     let nextCursor: String
     
@@ -82,4 +82,11 @@ struct Creator: Codable {
         case id = "_id"
         case nick, profile
     }
+}
+
+struct DetailInfo {
+    let like, image: [String]
+    let comments: [Comment]
+    let creator: Creator
+    let time, title, content: String
 }

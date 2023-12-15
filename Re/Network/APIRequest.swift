@@ -103,52 +103,19 @@ final class APIRequest {
         }
     }
 
-    
-    func posting(param: Posting) {
-        self.service.request(APIManager.post(param)) { result in
+    func apiRequest<T: Decodable>(_ target: APIManager, type: T.Type, completion: @escaping (Result<T, NetworkError>) -> Void) {
+        self.service.request(target) { result in
             switch result {
             case .success(let response):
-                guard let data = try? JSONDecoder().decode(getTest.self, from: response.data) else {
-                    print(response.statusCode)
-                    print(NetworkError.decodingFailed)
-                    return
+                do {
+                    let decodedData = try JSONDecoder().decode(T.self, from: response.data)
+                    completion(.success(decodedData))
+                } catch {
+                    completion(.failure(NetworkError.decodingFailed))
                 }
-                print(data)
             case .failure(let error):
-                print("Error: \(error.localizedDescription)")
-                
+                completion(.failure(NetworkError(rawValue: error.errorCode) ?? NetworkError.unownedError))
             }
         }
     }
-    
-//    func apiRequest<T: Decodable>(Type: T, completion: @escaping (T) -> Void) {
-//        self.service.request(APIManager.get) { result in
-//            switch result {
-//            case .success(let response):
-//                print(response.data)
-//            case .failure(let error):
-//                print(error)
-//            }
-//            
-//        }
-//    }
-    
-    
-   
-    func getPost(page: String, completionHandler: @escaping (getTest?) -> Void) {
-        self.testService.request(APIManager.get(page: page)) { result in
-            switch result {
-            case .success(let response):
-                guard let data = try? JSONDecoder().decode(getTest.self, from: response.data) else {
-                    print(response.statusCode)
-                    return
-                }
-                completionHandler(data)
-                
-            case .failure(let error):
-                print("getError: \(error.localizedDescription)")
-            }
-        }
-    }
-    
 }

@@ -14,22 +14,21 @@ final class HomeViewModel {
     
     var getData = [Datum?]()
 
-    func getPost(completion: @escaping () -> Void) {
+    func getgetPost(completion: @escaping () -> Void) {
         guard let next = self.nextCursor else { return }
-        APIRequest.shared.getPost(page: self.nextCursor ?? "") { result in
-            guard let result = result else { return }
-            if next != "0" {
-                self.nextCursor = result.nextCursor
-                self.getData.append(contentsOf: result.data)
-                completion()
-            } else if next == "0" {
-                print("끝")
+        APIRequest.shared.apiRequest(APIManager.get(page: self.nextCursor ?? ""), type: GetTest.self) { result in
+            switch result {
+            case .success(let response):
+                if next != "0" {
+                    self.nextCursor = response.nextCursor
+                    self.getData.append(contentsOf: response.data)
+                    completion()
+                } else if next == "0" {
+                    print("끝")
+                }
+            case .failure(let failure):
+                print(failure)
             }
         }
     }
-    
-    
-    
-    
-    
 }
