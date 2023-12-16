@@ -25,17 +25,21 @@ final class HomeDetailViewController: BaseViewController {
     private func setUI() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        [titleLabel, profileView, photoImageView, contentLabel, floatingView, stackView].forEach {
+        [titleLabel, profileView, photoImageView, contentLabel].forEach {
             contentView.addSubview($0)
         }
+        view.addSubview(floatingView)
+        view.addSubview(stackView)
         [authorLabel].forEach {
             profileView.addSubview($0)
         }
         
-        [heartButton, heartCountLabel, commentButton, commentCountLabel].forEach {
+        [heartButton, commentButton].forEach {
             stackView.addSubview($0)
         }
-        
+        stackView.isUserInteractionEnabled = true
+        contentView.isUserInteractionEnabled = true
+        floatingView.isUserInteractionEnabled = true
         scrollView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
@@ -83,6 +87,7 @@ final class HomeDetailViewController: BaseViewController {
        
         stackView.snp.makeConstraints {
             $0.center.equalTo(floatingView)
+            $0.size.equalTo(200)
         }
         
         heartButton.snp.makeConstraints {
@@ -90,19 +95,9 @@ final class HomeDetailViewController: BaseViewController {
             $0.leading.equalTo(floatingView.snp.leading).offset(20)
         }
         
-        heartCountLabel.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.leading.equalTo(heartButton.snp.trailing).offset(10)
-        }
-        
         commentButton.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalTo(floatingView.snp.centerX).offset(10)
-        }
-        
-        commentCountLabel.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.leading.equalTo(commentButton.snp.trailing).offset(10)
         }
     }
     
@@ -159,10 +154,11 @@ final class HomeDetailViewController: BaseViewController {
     
     private let floatingView = {
         let view = UIView()
+        view.backgroundColor = .white
         view.layer.cornerRadius = 20
         view.layer.shadowRadius = 4
         view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 1
+        view.layer.shadowOpacity = 0.7
         view.layer.shadowOffset = CGSize(width: 2, height: 2)
         view.layer.borderWidth = 0.5
         view.layer.borderColor = UIColor.white.cgColor
@@ -184,26 +180,21 @@ final class HomeDetailViewController: BaseViewController {
         return view
     }()
     
-    private let heartCountLabel = {
-        let label = UILabel()
-        label.text = "0"
-        label.font = .systemFont(ofSize: 16)
-        return label
+    private lazy var commentButton = {
+        let bt = UIButton()
+        bt.setImage(UIImage(systemName: "bubble"), for: .normal)
+        bt.setTitle("  2", for: .normal)
+        bt.setTitleColor(.black, for: .normal)
+        bt.tintColor = .blue
+        bt.addTarget(self, action: #selector(commentButtonTapped), for: .touchUpInside)
+        return bt
     }()
     
-    private let commentButton = {
-        let view = UIImageView(image: UIImage(systemName: "bubble.left"))
-        view.tintColor = .blue
-        return view
-    }()
-    
-    private let commentCountLabel = {
-        let label = UILabel()
-        label.text = "2"
-        label.font = .systemFont(ofSize: 16)
-        return label
-    }()
-    
+    @objc func commentButtonTapped() {
+        print("댓글 버튼 눌림")
+        let vc = CommentViewController()
+        self.present(vc, animated: true)
+    }
     
 }
 
