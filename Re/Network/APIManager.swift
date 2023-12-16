@@ -98,7 +98,7 @@ extension APIManager: TargetType {
         case .postComment(id: _, comment: let comment):
             return .requestParameters(
                 parameters: ["content": comment],
-                encoding: URLEncoding.queryString
+                encoding: JSONEncoding.default
             )
         }
     }
