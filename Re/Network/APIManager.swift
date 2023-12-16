@@ -16,6 +16,7 @@ enum APIManager {
     case refresh
     case post(Posting)
     case get(page: String)
+    case postComment(id: String, comment: String)
 }
 
 
@@ -38,12 +39,14 @@ extension APIManager: TargetType {
             return "refresh"
         case .post, .get:
             return "post"
+        case .postComment(id: let id):
+            return "post/\(id)/comment"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .emailValid, .join, .login, .post:
+        case .emailValid, .join, .login, .post, .postComment:
             return .post
         case .refresh, .get:
             return .get
@@ -54,10 +57,27 @@ extension APIManager: TargetType {
         switch self {
         case .emailValid(let email):
             return .requestParameters(parameters: ["email": email], encoding: JSONEncoding.default)
-        case .join(email: let email, password: let password, nick: let nick):
-            return .requestParameters(parameters: ["email": email, "password": password, "nick": nick], encoding: JSONEncoding.default)
+        case .join(
+            email: let email,
+            password: let password,
+            nick: let nick
+        ):
+            return .requestParameters(
+                parameters: [
+                    "email": email,
+                    "password": password,
+                    "nick": nick
+                ],
+                encoding: JSONEncoding.default
+            )
         case .login(email: let email, password: let password):
-            return .requestParameters(parameters: ["email": email, "password": password], encoding: JSONEncoding.default)
+            return .requestParameters(
+                parameters: [
+                    "email": email,
+                    "password": password
+                ],
+                encoding: JSONEncoding.default
+            )
         case .refresh:
             return .requestPlain
         case let .post(Posting):
@@ -75,6 +95,11 @@ extension APIManager: TargetType {
                 "limit": "10",
                 "product_id": "\(APIKey.product_id)"
             ], encoding: URLEncoding.queryString)
+        case .postComment(id: _, comment: let comment):
+            return .requestParameters(
+                parameters: ["content": comment],
+                encoding: URLEncoding.queryString
+            )
         }
     }
     
@@ -98,6 +123,12 @@ extension APIManager: TargetType {
         case .get:
             return ["Authorization": KeyChain.shared.read(key: "access") ?? "",
                     "SesacKey": "\(APIKey.apiKey)"
+            ]
+        case .postComment:
+            return [
+                "Authorization": KeyChain.shared.read(key: "access") ?? "",
+                "Content-Type": "application/json",
+                "SesacKey": "\(APIKey.apiKey)"
             ]
         }
         
