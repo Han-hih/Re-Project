@@ -149,6 +149,7 @@
 		80E46E862B089A99009A695B = {
 			isa = PBXGroup;
 			children = (
+				80E46EA62B08A0D2009A695B /* .gitignore */,
 				80E46E912B089A99009A695B /* Re */,
 				80E46E902B089A99009A695B /* Products */,
 			);
@@ -165,7 +166,6 @@
 		80E46E912B089A99009A695B /* Re */ = {
 			isa = PBXGroup;
 			children = (
-				80E46EA62B08A0D2009A695B /* .gitignore */,
 				80E46E922B089A99009A695B /* AppDelegate.swift */,
 				80E46E942B089A99009A695B /* SceneDelegate.swift */,
 				80E46EA02B089A9A009A695B /* Info.plist */,
