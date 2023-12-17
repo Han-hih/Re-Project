@@ -88,7 +88,6 @@ class CommentViewController: BaseViewController {
         view.register(CommentTableViewCell.self, forCellReuseIdentifier:  CommentTableViewCell.identifier)
         view.delegate = self
         view.dataSource = self
-        view.rowHeight = 250
         return view
     }()
     

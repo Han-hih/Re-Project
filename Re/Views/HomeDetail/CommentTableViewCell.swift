@@ -55,22 +55,23 @@ class CommentTableViewCell: UITableViewCell {
         bottomView.snp.makeConstraints {
             $0.top.equalTo(contentLabel.snp.bottom).offset(5)
             $0.horizontalEdges.equalTo(profileView)
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalTo(contentView.snp.bottom)
         }
         
         replyButton.snp.makeConstraints {
             $0.centerY.equalTo(bottomView)
-            $0.leading.equalTo(bottomView)
+            $0.leading.bottom.equalTo(bottomView)
         }
         
         replyCountLabel.snp.makeConstraints {
             $0.centerY.equalTo(bottomView)
             $0.leading.equalTo(replyButton.snp.trailing).offset(5)
+            $0.bottom.equalTo(bottomView)
         }
         
         postReplyButton.snp.makeConstraints {
             $0.centerY.equalTo(bottomView)
-            $0.trailing.equalTo(bottomView)
+            $0.trailing.bottom.equalTo(bottomView)
         }
        
     }
