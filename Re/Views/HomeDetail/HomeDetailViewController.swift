@@ -183,7 +183,7 @@ final class HomeDetailViewController: BaseViewController {
     private lazy var commentButton = {
         let bt = UIButton()
         bt.setImage(UIImage(systemName: "bubble"), for: .normal)
-        bt.setTitle("  2", for: .normal)
+        bt.setTitle("  \(detail.comments.count)", for: .normal)
         bt.setTitleColor(.black, for: .normal)
         bt.tintColor = .blue
         bt.addTarget(self, action: #selector(commentButtonTapped), for: .touchUpInside)
