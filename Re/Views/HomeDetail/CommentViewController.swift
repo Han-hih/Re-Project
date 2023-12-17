@@ -11,9 +11,12 @@ class CommentViewController: BaseViewController {
     
     private let textViewPlaceholder = "댓글을 입력해 주세요."
     
+    var contentID: String?
+    
+    private let viewModel = CommentViewModel()
+    
     override func setConstraints() {
         super.setConstraints()
-        let textViewWidth = view.frame.size.width
         setUI()
     }
     
@@ -76,7 +79,6 @@ class CommentViewController: BaseViewController {
         view.delegate = self
         view.text = textViewPlaceholder
         view.font = .systemFont(ofSize: 18)
-        
         view.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         return view
     }()
