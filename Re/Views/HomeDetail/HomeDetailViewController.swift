@@ -192,9 +192,16 @@ final class HomeDetailViewController: BaseViewController {
     
     @objc func commentButtonTapped() {
         let vc = CommentViewController()
+        let nav = UINavigationController(rootViewController: vc)
         vc.contentID = detail.id
-        self.present(vc, animated: true)
+        nav.modalPresentationStyle = .pageSheet
+        if let sheet = nav.sheetPresentationController {
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 40
+        }
+        present(nav, animated: true)
     }
+    
     
 }
 
