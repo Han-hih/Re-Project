@@ -73,7 +73,6 @@ struct Comment: Codable {
     }
 }
 
-// MARK: - Creator
 struct Creator: Codable {
     let id, nick: String
     let profile: String?
@@ -85,6 +84,7 @@ struct Creator: Codable {
 }
 
 struct DetailInfo {
+    let id: String
     let like, image: [String]
     let comments: [Comment]
     let creator: Creator
