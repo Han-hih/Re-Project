@@ -9,7 +9,7 @@ import UIKit
 
 final class HomeDetailViewController: BaseViewController {
     
-    var detail = DetailInfo(like: [], image: [], comments: [], creator: Creator(id: "", nick: "", profile: ""), time: "", title: "", content: "")
+    var detail = DetailInfo(id: "", like: [], image: [], comments: [], creator: Creator(id: "", nick: "", profile: ""), time: "", title: "", content: "")
     
     override func setConstraints() {
         super.setConstraints()
@@ -19,7 +19,7 @@ final class HomeDetailViewController: BaseViewController {
     
     override func configure() {
         super.configure()
-        
+       print(detail)
     }
     
     private func setUI() {
@@ -191,8 +191,8 @@ final class HomeDetailViewController: BaseViewController {
     }()
     
     @objc func commentButtonTapped() {
-        print("댓글 버튼 눌림")
         let vc = CommentViewController()
+        vc.contentID = detail.id
         self.present(vc, animated: true)
     }
     

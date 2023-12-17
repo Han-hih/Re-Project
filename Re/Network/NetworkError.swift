@@ -11,6 +11,7 @@ enum NetworkError: Int, Error {
     case valueEmpty = 400
     case invalidAccessToken = 401
     case invalidEmail = 409
+    case noPosting = 410
     case expireToken = 418
     case expireAccess = 419
     case manyRequest = 429
@@ -38,6 +39,8 @@ enum NetworkError: Int, Error {
             "디코딩 실패"
         case .unownedError:
             "서버에러 일수도?"
+        case .noPosting:
+            "게시글 없음"
         }
     }
 }

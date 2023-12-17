@@ -15,7 +15,8 @@ final class APIRequest {
     static let shared = APIRequest()
     
     private let service = MoyaProvider<APIManager>(session: Moya.Session(interceptor: Interceptor.shared))
-    private let testService = MoyaProvider<APIManager>()
+    private let testService = MoyaProvider<APIManager>(plugins: [NetworkLoggerPlugin(configuration: .init( logOptions: .verbose ))]
+    )
     
     
     func checkEmailDuplicate(email: String) -> Single<Result<EmailValidResult, NetworkError>> {
@@ -104,7 +105,7 @@ final class APIRequest {
     }
 
     func apiRequest<T: Decodable>(_ target: APIManager, type: T.Type, completion: @escaping (Result<T, NetworkError>) -> Void) {
-        self.service.request(target) { result in
+        self.testService.request(target) { result in
             switch result {
             case .success(let response):
                 do {
