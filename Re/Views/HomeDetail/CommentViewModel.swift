@@ -6,3 +6,22 @@
 //
 
 import Foundation
+
+class CommentViewModel {
+    
+    func postComment(id: String, comment: String, completion: @escaping () -> Void) {
+        APIRequest.shared.apiRequest(
+            APIManager.postComment(id: id, comment: comment),
+            type: Comment.self) { result in
+                switch result {
+                case .success(let response):
+                    print(response)
+                    completion()
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+    }
+    
+    
+}

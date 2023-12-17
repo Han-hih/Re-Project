@@ -93,7 +93,9 @@ class CommentViewController: BaseViewController {
         return bt
     }()
     @objc func postButtonTapped() {
-        print("전송됨")
+        guard let id = contentID else { return }
+        viewModel.postComment(id: id, comment: commentTextView.text) {
+        }
     }
 }
 
