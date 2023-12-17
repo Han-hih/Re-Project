@@ -40,7 +40,7 @@ extension APIManager: TargetType {
         case .post, .get:
             return "post"
         case .postComment(id: let id):
-            return "post/\(id)/comment"
+            return "post/\(id.id)/comment"
         }
     }
     
@@ -89,12 +89,14 @@ extension APIManager: TargetType {
             let multipartData = [titleProvider, contentProvider, creatorProvider, imageProvider]
             
             return .uploadMultipart(multipartData)
+            
         case .get(page: let page):
             return .requestParameters(parameters: [
                 "next": page,
                 "limit": "10",
                 "product_id": "\(APIKey.product_id)"
             ], encoding: URLEncoding.queryString)
+            
         case .postComment(id: _, comment: let comment):
             return .requestParameters(
                 parameters: ["content": comment],
