@@ -18,6 +18,8 @@ class CommentViewController: BaseViewController {
     override func setConstraints() {
         super.setConstraints()
         setUI()
+        setNav()
+        
     }
     
     override func configure() {
@@ -25,7 +27,7 @@ class CommentViewController: BaseViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
+
     @objc func keyboardWillShow(_ notification: Notification) {
             if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
                 postButton.isHidden = false
@@ -34,14 +36,27 @@ class CommentViewController: BaseViewController {
         }
 
     @objc func keyboardWillHide(_ notification: Notification) {
-        
-        
         view.layoutIfNeeded()
     }
     
+    private func setNav() {
+        self.navigationItem.title = "댓글(123)"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .done, target: self, action: #selector(closeButtonTap))
+        self.navigationItem.rightBarButtonItem?.tintColor = Color.point.uiColor
+    }
+    
+    @objc func closeButtonTap() {
+        dismiss(animated: true)
+    }
+    
     private func setUI() {
-        [bottomView, commentTextView, postButton].forEach {
+        [tableView, bottomView, commentTextView, postButton].forEach {
             view.addSubview($0)
+        }
+        
+        tableView.snp.makeConstraints {
+            $0.top.horizontalEdges.equalTo(view)
+            $0.height.equalTo(view).multipliedBy(0.88)
         }
         
         bottomView.snp.makeConstraints {
@@ -56,15 +71,23 @@ class CommentViewController: BaseViewController {
             $0.width.equalTo(view).multipliedBy(0.8)
             $0.height.greaterThanOrEqualTo(80)
         }
+        
         postButton.snp.makeConstraints {
             $0.bottom.equalTo(view).offset(-40)
             $0.trailing.equalTo(view.snp.trailing).offset(-20)
             $0.width.equalTo(view).multipliedBy(0.1)
             $0.height.equalTo(postButton.snp.width)
-            
         }
-        
     }
+    
+    private lazy var tableView = {
+        let view = UITableView()
+        view.register(CommentTableViewCell.self, forCellReuseIdentifier:  CommentTableViewCell.identifier)
+        view.delegate = self
+        view.dataSource = self
+        view.rowHeight = 250
+        return view
+    }()
     
     private let bottomView = {
         let view = UIView()
@@ -96,6 +119,18 @@ class CommentViewController: BaseViewController {
         guard let id = contentID else { return }
         viewModel.postComment(id: id, comment: commentTextView.text) {
         }
+    }
+}
+
+extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CommentTableViewCell.identifier, for: indexPath) as? CommentTableViewCell else { return UITableViewCell() }
+        
+        return cell
     }
 }
 
