@@ -19,7 +19,11 @@ class CommentViewController: BaseViewController {
         super.setConstraints()
         setUI()
         setNav()
-        
+        viewModel.getOnePost(id: contentID ?? "") {
+            print(self.viewModel.postComments)
+            self.tableView.reloadData()
+            self.navigationItem.title = "댓글(\(self.viewModel.postComments.count))"
+        }
     }
     
     override func configure() {
@@ -40,7 +44,6 @@ class CommentViewController: BaseViewController {
     }
     
     private func setNav() {
-        self.navigationItem.title = "댓글(123)"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .done, target: self, action: #selector(closeButtonTap))
         self.navigationItem.rightBarButtonItem?.tintColor = Color.point.uiColor
     }
@@ -124,12 +127,14 @@ class CommentViewController: BaseViewController {
 
 extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        viewModel.postComments.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CommentTableViewCell.identifier, for: indexPath) as? CommentTableViewCell else { return UITableViewCell() }
-        
+        cell.selectionStyle = .none
+        cell.personNickname.text = viewModel.postComments[indexPath.row].creator.nick
+        cell.contentLabel.text = viewModel.postComments[indexPath.row].content
         return cell
     }
 }

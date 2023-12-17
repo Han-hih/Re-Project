@@ -9,6 +9,8 @@ import Foundation
 
 class CommentViewModel {
     
+    var postComments = [Comment]()
+    
     func postComment(id: String, comment: String, completion: @escaping () -> Void) {
         APIRequest.shared.apiRequest(
             APIManager.postComment(id: id, comment: comment),
@@ -22,6 +24,19 @@ class CommentViewModel {
                 }
             }
     }
+  
+     func getOnePost(id: String, completion: @escaping () -> Void) {
+        APIRequest.shared.apiRequest(APIManager.getOnePost(id: id), type: Datum.self) { result in
+            switch result {
+            case .success(let response):
+                self.postComments.append(contentsOf: response.comments)
+                completion()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     
     
 }
