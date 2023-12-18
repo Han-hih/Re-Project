@@ -19,7 +19,6 @@ final class HomeDetailViewController: BaseViewController {
     
     override func configure() {
         super.configure()
-       print(detail)
     }
     
     private func setUI() {

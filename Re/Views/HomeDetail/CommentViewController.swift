@@ -19,18 +19,32 @@ class CommentViewController: BaseViewController {
         super.setConstraints()
         setUI()
         setNav()
-        viewModel.getOnePost(id: contentID ?? "") {
-            print(self.viewModel.postComments)
-            self.tableView.reloadData()
-            self.navigationItem.title = "댓글(\(self.viewModel.postComments.count))"
-        }
     }
     
     override func configure() {
         super.configure()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        getOnePost()
     }
+    
+    private func getOnePost() {
+        guard let id = contentID else { return }
+        viewModel.getOnePost(id: id) {
+            self.navigationItem.title = "댓글(\(self.viewModel.postComments.count))"
+            self.tableView.reloadData()
+        }
+    }
+    
+    private func getPostComment() {
+        guard let id = contentID else { return }
+        viewModel.postComment(id: id, comment: commentTextView.text) {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+
 
     @objc func keyboardWillShow(_ notification: Notification) {
             if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
@@ -117,10 +131,19 @@ class CommentViewController: BaseViewController {
         bt.tintColor = .white
         return bt
     }()
+    
     @objc func postButtonTapped() {
-        guard let id = contentID else { return }
-        viewModel.postComment(id: id, comment: commentTextView.text) {
+        DispatchQueue.global().sync {
+            print("댓글보냄")
+            getPostComment()
+            viewModel.postComments.removeAll()
         }
+        DispatchQueue.global().sync {
+            print("불러오기")
+            getOnePost()
+        }
+        
+        commentTextView.text = ""
     }
 }
 
