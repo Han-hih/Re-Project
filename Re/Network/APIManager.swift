@@ -17,6 +17,7 @@ enum APIManager {
     case post(Posting)
     case get(page: String)
     case postComment(id: String, comment: String)
+    case getOnePost(id: String)
 }
 
 
@@ -41,6 +42,8 @@ extension APIManager: TargetType {
             return "post"
         case .postComment(id: let id):
             return "post/\(id.id)/comment"
+        case .getOnePost(id: let id):
+            return "post/\(id)"
         }
     }
     
@@ -48,7 +51,7 @@ extension APIManager: TargetType {
         switch self {
         case .emailValid, .join, .login, .post, .postComment:
             return .post
-        case .refresh, .get:
+        case .refresh, .get, .getOnePost:
             return .get
         }
     }
@@ -78,7 +81,7 @@ extension APIManager: TargetType {
                 ],
                 encoding: JSONEncoding.default
             )
-        case .refresh:
+        case .refresh, .getOnePost:
             return .requestPlain
         case let .post(Posting):
             let titleProvider = MultipartFormData(provider: .data(Posting.title.data(using: .utf8) ?? Data()), name: "title")
@@ -122,7 +125,7 @@ extension APIManager: TargetType {
             return ["Authorization": KeyChain.shared.read(key: "access") ?? "",
                     "Content-Type": "multipart/form-data",
                     "SesacKey": "\(APIKey.apiKey)"]
-        case .get:
+        case .get, .getOnePost:
             return ["Authorization": KeyChain.shared.read(key: "access") ?? "",
                     "SesacKey": "\(APIKey.apiKey)"
             ]

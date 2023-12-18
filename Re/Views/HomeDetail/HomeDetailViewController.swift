@@ -19,7 +19,6 @@ final class HomeDetailViewController: BaseViewController {
     
     override func configure() {
         super.configure()
-       print(detail)
     }
     
     private func setUI() {
@@ -183,7 +182,7 @@ final class HomeDetailViewController: BaseViewController {
     private lazy var commentButton = {
         let bt = UIButton()
         bt.setImage(UIImage(systemName: "bubble"), for: .normal)
-        bt.setTitle("  2", for: .normal)
+        bt.setTitle("  \(detail.comments.count)", for: .normal)
         bt.setTitleColor(.black, for: .normal)
         bt.tintColor = .blue
         bt.addTarget(self, action: #selector(commentButtonTapped), for: .touchUpInside)
@@ -192,9 +191,16 @@ final class HomeDetailViewController: BaseViewController {
     
     @objc func commentButtonTapped() {
         let vc = CommentViewController()
+        let nav = UINavigationController(rootViewController: vc)
         vc.contentID = detail.id
-        self.present(vc, animated: true)
+        nav.modalPresentationStyle = .pageSheet
+        if let sheet = nav.sheetPresentationController {
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 40
+        }
+        present(nav, animated: true)
     }
+    
     
 }
 

@@ -108,6 +108,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         cell.titleTextView.text = data[indexPath.row]?.title
         cell.nickNameLabel.text = data[indexPath.row]?.creator.nick
         cell.photoImageView.kf.setImage(with: url, options: [.requestModifier(KFModifier.shared.modifier)])
+        cell.commentCount.text = "\(data[indexPath.row]?.comments.count ?? 0)"
         return cell
     }
     
