@@ -11,6 +11,9 @@ final class HomeDetailViewController: BaseViewController {
     
     var detail = DetailInfo(id: "", like: [], image: [], comments: [], creator: Creator(id: "", nick: "", profile: ""), time: "", title: "", content: "")
     
+    private lazy var likeArray = detail.like
+    private lazy var values = [Int]()
+    
     private let viewModel = HomeDetailViewModel()
     
     override func setConstraints() {
@@ -177,17 +180,30 @@ final class HomeDetailViewController: BaseViewController {
     
     private lazy var heartButton = {
         let bt = UIButton()
-        bt.setImage(UIImage(systemName: "heart"), for: .normal)
+        if let id = KeyChain.shared.read(key: "id") {
+            bt.setImage(UIImage(systemName: detail.like.contains(id) ? "heart.fill" : "heart"), for: .normal)
+        }
+        bt.setTitle("  \(detail.like.count)", for: .normal)
+        bt.setTitleColor(.black, for: .normal)
         bt.tintColor = .red
         bt.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
         return bt
     }()
     
     @objc func likeButtonTapped() {
-        viewModel.LikeButtonTapped(id: detail.id) { response in
+        viewModel.LikeButtonTapped(id: detail.id) { result in
             DispatchQueue.main.async {
-                var like = response.like_status
+                let like = result.like_status
                 self.heartButton.setImage(UIImage(systemName: like ? "heart.fill" : "heart" ), for: .normal)
+                if let id = KeyChain.shared.read(key: "id") {
+                    if self.likeArray.contains(id) {
+                        self.heartButton.setTitle("  \(self.likeArray.count - 1)", for: .normal)
+                        self.likeArray.removeAll { $0 == id }
+                    } else {
+                        self.heartButton.setTitle("  \(self.likeArray.count + 1)", for: .normal)
+                        self.likeArray.append(id)
+                    }
+                }
             }
         }
     }
