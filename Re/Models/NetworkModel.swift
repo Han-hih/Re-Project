@@ -83,7 +83,7 @@ struct Creator: Codable {
     }
 }
 
-struct DetailInfo {
+struct DetailInfo: Decodable {
     let id: String
     let like, image: [String]
     let comments: [Comment]
