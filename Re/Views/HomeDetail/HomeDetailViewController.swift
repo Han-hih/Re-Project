@@ -11,6 +11,8 @@ final class HomeDetailViewController: BaseViewController {
     
     var detail = DetailInfo(id: "", like: [], image: [], comments: [], creator: Creator(id: "", nick: "", profile: ""), time: "", title: "", content: "")
     
+    private let viewModel = HomeDetailViewModel()
+    
     override func setConstraints() {
         super.setConstraints()
         setUI()
@@ -173,11 +175,22 @@ final class HomeDetailViewController: BaseViewController {
         return view
     }()
     
-    private let heartButton = {
-        let view = UIImageView(image: UIImage(systemName: "heart"))
-        view.tintColor = .red
-        return view
+    private lazy var heartButton = {
+        let bt = UIButton()
+        bt.setImage(UIImage(systemName: "heart"), for: .normal)
+        bt.tintColor = .red
+        bt.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
+        return bt
     }()
+    
+    @objc func likeButtonTapped() {
+        viewModel.LikeButtonTapped(id: detail.id) { response in
+            DispatchQueue.main.async {
+                var like = response.like_status
+                self.heartButton.setImage(UIImage(systemName: like ? "heart.fill" : "heart" ), for: .normal)
+            }
+        }
+    }
     
     private lazy var commentButton = {
         let bt = UIButton()
