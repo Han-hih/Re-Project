@@ -106,7 +106,7 @@ class HomeTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let likeImage = {
+     let likeImage = {
         let image = UIImageView()
         image.image = UIImage(systemName: "heart")
         image.tintColor = .red

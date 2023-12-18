@@ -108,6 +108,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         cell.titleTextView.text = data[indexPath.row]?.title
         cell.nickNameLabel.text = data[indexPath.row]?.creator.nick
         cell.photoImageView.kf.setImage(with: url, options: [.requestModifier(KFModifier.shared.modifier)])
+        
+        guard let id = KeyChain.shared.read(key: "id") else { return UITableViewCell() }
+        if data[indexPath.row]?.likes.contains(id) == true {
+            cell.likeImage.image = UIImage(systemName: "heart.fill")
+        }
+        cell.likeCountLabel.text = "\(data[indexPath.row]?.likes.count ?? 0)"
         cell.commentCount.text = "\(data[indexPath.row]?.comments.count ?? 0)"
         return cell
     }
