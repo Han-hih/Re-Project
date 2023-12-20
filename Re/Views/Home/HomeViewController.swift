@@ -38,6 +38,7 @@ final class HomeViewController: BaseViewController {
     }
     
     @objc func handleRefreshControl() {
+        viewModel.getData = []
         getDataSetTableView()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
             self.tableView.refreshControl?.endRefreshing()
@@ -45,7 +46,6 @@ final class HomeViewController: BaseViewController {
     }
     
     private func getDataSetTableView() {
-        self.viewModel.nextCursor = ""
         viewModel.getgetPost {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
