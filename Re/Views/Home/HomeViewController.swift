@@ -38,6 +38,7 @@ final class HomeViewController: BaseViewController {
     }
     
     @objc func handleRefreshControl() {
+        viewModel.getData = []
         getDataSetTableView()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
             self.tableView.refreshControl?.endRefreshing()
