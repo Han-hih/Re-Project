@@ -90,3 +90,7 @@ struct DetailInfo: Decodable {
     let creator: Creator
     let time, title, content: String
 }
+
+struct Like: Decodable {
+    let like_status: Bool
+}

@@ -108,15 +108,22 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         cell.titleTextView.text = data[indexPath.row]?.title
         cell.nickNameLabel.text = data[indexPath.row]?.creator.nick
         cell.photoImageView.kf.setImage(with: url, options: [.requestModifier(KFModifier.shared.modifier)])
+        
+        guard let id = KeyChain.shared.read(key: "id") else { return UITableViewCell() }
+        if data[indexPath.row]?.likes.contains(id) == true {
+            cell.likeImage.image = UIImage(systemName: "heart.fill")
+        }
+        cell.likeCountLabel.text = "\(data[indexPath.row]?.likes.count ?? 0)"
         cell.commentCount.text = "\(data[indexPath.row]?.comments.count ?? 0)"
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let data = viewModel.getData 
-        guard let detail = data[indexPath.row] else { return }
+       
+        guard let data = viewModel.getData[indexPath.row] else { return }
         let vc = HomeDetailViewController()
-        vc.detail = DetailInfo(id: detail.id, like: detail.likes, image: detail.image, comments: detail.comments, creator: detail.creator, time: detail.time, title: detail.title ?? "", content: detail.content ?? "")
+        vc.contentId = data.id
+
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

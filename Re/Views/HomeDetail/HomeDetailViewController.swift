@@ -9,7 +9,11 @@ import UIKit
 
 final class HomeDetailViewController: BaseViewController {
     
-    var detail = DetailInfo(id: "", like: [], image: [], comments: [], creator: Creator(id: "", nick: "", profile: ""), time: "", title: "", content: "")
+    var contentId: String? = nil
+    
+    private let viewModel = HomeDetailViewModel()
+    
+    private var likeArray: [String]? = []
     
     override func setConstraints() {
         super.setConstraints()
@@ -19,8 +23,24 @@ final class HomeDetailViewController: BaseViewController {
     
     override func configure() {
         super.configure()
+        setData()
     }
     
+    private func setData() {
+        guard let id = contentId else { return }
+        viewModel.getOnePost(id: id) { result in
+            self.titleLabel.text = result.title
+            self.contentLabel.text = result.content
+            self.authorLabel.text = result.creator.nick
+            let url = URL(string: APIKey.baseURL + "\(result.image.first ?? "")")
+            self.photoImageView.kf.setImage(with: url, options: [.requestModifier(KFModifier.shared.modifier)])
+            self.heartButton.setTitle("  \(result.likes.count)", for: .normal)
+            self.commentButton.setTitle("  \(result.comments.count)", for: .normal)
+            
+            self.likeArray = result.likes
+        }
+     }
+        
     private func setUI() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -120,7 +140,6 @@ final class HomeDetailViewController: BaseViewController {
     private lazy var titleLabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 25, weight: .bold)
-        label.text = detail.title
         label.numberOfLines = 0
         return label
     }()
@@ -133,21 +152,17 @@ final class HomeDetailViewController: BaseViewController {
     private lazy var authorLabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 20)
-        label.text = detail.creator.nick
         return label
     }()
     
    private lazy var photoImageView = {
        let view = UIImageView()
-       let url = URL(string: APIKey.baseURL + "\(detail.image.first ?? "")")
-       view.kf.setImage(with: url, options: [.requestModifier(KFModifier.shared.modifier)])
        return view
    }()
     
     private lazy var contentLabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = detail.content
         return label
     }()
     
@@ -173,16 +188,41 @@ final class HomeDetailViewController: BaseViewController {
         return view
     }()
     
-    private let heartButton = {
-        let view = UIImageView(image: UIImage(systemName: "heart"))
-        view.tintColor = .red
-        return view
+    private lazy var heartButton = {
+        let bt = UIButton()
+        if let id = KeyChain.shared.read(key: "id") {
+            bt.setImage(UIImage(systemName: likeArray?.contains(id) ?? false ? "heart.fill" : "heart"), for: .normal)
+        }
+        bt.setTitleColor(.black, for: .normal)
+        bt.tintColor = .red
+        bt.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
+        return bt
     }()
+    
+    @objc func likeButtonTapped() {
+
+        guard let id = viewModel.detail?.id else { return }
+        viewModel.LikeButtonTapped(id: id) { result in
+            DispatchQueue.main.async {
+                let like = result.like_status
+                self.heartButton.setImage(UIImage (systemName: like ? "heart.fill" : "heart"), for: .normal)
+
+                if let id = KeyChain.shared.read(key: "id") {
+                    if self.likeArray?.contains(id) == true {
+                        self.heartButton.setTitle("  \((self.likeArray?.count ?? 0) - 1)", for: .normal)
+                        self.likeArray?.removeAll { $0 == id }
+                    } else {
+                        self.heartButton.setTitle("  \((self.likeArray?.count ?? 0) + 1)", for: .normal)
+                        self.likeArray?.append(id)
+                    }
+                }
+            }
+        }
+    }
     
     private lazy var commentButton = {
         let bt = UIButton()
         bt.setImage(UIImage(systemName: "bubble"), for: .normal)
-        bt.setTitle("  \(detail.comments.count)", for: .normal)
         bt.setTitleColor(.black, for: .normal)
         bt.tintColor = .blue
         bt.addTarget(self, action: #selector(commentButtonTapped), for: .touchUpInside)
@@ -192,7 +232,7 @@ final class HomeDetailViewController: BaseViewController {
     @objc func commentButtonTapped() {
         let vc = CommentViewController()
         let nav = UINavigationController(rootViewController: vc)
-        vc.contentID = detail.id
+        vc.contentID = viewModel.detail?.id
         nav.modalPresentationStyle = .pageSheet
         if let sheet = nav.sheetPresentationController {
             sheet.prefersGrabberVisible = true
