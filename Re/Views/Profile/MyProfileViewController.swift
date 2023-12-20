@@ -17,7 +17,19 @@ class MyProfileViewController: BaseViewController {
     
     override func configure() {
         super.configure()
-        
+        getProfile()
+    }
+    
+    private func getProfile() {
+        APIRequest.shared.apiRequest(APIManager.getProfile, type: Getprofile.self) { result in
+            switch result {
+            case .success(let response):
+                self.nickLabel.text = response.nick
+                self.followerLabel.text = "\(response.followers.count) Followers · \(response.following.count) Following"
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     private func setUI() {
@@ -69,14 +81,12 @@ class MyProfileViewController: BaseViewController {
 
     private let nickLabel = {
        let lb = UILabel()
-        lb.text = "asdfasfasdf"
         lb.font = .systemFont(ofSize: 25, weight: .bold)
         return lb
     }()
     
     private let followerLabel = {
         let lb = UILabel()
-        lb.text = "0 Followers - 3 Following"
         return lb
     }()
     
