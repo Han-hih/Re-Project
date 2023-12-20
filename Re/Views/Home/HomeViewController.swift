@@ -46,7 +46,6 @@ final class HomeViewController: BaseViewController {
     }
     
     private func getDataSetTableView() {
-        self.viewModel.nextCursor = ""
         viewModel.getgetPost {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
