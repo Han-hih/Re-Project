@@ -119,10 +119,11 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let data = viewModel.getData 
-        guard let detail = data[indexPath.row] else { return }
+       
+        guard let data = viewModel.getData[indexPath.row] else { return }
         let vc = HomeDetailViewController()
-        vc.detail = DetailInfo(id: detail.id, like: detail.likes, image: detail.image, comments: detail.comments, creator: detail.creator, time: detail.time, title: detail.title ?? "", content: detail.content ?? "")
+        vc.contentId = data.id
+
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
