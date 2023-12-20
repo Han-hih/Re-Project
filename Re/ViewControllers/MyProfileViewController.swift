@@ -7,6 +7,6 @@
 
 import UIKit
 
-class CommunityViewController: BaseViewController {
-    
+class MyProfileViewController: BaseViewController {
+   
 }
