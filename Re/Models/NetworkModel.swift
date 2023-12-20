@@ -111,7 +111,7 @@ struct Myprofile: Decodable {
 
 // MARK: - Follow
 struct Follow: Decodable {
-    let id, nick, profile: String
+    let id, nick, profile: String?
 
     enum CodingKeys: String, CodingKey {
         case id = "_id"
@@ -123,5 +123,19 @@ struct MyInfo: Decodable {
     let nick: String
     let profile: Data?
     
+}
+
+// MARK: - Getprofile
+struct Getprofile: Decodable {
+    let posts: [String]
+    let followers, following: [Follow]
+    let id, email, nick : String
+    let birthDay, phoneNum, profile: String?
+
+    enum CodingKeys: String, CodingKey {
+        case posts, followers, following
+        case id = "_id"
+        case email, nick, phoneNum, birthDay, profile
+    }
 }
 
