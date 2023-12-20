@@ -19,6 +19,7 @@ enum APIManager {
     case postComment(id: String, comment: String)
     case getOnePost(id: String)
     case like(id: String)
+    case getProfile
     case profileMod(MyInfo)
 }
 
@@ -48,7 +49,7 @@ extension APIManager: TargetType {
             return "post/\(id)"
         case .like(id: let id):
             return "post/like/\(id)"
-        case .profileMod:
+        case .profileMod, .getProfile:
             return "profile/me"
         }
     }
@@ -57,7 +58,7 @@ extension APIManager: TargetType {
         switch self {
         case .emailValid, .join, .login, .post, .postComment, .like:
             return .post
-        case .refresh, .get, .getOnePost:
+        case .refresh, .get, .getOnePost, .getProfile:
             return .get
         case .profileMod:
             return .put
@@ -90,7 +91,7 @@ extension APIManager: TargetType {
                 ],
                 encoding: JSONEncoding.default
             )
-        case .refresh, .getOnePost:
+        case .refresh, .getOnePost, .like, .getProfile:
             return .requestPlain
             
         case let .post(Posting):
@@ -115,10 +116,7 @@ extension APIManager: TargetType {
                 parameters: ["content": comment],
                 encoding: JSONEncoding.default
             )
-            
-        case .like:
-            return .requestPlain
-            
+    
         case let .profileMod(MyInfo):
             let nickProvider = MultipartFormData(provider: .data(MyInfo.nick.data(using: .utf8) ?? Data()), name: "nick")
             let profileProvider = MultipartFormData(provider: .data(MyInfo.profile ?? Data()), name: "profile")
@@ -146,7 +144,7 @@ extension APIManager: TargetType {
             return ["Authorization": KeyChain.shared.read(key: "access") ?? "",
                     "Content-Type": "multipart/form-data",
                     "SesacKey": "\(APIKey.apiKey)"]
-        case .get, .getOnePost, .like:
+        case .get, .getOnePost, .like, .getProfile:
             return ["Authorization": KeyChain.shared.read(key: "access") ?? "",
                     "SesacKey": "\(APIKey.apiKey)"
             ]
