@@ -23,12 +23,12 @@ class HomeDetailViewModel {
         }
     }
     
-    func getOnePost(id: String) {
+    func getOnePost(id: String, completion: @escaping (Datum) -> Void) {
         APIRequest.shared.apiRequest(APIManager.getOnePost(id: id), type: Datum.self) { result in
             switch result {
             case .success(let response):
                 self.detail = response
-                print(response)
+                completion(response)
             case .failure(let error):
                 print(error)
             }
