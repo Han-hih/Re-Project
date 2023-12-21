@@ -102,6 +102,8 @@ class MyProfileViewController: BaseViewController {
     
     @objc
     func changeInfo() {
-        
+        let vc = ProfileModifyViewController()
+        let nav = UINavigationController(rootViewController: vc)
+        present(nav, animated: true)
     }
 }
