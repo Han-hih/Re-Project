@@ -119,7 +119,7 @@ extension APIManager: TargetType {
     
         case let .profileMod(MyInfo):
             let nickProvider = MultipartFormData(provider: .data(MyInfo.nick.data(using: .utf8) ?? Data()), name: "nick")
-            let profileProvider = MultipartFormData(provider: .data(MyInfo.profile ?? Data()), name: "profile")
+            let profileProvider = MultipartFormData(provider: .data(MyInfo.profile ?? Data()), name: "profile", fileName: "image.jpeg", mimeType: "image/jpeg")
             
             let multipartData = [nickProvider, profileProvider]
             
