@@ -94,3 +94,48 @@ struct DetailInfo: Decodable {
 struct Like: Decodable {
     let like_status: Bool
 }
+
+// MARK: - Myprofile
+struct Myprofile: Decodable {
+    let posts: [String]
+    let followers, following: [Follow]
+    let id, email, nick, phoneNum: String
+    let birthDay, profile: String
+
+    enum CodingKeys: String, CodingKey {
+        case posts, followers, following
+        case id = "_id"
+        case email, nick, phoneNum, birthDay, profile
+    }
+}
+
+// MARK: - Follow
+struct Follow: Decodable {
+    let id, nick, profile: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case nick, profile
+    }
+}
+
+struct MyInfo: Decodable {
+    let nick: String
+    let profile: Data?
+    
+}
+
+// MARK: - Getprofile
+struct Getprofile: Decodable {
+    let posts: [String]
+    let followers, following: [Follow]
+    let id, email, nick : String
+    let birthDay, phoneNum, profile: String?
+
+    enum CodingKeys: String, CodingKey {
+        case posts, followers, following
+        case id = "_id"
+        case email, nick, phoneNum, birthDay, profile
+    }
+}
+

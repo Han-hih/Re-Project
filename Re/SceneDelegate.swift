@@ -10,24 +10,20 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var isLogin: Bool = UserDefaults().bool(forKey: "isLogin")
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         
-        if isLogin == false {
-            let loginVC = LoginViewContoller()
-            window?.rootViewController = loginVC
-        } else {
-            let mainVC = HomeViewController()
-            window?.rootViewController = mainVC
+        if KeyChain.shared.read(key: "access") != "" {
+            APIRequest.shared.refreshToken()
+            print("리프레시")
         }
         
         let tabBarController = UITabBarController()
         let firstVC = UINavigationController(rootViewController: HomeViewController())
         let secondVC = UINavigationController(rootViewController: AddViewController()) 
-        let thirdVC = UINavigationController(rootViewController: CommunityViewController())
+        let thirdVC = UINavigationController(rootViewController: MyProfileViewController())
         tabBarController.setViewControllers([firstVC, secondVC, thirdVC], animated: true)
         
         if let items = tabBarController.tabBar.items {
@@ -37,8 +33,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             items[1].selectedImage = UIImage(systemName: "plus.square.fill")
             items[1].image = UIImage(systemName: "plus.square")
             
-            items[2].selectedImage = UIImage(systemName: "person.3.fill")
-            items[2].image = UIImage(systemName: "person.3")
+            items[2].selectedImage = UIImage(systemName: "person.fill")
+            items[2].image = UIImage(systemName: "person")
         }
         
         window?.rootViewController = tabBarController

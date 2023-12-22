@@ -19,6 +19,8 @@ enum APIManager {
     case postComment(id: String, comment: String)
     case getOnePost(id: String)
     case like(id: String)
+    case getProfile
+    case profileMod(MyInfo)
 }
 
 
@@ -47,6 +49,8 @@ extension APIManager: TargetType {
             return "post/\(id)"
         case .like(id: let id):
             return "post/like/\(id)"
+        case .profileMod, .getProfile:
+            return "profile/me"
         }
     }
     
@@ -54,8 +58,10 @@ extension APIManager: TargetType {
         switch self {
         case .emailValid, .join, .login, .post, .postComment, .like:
             return .post
-        case .refresh, .get, .getOnePost:
+        case .refresh, .get, .getOnePost, .getProfile:
             return .get
+        case .profileMod:
+            return .put
         }
     }
     
@@ -76,6 +82,7 @@ extension APIManager: TargetType {
                 ],
                 encoding: JSONEncoding.default
             )
+            
         case .login(email: let email, password: let password):
             return .requestParameters(
                 parameters: [
@@ -84,8 +91,9 @@ extension APIManager: TargetType {
                 ],
                 encoding: JSONEncoding.default
             )
-        case .refresh, .getOnePost:
+        case .refresh, .getOnePost, .like, .getProfile:
             return .requestPlain
+            
         case let .post(Posting):
             let titleProvider = MultipartFormData(provider: .data(Posting.title.data(using: .utf8) ?? Data()), name: "title")
             let contentProvider = MultipartFormData(provider: .data(Posting.content.data(using: .utf8) ?? Data()), name: "content")
@@ -108,8 +116,14 @@ extension APIManager: TargetType {
                 parameters: ["content": comment],
                 encoding: JSONEncoding.default
             )
-        case .like:
-            return .requestPlain
+    
+        case let .profileMod(MyInfo):
+            let nickProvider = MultipartFormData(provider: .data(MyInfo.nick.data(using: .utf8) ?? Data()), name: "nick")
+            let profileProvider = MultipartFormData(provider: .data(MyInfo.profile ?? Data()), name: "profile", fileName: "image.jpeg", mimeType: "image/jpeg")
+            
+            let multipartData = [nickProvider, profileProvider]
+            
+        return .uploadMultipart(multipartData)
         }
     }
     
@@ -126,11 +140,11 @@ extension APIManager: TargetType {
             return ["Authorization": KeyChain.shared.read(key: "access") ?? "",
                     "SesacKey": "\(APIKey.apiKey)",
                     "Refresh": KeyChain.shared.read(key: "refresh") ?? ""]
-        case .post:
+        case .post, .profileMod:
             return ["Authorization": KeyChain.shared.read(key: "access") ?? "",
                     "Content-Type": "multipart/form-data",
                     "SesacKey": "\(APIKey.apiKey)"]
-        case .get, .getOnePost, .like:
+        case .get, .getOnePost, .like, .getProfile:
             return ["Authorization": KeyChain.shared.read(key: "access") ?? "",
                     "SesacKey": "\(APIKey.apiKey)"
             ]
