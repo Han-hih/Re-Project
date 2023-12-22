@@ -103,6 +103,7 @@ class MyProfileViewController: BaseViewController {
     @objc
     func changeInfo() {
         let vc = ProfileModifyViewController()
+        vc.nickname = nickLabel.text
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true)
     }

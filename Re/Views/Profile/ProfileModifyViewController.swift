@@ -9,6 +9,8 @@ import UIKit
 
 class ProfileModifyViewController: BaseViewController {
     
+    var nickname: String?
+    
     override func setConstraints() {
         super.setConstraints()
         setNavi()
@@ -34,7 +36,14 @@ class ProfileModifyViewController: BaseViewController {
     
     @objc
     func saveButtonTapped() {
-    print("저장됨")
+        APIRequest.shared.apiRequest(APIManager.profileMod(MyInfo(nick: nickTextField.text ?? "", profile: profileImageView.image?.jpegData(compressionQuality: 0.1))), type: MyInfo.self) { result in
+            switch result {
+            case .success(let response):
+                print(response)
+            case .failure(let error):
+                print(error)
+            }
+        }
         dismiss(animated: true)
     }
     
@@ -69,6 +78,8 @@ class ProfileModifyViewController: BaseViewController {
             $0.top.equalTo(nickTextField.snp.bottom).offset(5)
             $0.horizontalEdges.equalTo(nickTextField)
         }
+        
+        nickTextField.text = nickname
         
     }
     
