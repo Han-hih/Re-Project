@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MyProfileViewController: BaseViewController {
-   
+    
     override func setConstraints() {
         super.setConstraints()
         setUI()
@@ -26,6 +27,8 @@ class MyProfileViewController: BaseViewController {
             case .success(let response):
                 self.nickLabel.text = response.nick
                 self.followerLabel.text = "\(response.followers.count) Followers · \(response.following.count) Following"
+                guard let url = URL(string: APIKey.baseURL + (response.profile ?? "")) else { return }
+                self.profileImageView.kf.setImage(with: url, options: [.requestModifier(KFModifier.shared.modifier)])
             case .failure(let error):
                 print(error)
             }
@@ -78,9 +81,9 @@ class MyProfileViewController: BaseViewController {
         view.clipsToBounds = true
         return view
     }()
-
+    
     private let nickLabel = {
-       let lb = UILabel()
+        let lb = UILabel()
         lb.font = .systemFont(ofSize: 25, weight: .bold)
         return lb
     }()
@@ -104,6 +107,7 @@ class MyProfileViewController: BaseViewController {
     func changeInfo() {
         let vc = ProfileModifyViewController()
         vc.nickname = nickLabel.text
+        vc.profileImage = profileImageView.image
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true)
     }

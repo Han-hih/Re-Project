@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import PhotosUI
 
 class ProfileModifyViewController: BaseViewController {
     
     var nickname: String?
+    var profileImage: UIImage?
     
     override func setConstraints() {
         super.setConstraints()
@@ -55,6 +57,8 @@ class ProfileModifyViewController: BaseViewController {
     @objc
     func imageButtonTapped() {
         print("사진창 열림")
+        openPhotoLibrary()
+        
     }
     
     private func setUI() {
@@ -80,6 +84,7 @@ class ProfileModifyViewController: BaseViewController {
         }
         
         nickTextField.text = nickname
+        profileImageView.image = profileImage
         
     }
     
@@ -104,5 +109,39 @@ class ProfileModifyViewController: BaseViewController {
         lb.textColor = .lightGray
         return lb
     }()
+    
+}
+
+extension ProfileModifyViewController: PHPickerViewControllerDelegate {
+    private func openPhotoLibrary() {
+        var configuration = PHPickerConfiguration()
+        
+        configuration.selectionLimit = 1
+        configuration.filter = .any(of: [.images])
+        
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        
+        present(picker, animated: true)
+    }
+    
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        
+        let itemProvider = results.first?.itemProvider
+        
+        if let itemProvider = itemProvider,
+           itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+                DispatchQueue.main.async {
+                    self.profileImageView.image = image as? UIImage
+                }
+            }
+        } else {
+            
+        }
+    }
+    
     
 }
