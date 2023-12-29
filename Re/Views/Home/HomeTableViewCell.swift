@@ -20,6 +20,11 @@ class HomeTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        likeImage.image = UIImage(systemName: "heart")
+    }
+    
     private func setUI() {
         [photoImageView, titleTextView, profileImage, nickNameLabel, timeLabel, likeImage, likeCountLabel, commentCount, commentImage].forEach {
             contentView.addSubview($0)

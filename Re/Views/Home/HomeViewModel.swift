@@ -21,7 +21,6 @@ final class HomeViewModel {
                 if self.next ?? "" != "0" {
                     self.next = response.nextCursor
                     self.getData.append(contentsOf: response.data)
-                    print(self.next)
                     completion()
                 } else if self.next ?? "" == "0" {
                     print("끝")
