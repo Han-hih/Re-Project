@@ -105,6 +105,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
          let data = viewModel.getData
         
         let url = URL(string: APIKey.baseURL + (data[indexPath.row]?.image.first ?? "" + ".jpeg"))
+        let profileURL = URL(string: APIKey.baseURL + (data[indexPath.row]?.creator.profile ?? "" + ".jpeg"))
+        cell.profileImage.kf.setImage(with: profileURL, options: [.requestModifier(KFModifier.shared.modifier)])
         cell.titleTextView.text = data[indexPath.row]?.title
         cell.nickNameLabel.text = data[indexPath.row]?.creator.nick
         cell.photoImageView.kf.setImage(with: url, options: [.requestModifier(KFModifier.shared.modifier)])

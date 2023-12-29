@@ -21,27 +21,31 @@ class HomeTableViewCell: UITableViewCell {
     }
     
     private func setUI() {
-        [photoImageView, titleTextView, nickNameLabel, timeLabel, likeImage, likeCountLabel, commentCount, commentImage].forEach {
+        [photoImageView, titleTextView, profileImage, nickNameLabel, timeLabel, likeImage, likeCountLabel, commentCount, commentImage].forEach {
             contentView.addSubview($0)
         }
         
-        nickNameLabel.snp.makeConstraints {
+        profileImage.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(20)
             $0.top.equalToSuperview().offset(10)
+            $0.size.equalTo(30)
+        }
+        
+        nickNameLabel.snp.makeConstraints {
+            $0.leading.equalTo(profileImage.snp.trailing).offset(10)
+            $0.centerY.equalTo(profileImage.snp.centerY)
             $0.height.equalTo(20)
         }
         
         photoImageView.snp.makeConstraints {
-            $0.top.equalTo(titleTextView.snp.top)
             $0.trailing.equalTo(contentView.snp.trailing).inset(20)
-            $0.bottom.equalTo(contentView.snp.bottom).inset(25)
+            $0.verticalEdges.equalToSuperview().inset(20)
             $0.width.equalTo(80)
-            
         }
         
         titleTextView.snp.makeConstraints {
-            $0.top.equalTo(nickNameLabel.snp.bottom)
-            $0.leading.equalTo(nickNameLabel.snp.leading)
+            $0.top.equalTo(profileImage.snp.bottom)
+            $0.leading.equalTo(profileImage.snp.leading)
             $0.height.equalTo(70)
             $0.trailing.equalTo(photoImageView.snp.leading).offset(-20)
             
@@ -49,7 +53,7 @@ class HomeTableViewCell: UITableViewCell {
         
         likeImage.snp.makeConstraints {
             $0.bottom.equalTo(photoImageView.snp.bottom)
-            $0.leading.equalTo(nickNameLabel.snp.leading)
+            $0.leading.equalTo(profileImage.snp.leading)
             $0.width.height.equalTo(20)
         }
         
@@ -73,7 +77,6 @@ class HomeTableViewCell: UITableViewCell {
     
      let photoImageView = {
         let view = UIImageView()
-         view.backgroundColor = .red
         return view
     }()
     
@@ -92,6 +95,13 @@ class HomeTableViewCell: UITableViewCell {
         label.text = "Inho Hwang"
         label.textColor = .black
         return label
+    }()
+    
+    let profileImage = {
+        let image = UIImageView()
+        image.clipsToBounds = true
+        image.layer.cornerRadius = 15
+        return image
     }()
     
      let timeLabel = {
