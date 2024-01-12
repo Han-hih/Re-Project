@@ -16,9 +16,9 @@ final class AddViewController: BaseViewController {
     
     private let viewModel = AddViewModel()
     
-     var selections = [String: PHPickerResult]()
+    var selections = [String: PHPickerResult]()
     
-     var selectedAssetIdentifier = [String]()
+    var selectedAssetIdentifier = [String]()
     
     override func configure() {
         super.configure()
@@ -37,7 +37,7 @@ final class AddViewController: BaseViewController {
         setKeyboardManagerEnable(false)
         IQKeyboardManager.shared.enableAutoToolbar = false
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardUp), name: UIResponder.keyboardWillShowNotification, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardDown), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDown), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -45,13 +45,13 @@ final class AddViewController: BaseViewController {
         setKeyboardManagerEnable(true)
         IQKeyboardManager.shared.enableAutoToolbar = true
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-           NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @objc func keyboardUp(notification:NSNotification) {
         if let keyboardFrame:NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-           let keyboardRectangle = keyboardFrame.cgRectValue
-       
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            
             UIView.animate(
                 withDuration: 0.3
                 , animations: {
@@ -65,7 +65,7 @@ final class AddViewController: BaseViewController {
         self.bottomView.transform = .identity
     }
     
-        private func setNavi() {
+    private func setNavi() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: postButton)
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "multiply"), style: .done, target: self, action: #selector(closeButtonTapped))
@@ -85,8 +85,8 @@ final class AddViewController: BaseViewController {
         photoImageView.image = nil
         self.tabBarController?.selectedIndex = 0
         self.tabBarController?.tabBar.isHidden = false
-        }
-        
+    }
+    
     @objc func closeButtonTapped() {
         self.tabBarController?.selectedIndex = 0
         self.tabBarController?.tabBar.isHidden = false
@@ -184,12 +184,6 @@ final class AddViewController: BaseViewController {
         return bt
     }()
     
-    private let hashButton = {
-        let bt = CustomButton()
-        bt.setImage(UIImage(systemName: "tag"), for: .normal)
-        return bt
-    }()
-    
     private let titleTextField = {
         let tf = UITextField()
         tf.placeholder = " 제목"
@@ -197,14 +191,14 @@ final class AddViewController: BaseViewController {
         return tf
     }()
     
-     let photoImageView = {
+    let photoImageView = {
         let view = UIImageView()
         return view
     }()
     
     
-     let textViewPlaceholder = "내용을 입력하세요"
-     lazy var contentTextView = {
+    let textViewPlaceholder = "내용을 입력하세요"
+    lazy var contentTextView = {
         let tv = UITextView()
         tv.text = textViewPlaceholder
         tv.textColor = .lightGray
@@ -215,11 +209,25 @@ final class AddViewController: BaseViewController {
         return tv
     }()
     
-     let bottomView = {
+    let bottomView = {
         let view = UIView()
         view.backgroundColor = .white
         return view
     }()
+    
+    
+    func changeTextColor() {
+        guard let text = self.contentTextView.text else { return }
+        let attributedString = NSMutableAttributedString(string: text)
+        let hashWord = try! NSRegularExpression(pattern: "#\\w+")
+        let hashRange = hashWord.matches(in: contentTextView.text, range: NSRange(location: 0, length: attributedString.length))
+        
+        for hash in hashRange {
+            attributedString.addAttribute(.foregroundColor, value: Color.point.uiColor, range: hash.range)
+        }
+        
+        self.contentTextView.attributedText = attributedString
+    }
     
     @objc func photoButtonTapped() {
         presentPicker()

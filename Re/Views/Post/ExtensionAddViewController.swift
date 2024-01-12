@@ -20,6 +20,10 @@ extension AddViewController: UITextViewDelegate {
         photoImageView.bounds = CGRect(origin: .zero, size: newImageSize)
     }
     
+    func textViewDidChange(_ textView: UITextView) {
+        self.changeTextColor()
+    }
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == textViewPlaceholder {
             textView.text = nil
