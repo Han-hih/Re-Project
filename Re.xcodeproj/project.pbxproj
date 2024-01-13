@@ -36,6 +36,7 @@
 		807FFEC82B0F3DE000658FA9 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807FFEC72B0F3DE000658FA9 /* APIRequest.swift */; };
 		80AD95562B29C60200EBE5B8 /* HomeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AD95552B29C60200EBE5B8 /* HomeDetailViewController.swift */; };
 		80AD95582B29C65000EBE5B8 /* HomeDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AD95572B29C65000EBE5B8 /* HomeDetailViewModel.swift */; };
+		80DB442A2B79CC45006F4061 /* HashString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB44292B79CC45006F4061 /* HashString.swift */; };
 		80DED59E2B09E9F200885268 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DED59D2B09E9F200885268 /* CustomTextField.swift */; };
 		80DED5A12B09FCA300885268 /* TextFieldEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 80DED5A02B09FCA300885268 /* TextFieldEffects */; };
 		80DED5A32B0A392200885268 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DED5A22B0A392200885268 /* RegisterViewController.swift */; };
@@ -90,6 +91,7 @@
 		807FFEC72B0F3DE000658FA9 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		80AD95552B29C60200EBE5B8 /* HomeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailViewController.swift; sourceTree = "<group>"; };
 		80AD95572B29C65000EBE5B8 /* HomeDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailViewModel.swift; sourceTree = "<group>"; };
+		80DB44292B79CC45006F4061 /* HashString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashString.swift; sourceTree = "<group>"; };
 		80DED59D2B09E9F200885268 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		80DED5A22B0A392200885268 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		80E46E8F2B089A99009A695B /* Re.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Re.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -310,6 +312,7 @@
 			children = (
 				806BA30E2B1B046100204230 /* ImageDownSampling.swift */,
 				80FB69242B7102E600E85F05 /* TimeStringChange.swift */,
+				80DB44292B79CC45006F4061 /* HashString.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				806BA30F2B1B046100204230 /* ImageDownSampling.swift in Sources */,
 				80FB69232B70D61B00E85F05 /* MyProfileViewController.swift in Sources */,
 				801001362B14FFEF00DAD821 /* Interceptor.swift in Sources */,
+				80DB442A2B79CC45006F4061 /* HashString.swift in Sources */,
 				80084EFC2B1383B70018E806 /* HomeViewController.swift in Sources */,
 				800960B22B0B966300B3BE4B /* Color.swift in Sources */,
 				800960B72B0BABB600B3BE4B /* RegisterViewModel.swift in Sources */,
