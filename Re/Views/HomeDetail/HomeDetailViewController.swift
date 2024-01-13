@@ -32,6 +32,7 @@ final class HomeDetailViewController: BaseViewController {
             print(result.image)
             self.titleLabel.text = result.title
             self.contentLabel.text = result.content
+            self.contentLabel.hashString()
             self.authorImage.kf.setImage(with: URL(string: APIKey.baseURL + "\(result.creator.profile ?? "")"))
             self.authorLabel.text = result.creator.nick
             self.createdAtLabel.text = result.time.toFormattedString()
