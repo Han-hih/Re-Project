@@ -53,7 +53,7 @@ final class HomeDetailViewController: BaseViewController {
         
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        [titleLabel, profileView, contentStackView].forEach {
+        [titleLabel, profileView, contentStackView, lineView].forEach {
             contentView.addSubview($0)
         }
         view.addSubview(floatingView)
@@ -86,7 +86,7 @@ final class HomeDetailViewController: BaseViewController {
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(contentView)
             $0.horizontalEdges.equalTo(contentView.snp.horizontalEdges).inset(20)
-            $0.height.greaterThanOrEqualTo(view.snp.height).multipliedBy(0.1)
+            $0.height.greaterThanOrEqualTo(44)
         }
         
         profileView.snp.makeConstraints {
@@ -112,7 +112,7 @@ final class HomeDetailViewController: BaseViewController {
         }
         
         contentStackView.snp.makeConstraints {
-            $0.top.equalTo(profileView.snp.bottom).offset(10)
+            $0.top.equalTo(lineView.snp.bottom).offset(20)
             $0.horizontalEdges.equalTo(contentView.snp.horizontalEdges).inset(20)
             $0.bottom.equalTo(contentView.snp.bottom)
         }
@@ -122,6 +122,11 @@ final class HomeDetailViewController: BaseViewController {
             $0.height.equalTo(view.snp.height).multipliedBy(0.25)
         }
         
+        lineView.snp.makeConstraints {
+            $0.top.equalTo(authorImage.snp.bottom).offset(20)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.height.equalTo(1)
+        }
 //        contentLabel.snp.makeConstraints  {
 //            $0.height.equalTo(18)
 //        }
@@ -215,6 +220,13 @@ final class HomeDetailViewController: BaseViewController {
         let label = UILabel()
         label.numberOfLines = 0
         return label
+    }()
+    
+    private let lineView = {
+        let view = UIView()
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderWidth = 1
+        return view
     }()
     
     private let floatingView = {
