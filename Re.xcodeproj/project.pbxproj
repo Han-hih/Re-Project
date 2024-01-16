@@ -37,6 +37,8 @@
 		80AD95562B29C60200EBE5B8 /* HomeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AD95552B29C60200EBE5B8 /* HomeDetailViewController.swift */; };
 		80AD95582B29C65000EBE5B8 /* HomeDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AD95572B29C65000EBE5B8 /* HomeDetailViewModel.swift */; };
 		80DB442A2B79CC45006F4061 /* HashString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB44292B79CC45006F4061 /* HashString.swift */; };
+		80DB442C2B79FAB1006F4061 /* MyProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB442B2B79FAB1006F4061 /* MyProfileViewModel.swift */; };
+		80DB442E2B7A0329006F4061 /* MyPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB442D2B7A0329006F4061 /* MyPostTableViewCell.swift */; };
 		80DED59E2B09E9F200885268 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DED59D2B09E9F200885268 /* CustomTextField.swift */; };
 		80DED5A12B09FCA300885268 /* TextFieldEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 80DED5A02B09FCA300885268 /* TextFieldEffects */; };
 		80DED5A32B0A392200885268 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DED5A22B0A392200885268 /* RegisterViewController.swift */; };
@@ -92,6 +94,8 @@
 		80AD95552B29C60200EBE5B8 /* HomeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailViewController.swift; sourceTree = "<group>"; };
 		80AD95572B29C65000EBE5B8 /* HomeDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailViewModel.swift; sourceTree = "<group>"; };
 		80DB44292B79CC45006F4061 /* HashString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashString.swift; sourceTree = "<group>"; };
+		80DB442B2B79FAB1006F4061 /* MyProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewModel.swift; sourceTree = "<group>"; };
+		80DB442D2B7A0329006F4061 /* MyPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostTableViewCell.swift; sourceTree = "<group>"; };
 		80DED59D2B09E9F200885268 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		80DED5A22B0A392200885268 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		80E46E8F2B089A99009A695B /* Re.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Re.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -322,6 +326,8 @@
 			children = (
 				80FB69202B70D61B00E85F05 /* ProfileModifyViewController.swift */,
 				80FB69212B70D61B00E85F05 /* MyProfileViewController.swift */,
+				80DB442B2B79FAB1006F4061 /* MyProfileViewModel.swift */,
+				80DB442D2B7A0329006F4061 /* MyPostTableViewCell.swift */,
 			);
 			name = Profile;
 			path = Re/Views/Profile;
@@ -440,6 +446,7 @@
 				80DED5A32B0A392200885268 /* RegisterViewController.swift in Sources */,
 				80DED59E2B09E9F200885268 /* CustomTextField.swift in Sources */,
 				80AD95582B29C65000EBE5B8 /* HomeDetailViewModel.swift in Sources */,
+				80DB442E2B7A0329006F4061 /* MyPostTableViewCell.swift in Sources */,
 				807CC2822B21DAF200463700 /* ReusableViewProtocol.swift in Sources */,
 				801001302B14C3A800DAD821 /* AddViewController.swift in Sources */,
 				8010012E2B145D2100DAD821 /* KeyChain.swift in Sources */,
@@ -447,6 +454,7 @@
 				80AD95562B29C60200EBE5B8 /* HomeDetailViewController.swift in Sources */,
 				80FB69252B7102E600E85F05 /* TimeStringChange.swift in Sources */,
 				806BA30D2B1B02EC00204230 /* ExtensionAddViewController.swift in Sources */,
+				80DB442C2B79FAB1006F4061 /* MyProfileViewModel.swift in Sources */,
 				807D69D62B2AF06D00497BD5 /* KFModifier.swift in Sources */,
 				80084EFA2B1206D20018E806 /* LoginViewModel.swift in Sources */,
 				80FB69222B70D61B00E85F05 /* ProfileModifyViewController.swift in Sources */,
