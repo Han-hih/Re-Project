@@ -21,4 +21,12 @@ extension String {
         dateFormatter.dateFormat = "yyyy년 MM월 dd일  HH:mm"
         return dateFormatter.string(from: date)
     }
+    
+    func toSimpleFormattedString() -> String? {
+        guard let date = self.toDate() else { return nil }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy. MM. dd"
+        return dateFormatter.string(from: date)
+    }
 }
