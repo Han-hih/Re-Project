@@ -21,6 +21,7 @@ enum APIManager {
     case like(id: String)
     case getProfile
     case profileMod(MyInfo)
+    case MyPost(id: String, page: String)
 }
 
 
@@ -51,6 +52,8 @@ extension APIManager: TargetType {
             return "post/like/\(id)"
         case .profileMod, .getProfile:
             return "profile/me"
+        case .MyPost(let id, _):
+            return "post/user/\(id)"
         }
     }
     
@@ -58,7 +61,7 @@ extension APIManager: TargetType {
         switch self {
         case .emailValid, .join, .login, .post, .postComment, .like:
             return .post
-        case .refresh, .get, .getOnePost, .getProfile:
+        case .refresh, .get, .getOnePost, .getProfile, .MyPost:
             return .get
         case .profileMod:
             return .put
@@ -104,7 +107,7 @@ extension APIManager: TargetType {
             
             return .uploadMultipart(multipartData)
             
-        case .get(page: let page):
+        case .get(page: let page), .MyPost(_, let page):
             return .requestParameters(parameters: [
                 "next": page,
                 "limit": "10",
@@ -116,14 +119,14 @@ extension APIManager: TargetType {
                 parameters: ["content": comment],
                 encoding: JSONEncoding.default
             )
-    
+            
         case let .profileMod(MyInfo):
             let nickProvider = MultipartFormData(provider: .data(MyInfo.nick.data(using: .utf8) ?? Data()), name: "nick")
             let profileProvider = MultipartFormData(provider: .data(MyInfo.profile ?? Data()), name: "profile", fileName: "image.jpeg", mimeType: "image/jpeg")
             
             let multipartData = [nickProvider, profileProvider]
             
-        return .uploadMultipart(multipartData)
+            return .uploadMultipart(multipartData)
         }
     }
     
@@ -144,7 +147,7 @@ extension APIManager: TargetType {
             return ["Authorization": KeyChain.shared.read(key: "access") ?? "",
                     "Content-Type": "multipart/form-data",
                     "SesacKey": "\(APIKey.apiKey)"]
-        case .get, .getOnePost, .like, .getProfile:
+        case .get, .getOnePost, .like, .getProfile, .MyPost:
             return ["Authorization": KeyChain.shared.read(key: "access") ?? "",
                     "SesacKey": "\(APIKey.apiKey)"
             ]
