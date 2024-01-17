@@ -49,7 +49,7 @@ class MyProfileViewController: BaseViewController {
     
     private func setUI() {
         
-        [topView, profileImageView, nickLabel, followerLabel, changeInfoButton, tableView].forEach {
+        [topView, profileImageView, nickLabel, followerLabel, changeInfoButton, lineView, tableView].forEach {
             view.addSubview($0)
         }
         
@@ -80,8 +80,14 @@ class MyProfileViewController: BaseViewController {
             $0.bottom.equalTo(profileImageView)
         }
         
-        tableView.snp.makeConstraints {
+        lineView.snp.makeConstraints {
             $0.top.equalTo(topView.snp.bottom).offset(10)
+            $0.horizontalEdges.equalTo(topView).inset(10)
+            $0.height.equalTo(1)
+        }
+        
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(lineView.snp.bottom).offset(10)
             $0.bottom.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
         }
     }
@@ -118,6 +124,13 @@ class MyProfileViewController: BaseViewController {
         bt.layer.cornerRadius = 15
         bt.clipsToBounds = true
         return bt
+    }()
+    
+    private let lineView = {
+        let view = UIView()
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderWidth = 1
+        return view
     }()
     
     private lazy var tableView = {
