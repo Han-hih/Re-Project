@@ -41,6 +41,7 @@ class CommentViewController: BaseViewController {
         viewModel.postComment(id: id, comment: commentTextView.text) {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.getOnePost()
             }
         }
     }
@@ -138,11 +139,6 @@ class CommentViewController: BaseViewController {
             getPostComment()
             viewModel.postComments.removeAll()
         }
-        DispatchQueue.global().sync {
-            print("불러오기")
-            getOnePost()
-        }
-        
         commentTextView.text = ""
     }
 }
@@ -155,8 +151,12 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CommentTableViewCell.identifier, for: indexPath) as? CommentTableViewCell else { return UITableViewCell() }
         cell.selectionStyle = .none
-        cell.personNickname.text = viewModel.postComments[indexPath.row].creator.nick
-        cell.contentLabel.text = viewModel.postComments[indexPath.row].content
+        
+        let postComments = viewModel.postComments.reversed()[indexPath.row]
+        cell.personNickname.text = postComments.creator.nick
+        cell.contentLabel.text = postComments.content
+        cell.timeLabel.text = postComments.time.toFormattedString()
+        
         return cell
     }
 }

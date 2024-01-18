@@ -99,7 +99,7 @@ final class AddViewController: BaseViewController {
         [titleTextField, contentTextView, photoImageView].forEach {
             scrollView.addSubview($0)
         }
-        [photoButton].forEach {
+        [photoButton, locationButton, hashButton].forEach {
             bottomView.addSubview($0)
         }
         
@@ -144,6 +144,18 @@ final class AddViewController: BaseViewController {
             $0.width.equalTo(photoButton.snp.height)
         }
         
+        hashButton.snp.makeConstraints {
+            $0.top.equalTo(photoButton)
+            $0.leading.equalTo(photoButton.snp.trailing).offset(10)
+            $0.size.equalTo(photoButton)
+        }
+        
+        locationButton.snp.makeConstraints {
+            $0.top.equalTo(photoButton)
+            $0.leading.equalTo(hashButton.snp.trailing).offset(10)
+            $0.size.equalTo(photoButton)
+        }
+        
         postButton.snp.makeConstraints {
             $0.width.equalTo(50)
         }
@@ -181,6 +193,18 @@ final class AddViewController: BaseViewController {
         let bt = CustomButton()
         bt.setImage(UIImage(systemName: "camera"), for: .normal)
         bt.addTarget(self, action: #selector(photoButtonTapped), for: .touchUpInside)
+        return bt
+    }()
+    
+    private let hashButton = {
+        let bt = CustomButton()
+        bt.setImage(UIImage(systemName: "tag"), for: .normal)
+        return bt
+    }()
+    
+    private let locationButton = {
+        let bt = CustomButton()
+        bt.setImage(UIImage(systemName: "location"), for: .normal)
         return bt
     }()
     

@@ -21,7 +21,7 @@ class CommentTableViewCell: UITableViewCell {
     
     
     private func setUI() {
-        [profileView, personNickname, timeLabel, modifyButton, contentLabel, bottomView, replyButton, replyCountLabel, postReplyButton].forEach {
+        [profileView, personNickname, timeLabel, modifyButton, contentLabel].forEach {
             contentView.addSubview($0)
         }
         
@@ -49,31 +49,8 @@ class CommentTableViewCell: UITableViewCell {
         contentLabel.snp.makeConstraints {
             $0.top.equalTo(profileView.snp.bottom).offset(5)
             $0.horizontalEdges.equalTo(profileView)
-            $0.bottom.greaterThanOrEqualTo(bottomView.snp.top).offset(-5)
+            $0.bottom.equalToSuperview().offset(-5)
         }
-        
-        bottomView.snp.makeConstraints {
-            $0.top.equalTo(contentLabel.snp.bottom).offset(5)
-            $0.horizontalEdges.equalTo(profileView)
-            $0.bottom.equalTo(contentView.snp.bottom)
-        }
-        
-        replyButton.snp.makeConstraints {
-            $0.centerY.equalTo(bottomView)
-            $0.leading.bottom.equalTo(bottomView)
-        }
-        
-        replyCountLabel.snp.makeConstraints {
-            $0.centerY.equalTo(bottomView)
-            $0.leading.equalTo(replyButton.snp.trailing).offset(5)
-            $0.bottom.equalTo(bottomView)
-        }
-        
-        postReplyButton.snp.makeConstraints {
-            $0.centerY.equalTo(bottomView)
-            $0.trailing.bottom.equalTo(bottomView)
-        }
-       
     }
     
    private let profileView = {
@@ -113,26 +90,5 @@ class CommentTableViewCell: UITableViewCell {
     private let bottomView = {
         let view = UIView()
         return view
-    }()
-    
-    private let replyButton = {
-        let bt = UIButton()
-        bt.setImage(UIImage(systemName: "bubble.left"), for: .normal)
-        bt.tintColor = Color.point.uiColor
-        return bt
-    }()
-    
-    let replyCountLabel = {
-        let lb = UILabel()
-        lb.text = "1 reply"
-        lb.textColor = Color.point.uiColor
-        return lb
-    }()
-    
-    private let postReplyButton = {
-        let bt = UIButton()
-        bt.setTitle("Reply", for: .normal)
-        bt.setTitleColor(Color.point.uiColor, for: .normal)
-        return bt
     }()
 }

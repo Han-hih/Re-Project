@@ -118,6 +118,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         }
         cell.likeCountLabel.text = "\(data[indexPath.row]?.likes.count ?? 0)"
         cell.commentCount.text = "\(data[indexPath.row]?.comments.count ?? 0)"
+        cell.timeLabel.text = data[indexPath.row]?.time.toSimpleFormattedString()
         return cell
     }
     

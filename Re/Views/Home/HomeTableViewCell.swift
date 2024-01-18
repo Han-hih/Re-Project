@@ -78,6 +78,11 @@ class HomeTableViewCell: UITableViewCell {
             $0.top.equalTo(likeImage.snp.top)
         }
         
+        timeLabel.snp.makeConstraints {
+            $0.leading.equalTo(commentCount.snp.trailing).offset(10)
+            $0.top.equalTo(likeImage.snp.top)
+        }
+        
     }
     
      let photoImageView = {
@@ -110,7 +115,8 @@ class HomeTableViewCell: UITableViewCell {
     }()
     
      let timeLabel = {
-        let label = CustomLabel()
+        let label = UILabel()
+         label.textColor = .gray
         label.text = "15:02"
         return label
     }()
