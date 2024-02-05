@@ -33,6 +33,7 @@ final class HomeDetailViewController: BaseViewController {
             self.contentLabel.text = result.content
             self.authorImage.kf.setImage(with: URL(string: APIKey.baseURL + "\(result.creator.profile ?? "")"))
             self.authorLabel.text = result.creator.nick
+            self.createdAtLabel.text = result.time.toFormattedString()
             let url = URL(string: APIKey.baseURL + "\(result.image.first ?? "")")
             self.photoImageView.kf.setImage(with: url, options: [.requestModifier(KFModifier.shared.modifier)])
             self.heartButton.setTitle("  \(result.likes.count)", for: .normal)
@@ -50,7 +51,7 @@ final class HomeDetailViewController: BaseViewController {
         }
         view.addSubview(floatingView)
         view.addSubview(stackView)
-        [authorImage, authorLabel].forEach {
+        [authorImage, authorLabel, createdAtLabel].forEach {
             profileView.addSubview($0)
         }
         
@@ -91,6 +92,12 @@ final class HomeDetailViewController: BaseViewController {
             $0.top.equalTo(authorImage)
             $0.leading.equalTo(authorImage.snp.trailing).offset(8)
         }
+        
+        createdAtLabel.snp.makeConstraints {
+            $0.top.equalTo(authorLabel.snp.bottom).offset(4)
+            $0.leading.equalTo(authorLabel)
+        }
+        
         
         photoImageView.snp.makeConstraints {
             $0.horizontalEdges.equalTo(contentView.snp.horizontalEdges).inset(20)
@@ -166,8 +173,14 @@ final class HomeDetailViewController: BaseViewController {
     
     private lazy var authorLabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .semibold)
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
         return label
+    }()
+    
+    private let createdAtLabel = {
+        let lb = UILabel()
+        lb.font = .systemFont(ofSize: 14)
+        return lb
     }()
     
    private lazy var photoImageView = {
