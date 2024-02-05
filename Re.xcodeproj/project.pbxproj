@@ -58,6 +58,7 @@
 		80FB691E2B70D5CF00E85F05 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FB691D2B70D5CF00E85F05 /* CommentTableViewCell.swift */; };
 		80FB69222B70D61B00E85F05 /* ProfileModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FB69202B70D61B00E85F05 /* ProfileModifyViewController.swift */; };
 		80FB69232B70D61B00E85F05 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FB69212B70D61B00E85F05 /* MyProfileViewController.swift */; };
+		80FB69252B7102E600E85F05 /* TimeStringChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FB69242B7102E600E85F05 /* TimeStringChange.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +105,7 @@
 		80FB691D2B70D5CF00E85F05 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		80FB69202B70D61B00E85F05 /* ProfileModifyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModifyViewController.swift; sourceTree = "<group>"; };
 		80FB69212B70D61B00E85F05 /* MyProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
+		80FB69242B7102E600E85F05 /* TimeStringChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStringChange.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -307,6 +309,7 @@
 			isa = PBXGroup;
 			children = (
 				806BA30E2B1B046100204230 /* ImageDownSampling.swift */,
+				80FB69242B7102E600E85F05 /* TimeStringChange.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 				8010012E2B145D2100DAD821 /* KeyChain.swift in Sources */,
 				80E46E932B089A99009A695B /* AppDelegate.swift in Sources */,
 				80AD95562B29C60200EBE5B8 /* HomeDetailViewController.swift in Sources */,
+				80FB69252B7102E600E85F05 /* TimeStringChange.swift in Sources */,
 				806BA30D2B1B02EC00204230 /* ExtensionAddViewController.swift in Sources */,
 				807D69D62B2AF06D00497BD5 /* KFModifier.swift in Sources */,
 				80084EFA2B1206D20018E806 /* LoginViewModel.swift in Sources */,
