@@ -21,7 +21,6 @@
 		800D494A2B2591C700BA4994 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800D49492B2591C700BA4994 /* HomeTableViewCell.swift */; };
 		8010012E2B145D2100DAD821 /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8010012D2B145D2100DAD821 /* KeyChain.swift */; };
 		801001302B14C3A800DAD821 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8010012F2B14C3A800DAD821 /* AddViewController.swift */; };
-		801001342B14C4BC00DAD821 /* CommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801001332B14C4BC00DAD821 /* CommunityViewController.swift */; };
 		801001362B14FFEF00DAD821 /* Interceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801001352B14FFEE00DAD821 /* Interceptor.swift */; };
 		801001542B170EFE00DAD821 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801001532B170EFE00DAD821 /* HomeViewModel.swift */; };
 		801001562B176EA200DAD821 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801001552B176EA200DAD821 /* AccountViewController.swift */; };
@@ -56,6 +55,9 @@
 		80E46EBB2B08E11F009A695B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 80E46EBA2B08E11F009A695B /* Kingfisher */; };
 		80E46EC12B08E528009A695B /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 80E46EC02B08E528009A695B /* Toast */; };
 		80E46EC92B08E75A009A695B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E46EC82B08E75A009A695B /* BaseViewController.swift */; };
+		80FB691E2B70D5CF00E85F05 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FB691D2B70D5CF00E85F05 /* CommentTableViewCell.swift */; };
+		80FB69222B70D61B00E85F05 /* ProfileModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FB69202B70D61B00E85F05 /* ProfileModifyViewController.swift */; };
+		80FB69232B70D61B00E85F05 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FB69212B70D61B00E85F05 /* MyProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,7 +74,6 @@
 		800D49492B2591C700BA4994 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		8010012D2B145D2100DAD821 /* KeyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
 		8010012F2B14C3A800DAD821 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
-		801001332B14C4BC00DAD821 /* CommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewController.swift; sourceTree = "<group>"; };
 		801001352B14FFEE00DAD821 /* Interceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interceptor.swift; sourceTree = "<group>"; };
 		801001532B170EFE00DAD821 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		801001552B176EA200DAD821 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +101,9 @@
 		80E46EA62B08A0D2009A695B /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		80E46EA82B08A164009A695B /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		80E46EC82B08E75A009A695B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		80FB691D2B70D5CF00E85F05 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		80FB69202B70D61B00E85F05 /* ProfileModifyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModifyViewController.swift; sourceTree = "<group>"; };
+		80FB69212B70D61B00E85F05 /* MyProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +148,7 @@
 		80AD95502B29BE2000EBE5B8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				80FB691F2B70D61B00E85F05 /* Profile */,
 				80AD95522B29BE5700EBE5B8 /* Register */,
 				80AD95512B29BE4000EBE5B8 /* Login */,
 				80AD954F2B29BDA100EBE5B8 /* Home */,
@@ -186,6 +191,7 @@
 			children = (
 				80AD95552B29C60200EBE5B8 /* HomeDetailViewController.swift */,
 				80AD95572B29C65000EBE5B8 /* HomeDetailViewModel.swift */,
+				80FB691D2B70D5CF00E85F05 /* CommentTableViewCell.swift */,
 				807D69D92B2C3FD900497BD5 /* CommentViewController.swift */,
 				807D69DB2B2DB6C200497BD5 /* CommentViewModel.swift */,
 			);
@@ -271,7 +277,6 @@
 		80E46EC32B08E629009A695B /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				801001332B14C4BC00DAD821 /* CommunityViewController.swift */,
 				801001552B176EA200DAD821 /* AccountViewController.swift */,
 			);
 			path = ViewControllers;
@@ -305,6 +310,16 @@
 			);
 			path = Extensions;
 			sourceTree = "<group>";
+		};
+		80FB691F2B70D61B00E85F05 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				80FB69202B70D61B00E85F05 /* ProfileModifyViewController.swift */,
+				80FB69212B70D61B00E85F05 /* MyProfileViewController.swift */,
+			);
+			name = Profile;
+			path = Re/Views/Profile;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -410,6 +425,7 @@
 				800960B92B0BB90B00B3BE4B /* Protocols.swift in Sources */,
 				801001542B170EFE00DAD821 /* HomeViewModel.swift in Sources */,
 				806BA30F2B1B046100204230 /* ImageDownSampling.swift in Sources */,
+				80FB69232B70D61B00E85F05 /* MyProfileViewController.swift in Sources */,
 				801001362B14FFEF00DAD821 /* Interceptor.swift in Sources */,
 				80084EFC2B1383B70018E806 /* HomeViewController.swift in Sources */,
 				800960B22B0B966300B3BE4B /* Color.swift in Sources */,
@@ -425,13 +441,14 @@
 				806BA30D2B1B02EC00204230 /* ExtensionAddViewController.swift in Sources */,
 				807D69D62B2AF06D00497BD5 /* KFModifier.swift in Sources */,
 				80084EFA2B1206D20018E806 /* LoginViewModel.swift in Sources */,
+				80FB69222B70D61B00E85F05 /* ProfileModifyViewController.swift in Sources */,
 				80E46EA92B08A164009A695B /* APIKey.swift in Sources */,
 				800960D02B0CE1F800B3BE4B /* APIManager.swift in Sources */,
 				800960AE2B0B702700B3BE4B /* ValidationCheck.swift in Sources */,
 				800960D32B0D1A4600B3BE4B /* NetworkModel.swift in Sources */,
+				80FB691E2B70D5CF00E85F05 /* CommentTableViewCell.swift in Sources */,
 				806BA30B2B1ACCDF00204230 /* AddViewModel.swift in Sources */,
 				807FFEC82B0F3DE000658FA9 /* APIRequest.swift in Sources */,
-				801001342B14C4BC00DAD821 /* CommunityViewController.swift in Sources */,
 				80E46E952B089A99009A695B /* SceneDelegate.swift in Sources */,
 				800D494A2B2591C700BA4994 /* HomeTableViewCell.swift in Sources */,
 			);

@@ -31,6 +31,7 @@ final class HomeDetailViewController: BaseViewController {
         viewModel.getOnePost(id: id) { result in
             self.titleLabel.text = result.title
             self.contentLabel.text = result.content
+            self.authorImage.kf.setImage(with: URL(string: APIKey.baseURL + "\(result.creator.profile ?? "")"))
             self.authorLabel.text = result.creator.nick
             let url = URL(string: APIKey.baseURL + "\(result.image.first ?? "")")
             self.photoImageView.kf.setImage(with: url, options: [.requestModifier(KFModifier.shared.modifier)])
@@ -49,7 +50,7 @@ final class HomeDetailViewController: BaseViewController {
         }
         view.addSubview(floatingView)
         view.addSubview(stackView)
-        [authorLabel].forEach {
+        [authorImage, authorLabel].forEach {
             profileView.addSubview($0)
         }
         
@@ -77,12 +78,18 @@ final class HomeDetailViewController: BaseViewController {
         profileView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(10)
             $0.horizontalEdges.equalTo(titleLabel)
-            $0.height.equalTo(view.snp.height).multipliedBy(0.1)
+            $0.height.equalTo(44)
+        }
+        
+        authorImage.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview()
+            $0.size.equalTo(44)
         }
         
         authorLabel.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview().offset(20)
+            $0.top.equalTo(authorImage)
+            $0.leading.equalTo(authorImage.snp.trailing).offset(8)
         }
         
         photoImageView.snp.makeConstraints {
@@ -146,12 +153,20 @@ final class HomeDetailViewController: BaseViewController {
     
     private let profileView = {
         let view = UIView()
+        view.backgroundColor = .green
+        return view
+    }()
+    
+    private let authorImage = {
+        let view = UIImageView()
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 22
         return view
     }()
     
     private lazy var authorLabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 20)
+        label.font = .systemFont(ofSize: 15, weight: .semibold)
         return label
     }()
     
