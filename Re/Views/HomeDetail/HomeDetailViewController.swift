@@ -31,7 +31,9 @@ final class HomeDetailViewController: BaseViewController {
         viewModel.getOnePost(id: id) { result in
             self.titleLabel.text = result.title
             self.contentLabel.text = result.content
+            self.authorImage.kf.setImage(with: URL(string: APIKey.baseURL + "\(result.creator.profile ?? "")"))
             self.authorLabel.text = result.creator.nick
+            self.createdAtLabel.text = result.time.toFormattedString()
             let url = URL(string: APIKey.baseURL + "\(result.image.first ?? "")")
             self.photoImageView.kf.setImage(with: url, options: [.requestModifier(KFModifier.shared.modifier)])
             self.heartButton.setTitle("  \(result.likes.count)", for: .normal)
@@ -49,7 +51,7 @@ final class HomeDetailViewController: BaseViewController {
         }
         view.addSubview(floatingView)
         view.addSubview(stackView)
-        [authorLabel].forEach {
+        [authorImage, authorLabel, createdAtLabel].forEach {
             profileView.addSubview($0)
         }
         
@@ -77,13 +79,25 @@ final class HomeDetailViewController: BaseViewController {
         profileView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(10)
             $0.horizontalEdges.equalTo(titleLabel)
-            $0.height.equalTo(view.snp.height).multipliedBy(0.1)
+            $0.height.equalTo(44)
+        }
+        
+        authorImage.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview()
+            $0.size.equalTo(44)
         }
         
         authorLabel.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview().offset(20)
+            $0.top.equalTo(authorImage)
+            $0.leading.equalTo(authorImage.snp.trailing).offset(8)
         }
+        
+        createdAtLabel.snp.makeConstraints {
+            $0.top.equalTo(authorLabel.snp.bottom).offset(4)
+            $0.leading.equalTo(authorLabel)
+        }
+        
         
         photoImageView.snp.makeConstraints {
             $0.horizontalEdges.equalTo(contentView.snp.horizontalEdges).inset(20)
@@ -146,13 +160,27 @@ final class HomeDetailViewController: BaseViewController {
     
     private let profileView = {
         let view = UIView()
+        view.backgroundColor = .green
+        return view
+    }()
+    
+    private let authorImage = {
+        let view = UIImageView()
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 22
         return view
     }()
     
     private lazy var authorLabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 20)
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
         return label
+    }()
+    
+    private let createdAtLabel = {
+        let lb = UILabel()
+        lb.font = .systemFont(ofSize: 14)
+        return lb
     }()
     
    private lazy var photoImageView = {
