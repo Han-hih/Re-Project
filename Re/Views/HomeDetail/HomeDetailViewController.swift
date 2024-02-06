@@ -29,24 +29,30 @@ final class HomeDetailViewController: BaseViewController {
     private func setData() {
         guard let id = contentId else { return }
         viewModel.getOnePost(id: id) { result in
+            print(result.image)
             self.titleLabel.text = result.title
             self.contentLabel.text = result.content
             self.authorImage.kf.setImage(with: URL(string: APIKey.baseURL + "\(result.creator.profile ?? "")"))
             self.authorLabel.text = result.creator.nick
             self.createdAtLabel.text = result.time.toFormattedString()
             let url = URL(string: APIKey.baseURL + "\(result.image.first ?? "")")
+            
             self.photoImageView.kf.setImage(with: url, options: [.requestModifier(KFModifier.shared.modifier)])
+            if self.photoImageView.image == nil {
+                            self.photoImageView.isHidden = true
+                        }
             self.heartButton.setTitle("  \(result.likes.count)", for: .normal)
             self.commentButton.setTitle("  \(result.comments.count)", for: .normal)
             
             self.likeArray = result.likes
         }
-     }
-        
+    }
+    
     private func setUI() {
+        
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        [titleLabel, profileView, photoImageView, contentLabel].forEach {
+        [titleLabel, profileView, contentStackView].forEach {
             contentView.addSubview($0)
         }
         view.addSubview(floatingView)
@@ -55,12 +61,18 @@ final class HomeDetailViewController: BaseViewController {
             profileView.addSubview($0)
         }
         
+        [photoImageView, contentLabel].forEach {
+            contentStackView.addArrangedSubview($0)
+        }
+        
         [heartButton, commentButton].forEach {
             stackView.addSubview($0)
         }
         stackView.isUserInteractionEnabled = true
         contentView.isUserInteractionEnabled = true
         floatingView.isUserInteractionEnabled = true
+        contentStackView.isUserInteractionEnabled = true
+        
         scrollView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
@@ -98,18 +110,20 @@ final class HomeDetailViewController: BaseViewController {
             $0.leading.equalTo(authorLabel)
         }
         
+        contentStackView.snp.makeConstraints {
+            $0.top.equalTo(profileView.snp.bottom).offset(10)
+            $0.horizontalEdges.equalTo(contentView.snp.horizontalEdges).inset(20)
+            $0.bottom.equalTo(contentView.snp.bottom)
+        }
+        
         
         photoImageView.snp.makeConstraints {
-            $0.horizontalEdges.equalTo(contentView.snp.horizontalEdges).inset(20)
-            $0.top.equalTo(profileView.snp.bottom).offset(10)
             $0.height.equalTo(view.snp.height).multipliedBy(0.25)
         }
         
-        contentLabel.snp.makeConstraints  {
-            $0.horizontalEdges.equalTo(contentView.snp.horizontalEdges).inset(20)
-            $0.top.equalTo(photoImageView.snp.bottom).offset(10)
-            $0.bottom.equalTo(contentView.snp.bottom)
-        }
+//        contentLabel.snp.makeConstraints  {
+//            $0.height.equalTo(18)
+//        }
         
         floatingView.snp.makeConstraints {
             $0.width.equalTo(150)
@@ -117,7 +131,7 @@ final class HomeDetailViewController: BaseViewController {
             $0.centerX.equalTo(view)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-10)
         }
-       
+        
         stackView.snp.makeConstraints {
             $0.center.equalTo(floatingView)
             $0.size.equalTo(200)
@@ -160,7 +174,6 @@ final class HomeDetailViewController: BaseViewController {
     
     private let profileView = {
         let view = UIView()
-        view.backgroundColor = .green
         return view
     }()
     
@@ -183,10 +196,19 @@ final class HomeDetailViewController: BaseViewController {
         return lb
     }()
     
-   private lazy var photoImageView = {
-       let view = UIImageView()
-       return view
-   }()
+    private let contentStackView = {
+        let view = UIStackView()
+        view.spacing = 10
+        view.axis = .vertical
+        view.distribution = .fill
+        return view
+    }()
+    
+    
+    private lazy var photoImageView = {
+        let view = UIImageView()
+        return view
+    }()
     
     private lazy var contentLabel = {
         let label = UILabel()
@@ -228,13 +250,13 @@ final class HomeDetailViewController: BaseViewController {
     }()
     
     @objc func likeButtonTapped() {
-
+        
         guard let id = viewModel.detail?.id else { return }
         viewModel.LikeButtonTapped(id: id) { result in
             DispatchQueue.main.async {
                 let like = result.like_status
                 self.heartButton.setImage(UIImage (systemName: like ? "heart.fill" : "heart"), for: .normal)
-
+                
                 if let id = KeyChain.shared.read(key: "id") {
                     if self.likeArray?.contains(id) == true {
                         self.heartButton.setTitle("  \((self.likeArray?.count ?? 0) - 1)", for: .normal)
