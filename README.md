@@ -30,8 +30,9 @@
 ## 트러블 슈팅
 ### 1. `Generic`을 활용해 네트워크 코드 추상화 및 재사용성 증가
 #### 문제상황
-- 네트워크 요청을 위한 통신 함수를 작성하다 보니 양이 너무 많아지고 테스트를 해보기가 힘들었습니다.
+- 네트워크 요청을 위한 사용하는 API 종류가 많아지고 요청을 위한 함수가 너무 많이 생겨서 관리가 힘들었다.
 #### 해결방법
+(+ 라우터 패턴을 먼저 이용해서 ----했다.)
 - 제네릭을 이용해 여러 네트워크 통신에서 사용되는 타입에 유연하게 대처하도록 처리했습니다.
 ```swift
 func apiRequest<T: Decodable>(_ target: APIManager, type: T.Type, completion: @escaping (Result<T, NetworkError>) -> Void) {
