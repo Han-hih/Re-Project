@@ -1,11 +1,20 @@
 # RE
+---
+<img src="https://github.com/Han-hih/Re-Project/assets/109748526/8062ad14-0d56-4fd9-aced-ff27b775e9f5" width="200" height="400">
+<img src="https://github.com/Han-hih/Re-Project/assets/109748526/94fefd37-8654-4575-ac6b-cbbdf1f17187" width="200" heigth="400">
+<img src="https://github.com/Han-hih/Re-Project/assets/109748526/8f768ba6-4139-495f-9245-7f0acd2431ae" width="200" height="400">
+<img src="https://github.com/Han-hih/Re-Project/assets/109748526/ee8b2085-c4d3-4f99-8448-3bfb98dccf81" width="200" height="400">
+<img src="https://github.com/Han-hih/Re-Project/assets/109748526/b98a8b64-28b6-4562-bd5e-8908c250a122" width="200" height="400">
+<img src="https://github.com/Han-hih/Re-Project/assets/109748526/b76c24b5-4da1-4384-b018-2713e102df33" width="200" height="400">
+<img src="https://github.com/Han-hih/Re-Project/assets/109748526/b9e2d34b-1a54-4462-a5b2-c1062e96f397" width="200" height="400">
+
+
 
 ## 주요 기능 
 - 회원가입, 로그인
 - 게시물 업로드, 조회
 - 해시태그
 - 댓글, 좋아요
-- 팔로우, 팔로워 기능
 
 ## 구현 기능
 - 정규표현식을 이용한 email, password에 대한 유효성 검증 로직 구현
