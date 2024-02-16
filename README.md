@@ -41,9 +41,9 @@
 ## 트러블 슈팅
 ### 1. `Generic`을 활용해 네트워크 코드 추상화 및 재사용성 증가
 #### 문제상황
-- 네트워크 요청을 위한 사용하는 API 종류가 많아지고 요청을 위한 함수가 너무 많이 생겨서 관리가 힘들었다.
+- 네트워크 요청을 위한 사용하는 API 종류가 많아지고 요청을 위한 함수가 너무 많이 생겨서 관리가 힘들었습니다.
 #### 해결방법
-- 라우터 패턴을 사용해서 서버와 통신하는 메서드들을 나눠주었습니다.
+- Moy에서 제공하는 라우터 패턴을 사용해서 서버와 통신하는 메서드들을 나눠주었습니다.
 - 제네릭을 이용해 여러 네트워크 통신에서 사용되는 타입에 유연하게 대처하도록 처리했습니다.
 ```swift
 func apiRequest<T: Decodable>(_ target: APIManager, type: T.Type, completion: @escaping (Result<T, NetworkError>) -> Void) {
@@ -62,3 +62,36 @@ func apiRequest<T: Decodable>(_ target: APIManager, type: T.Type, completion: @e
         }
     }
 ```
+
+### 2. ImageDownSampling
+#### 문제상황
+- 서버에 올리는 이미지 사이즈가 너무 커서 서버와 주고 받을 때 용량을 줄여야 했습니다.
+#### 해결방법
+- kCGImageSource를 이용해서 다운샘플링을 진행했습니다.
+```swift
+extension UIImage {
+    func downSample(size: CGSize, scale: CGFloat = UIScreen.main.scale) -> UIImage {
+        let imageSourceOption = [kCGImageSourceShouldCache: false] as CFDictionary
+        let data = self.jpegData(compressionQuality: 0.1)! as CFData
+        let imageSource = CGImageSourceCreateWithData(data, imageSourceOption)!
+        
+        let maxPixel = max(size.width, size.height) * scale
+        let downSampleOptions = [
+            kCGImageSourceCreateThumbnailFromImageAlways: true,
+            kCGImageSourceShouldCacheImmediately: true,
+            kCGImageSourceCreateThumbnailWithTransform: true,
+            kCGImageSourceThumbnailMaxPixelSize: maxPixel
+        ] as CFDictionary
+        
+        let downSampledImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, downSampleOptions)!
+        
+        let newImage = UIImage(cgImage: downSampledImage)
+        print("original Image: \(self), resize: \(newImage)")
+        return newImage
+    }
+}
+```
+<img width="1562" alt="c566eeb21b554f566353a4635fdb4468fa200dbbeecfb1c2829a152f527a2ba5" src="https://github.com/Han-hih/Re-Project/assets/109748526/7a7d96a7-f6e1-4bd7-8ceb-98fde9d1611f">
+
+
+
