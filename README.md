@@ -1,13 +1,17 @@
-# RE
----
-<img src="https://github.com/Han-hih/Re-Project/assets/109748526/8062ad14-0d56-4fd9-aced-ff27b775e9f5" width="200" height="400">
-<img src="https://github.com/Han-hih/Re-Project/assets/109748526/94fefd37-8654-4575-ac6b-cbbdf1f17187" width="200" heigth="400">
-<img src="https://github.com/Han-hih/Re-Project/assets/109748526/8f768ba6-4139-495f-9245-7f0acd2431ae" width="200" height="400">
-<img src="https://github.com/Han-hih/Re-Project/assets/109748526/ee8b2085-c4d3-4f99-8448-3bfb98dccf81" width="200" height="400">
-<img src="https://github.com/Han-hih/Re-Project/assets/109748526/b98a8b64-28b6-4562-bd5e-8908c250a122" width="200" height="400">
-<img src="https://github.com/Han-hih/Re-Project/assets/109748526/b76c24b5-4da1-4384-b018-2713e102df33" width="200" height="400">
-<img src="https://github.com/Han-hih/Re-Project/assets/109748526/b9e2d34b-1a54-4462-a5b2-c1062e96f397" width="200" height="400">
 
+<img src="https://github.com/Han-hih/Re-Project/assets/109748526/36b364b0-b274-463c-b70b-037368f7a487" width="75" height="75"> 
+
+# RE 
+
+
+> 여행 경험을 기록하고 공유하는 블로그 서비스
+
+<img src="https://github.com/Han-hih/Re-Project/assets/109748526/8062ad14-0d56-4fd9-aced-ff27b775e9f5" width="130" height="300">
+<img src="https://github.com/Han-hih/Re-Project/assets/109748526/8f768ba6-4139-495f-9245-7f0acd2431ae" width="130" height="300">
+<img src="https://github.com/Han-hih/Re-Project/assets/109748526/ee8b2085-c4d3-4f99-8448-3bfb98dccf81" width="130" height="300">
+<img src="https://github.com/Han-hih/Re-Project/assets/109748526/b98a8b64-28b6-4562-bd5e-8908c250a122" width="130" height="300">
+<img src="https://github.com/Han-hih/Re-Project/assets/109748526/b76c24b5-4da1-4384-b018-2713e102df33" width="130" height="300">
+<img src="https://github.com/Han-hih/Re-Project/assets/109748526/b9e2d34b-1a54-4462-a5b2-c1062e96f397" width="130" height="300">
 
 
 ## 주요 기능 
@@ -68,6 +72,8 @@ func apiRequest<T: Decodable>(_ target: APIManager, type: T.Type, completion: @e
 - 서버에 올리는 이미지 사이즈가 너무 커서 서버와 주고 받을 때 용량을 줄여야 했습니다.
 #### 해결방법
 - kCGImageSource를 이용해서 다운샘플링을 진행했습니다.
+ <img width="1562" alt="c566eeb21b554f566353a4635fdb4468fa200dbbeecfb1c2829a152f527a2ba5" src="https://github.com/Han-hih/Re-Project/assets/109748526/7a7d96a7-f6e1-4bd7-8ceb-98fde9d1611f">
+ 
 ```swift
 extension UIImage {
     func downSample(size: CGSize, scale: CGFloat = UIScreen.main.scale) -> UIImage {
@@ -91,7 +97,7 @@ extension UIImage {
     }
 }
 ```
-<img width="1562" alt="c566eeb21b554f566353a4635fdb4468fa200dbbeecfb1c2829a152f527a2ba5" src="https://github.com/Han-hih/Re-Project/assets/109748526/7a7d96a7-f6e1-4bd7-8ceb-98fde9d1611f">
+
 
 
 
