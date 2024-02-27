@@ -13,13 +13,22 @@
 <img src="https://github.com/Han-hih/Re-Project/assets/109748526/b76c24b5-4da1-4384-b018-2713e102df33" width="130" height="300">
 <img src="https://github.com/Han-hih/Re-Project/assets/109748526/b9e2d34b-1a54-4462-a5b2-c1062e96f397" width="130" height="300">
 
+## 작업 환경
+- 개발기간: 2023년 11월 18일 ~ 2023년 12월 22일(34일)
+- 디자인 및 개발: 1인
+- 최소 지원버전: iOS 15.0
 
 ## 주요 기능 
-- 회원가입, 로그인
-- 게시물 업로드, 조회
-- 해시태그
-- 댓글, 좋아요
+- 이메일 회원 인증 제공
+- 게시물 업로드/조회/해시태그
+- 게시글 댓글/좋아요
 
+## 사용 기술
+- UIKit, PhotosUI
+- RxSwift, Moya, Snapkit, Kingfisher, IQKeyboardManager
+- MVVM, Input/Output, Singleton, Delegate Pattern
+- CodeBase UI, AutoLayout, Codable
+  
 ## 구현 기능
 - 정규표현식을 이용한 email, password에 대한 유효성 검증 로직 구현
 - RxSwift Input/Output패턴을 사용하여 이메일 검증, 중복 내용 확인, 회원가입 로직 구현
@@ -29,18 +38,6 @@
 - Cursor-based Pagination 구현
 - KeyChain을 활용한 AccessToken과 RefreshToken 저장 
 
-
-## 사용 기술 스택
-- UIkit(codeBase UI), MVVM
-- PhotosUI
-- Moya
-- RxSwift
-- Snapkit, Kingfisher, IQKeyboardManager
- 
-## 작업환경
-- 개발기간: 2023년 11월 18일 ~ 2023년 12월 22일( 일)
-- 디자인 및 개발: 1인
-- 최소 지원버전 15.0 이상
 
 ## 트러블 슈팅
 ### 1. `Generic`을 활용해 네트워크 코드 추상화 및 재사용성 증가
